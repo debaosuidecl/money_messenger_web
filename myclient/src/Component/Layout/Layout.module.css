@@ -1,0 +1,269 @@
+.Layout {
+  display: flex;
+}
+
+.linkCont {
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  /* flex: 1; */
+  display: none;
+}
+.linkCont li {
+  margin: 10px 10px 0px;
+}
+
+.linkCont li a {
+  font-weight: 100;
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}
+
+.linkCont li a:hover {
+  /* font-weight: 900; */
+  font-size: 14px;
+  color: crimson;
+  /* text-decoration: none;
+  color: black; */
+}
+
+.TopBar {
+  min-height: 85px;
+  background-color: #fff;
+  width: 100%;
+  padding: 10px;
+  z-index: 1000;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px 0px 4px #eee;
+  justify-content: space-between;
+}
+.CircleAvatar {
+  color: white;
+  font-family: sans-serif;
+  background: black;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  margin-right: 10px;
+  align-items: center;
+}
+.TopBar {
+  text-align: left;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.snap {
+  font-size: 15px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.snap:hover {
+  color: blue;
+}
+.Header ul {
+  text-decoration: none;
+  display: flex;
+  list-style: none;
+  font-size: 13px;
+  margin-right: 20px;
+}
+
+.UserName {
+  background: #278ecf;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  border-radius: 50%;
+  color: white;
+}
+
+.Header ul > li {
+  padding: 8px;
+  color: blue;
+}
+.Header ul li:first-child {
+  cursor: pointer;
+  color: blue;
+  margin-right: 3px;
+}
+.Header ul > li a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+.Header ul > li a:hover {
+  color: red;
+}
+
+.Header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  justify-content: space-between;
+
+  box-shadow: 1px 0px 13px #eee;
+}
+.settings {
+  font-family: arial;
+  margin-right: 30px;
+}
+.settings button {
+  padding: 10px;
+  outline: none;
+  border: none;
+  background: none;
+  border: 1px solid #444;
+  transition: 0.4s;
+}
+.settings button:hover {
+  color: white;
+  background: #444;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.liveStatus {
+  padding: 0;
+  margin: 0;
+
+  font-family: arial;
+  font-size: 15px;
+}
+.logo {
+  padding: 15px;
+  margin: 0px;
+}
+.logo img {
+  text-align: center;
+}
+
+.ChildrenPanel {
+  /* height: 100vh; */
+  overflow-y: auto;
+  width: 100%;
+  background-color: #f8f9fb;
+  height: 200px;
+  height: 89vh;
+  position: relative;
+  margin-top: 10vh;
+
+  /* padding-top: 80px; */
+}
+
+.LeftPanel {
+  flex: 1;
+}
+
+.DesktopOnly {
+  display: none !important;
+}
+
+.Header ul {
+  display: none;
+}
+.SnackBar {
+  display: block;
+  padding: 10px;
+  width: 46px;
+}
+
+.SnackBar div {
+  height: 5px;
+  background: black;
+  margin-bottom: 6px;
+}
+.BalanceButton a {
+  background: rgb(32, 6, 100);
+  color: white !important;
+  border-radius: 10px;
+  padding: 10px;
+}
+.SideBar {
+  position: fixed;
+  height: 100vh;
+  width: 60%;
+  transform: translateX(-120%);
+  z-index: 4000;
+  background: white;
+  box-shadow: 1px 0px 14px #333;
+  transition: 0.4s;
+}
+
+.slideRight {
+  transition: 0.4s;
+  transform: translateX(0%);
+}
+.Backdrop {
+  position: fixed;
+  display: none;
+  z-index: 3000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+.Appear {
+  display: block;
+}
+.Content {
+  padding: 12px;
+  padding-left: 2px;
+  text-align: left;
+  height: 100vh;
+  overflow-y: auto;
+}
+.Content li {
+  list-style: none;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+.Content li a {
+  text-decoration: none;
+  color: #444;
+}
+
+@media (min-width: 900px) {
+  .Header ul {
+    display: flex;
+  }
+  .SnackBar {
+    display: none;
+  }
+  .DesktopOnly {
+    display: flex !important;
+  }
+  .SideBar {
+    display: none;
+  }
+  .Backdrop {
+    display: none;
+  }
+}
+
+.mobileonly {
+  display: block;
+}
+
+@media (max-width: 400px) {
+  .logo img {
+    width: 160px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .linkCont {
+    display: flex;
+  }
+  .mobileonly {
+    display: none;
+  }
+}

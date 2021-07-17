@@ -1,0 +1,46 @@
+.InputCont {
+  position: relative;
+}
+
+.InputCont input {
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 15px 10px;
+}
+
+.InputCont label {
+  text-align: left;
+  left: 8px;
+  top: -8px;
+  font-size: 12px;
+  position: absolute;
+  background-color: white;
+}
+
+.SelectItems {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  text-align: left;
+  background: black;
+  color: white;
+  box-shadow: 1px 0px 5px #eee;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.Item p {
+  font-weight: 100;
+  padding: 7px 10px;
+  margin: 0px;
+  margin-bottom: 0px;
+  transition: 0.4s;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.Item p:hover {
+  background: black;
+  color: white;
+  transition: 0.4s;
+}

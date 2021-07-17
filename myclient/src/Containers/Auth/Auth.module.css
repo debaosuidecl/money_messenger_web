@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+.AuthCont {
+  padding: 20px;
+}
+.Auth {
+  max-width: 900px;
+  margin: 20px auto;
+  display: flex;
+
+  padding: 0px 0px;
+  flex-flow: column-reverse;
+  /* color: white; */
+  /* border-radius: 50px; */
+  min-height: 450px;
+}
+
+.descriptionCont {
+  flex-flow: column;
+  background-color: black;
+  box-shadow: 1px 0px 20px #999;
+  color: white !important;
+  display: flex;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  text-align: left;
+  padding: 50px 40px;
+  flex: 1;
+  margin-top: 20px;
+}
+.descriptionCont .underline {
+  background: white;
+  width: 18%;
+
+  margin: 0px;
+}
+.description {
+  font-weight: 100;
+  font-size: 14px;
+}
+.Forms {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  padding: 40px 10px;
+  /* justify-content: center; */
+  background-color: white;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 4px 4px 14px #eee;
+}
+
+.Title {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0px;
+  margin-bottom: 5px;
+}
+.underline {
+  height: 3px;
+  width: 8%;
+  background: black;
+  margin: auto;
+}
+.Forms input {
+  background: none;
+  border: none;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+.Forms button {
+  background: none;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  max-width: 300px;
+  box-shadow: 1px 0px 6px #444;
+  border-radius: 6px;
+}
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+@media (min-width: 700px) {
+  .Auth {
+    max-width: 900px;
+    margin: 20px auto;
+    display: flex;
+    flex-flow: row;
+    padding: 0px 0px;
+
+    min-height: 450px;
+  }
+  .Forms {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    box-shadow: 0px 4px 14px #eee;
+  }
+  .descriptionCont {
+    margin-top: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}

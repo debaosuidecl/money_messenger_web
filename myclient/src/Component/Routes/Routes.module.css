@@ -1,0 +1,10 @@
+.Routes a {
+  text-decoration: none;
+  color: blue;
+}
+
+.Routes {
+  text-align: left;
+  max-width: 1000px;
+  margin: auto;
+}

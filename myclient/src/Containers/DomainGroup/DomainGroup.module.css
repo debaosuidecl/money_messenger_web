@@ -1,0 +1,185 @@
+.Vertical {
+  background: rgb(247, 249, 251);
+
+  /* min-height: 100vh; */
+  padding: 20px;
+}
+.Container2 {
+  max-width: 1000px;
+  margin: auto;
+}
+.loadmorecont {
+  text-align: center;
+  margin-top: 20px;
+}
+.loadmorecont .loadmore {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #222;
+  background: none;
+  cursor: pointer;
+}
+.CreateCont {
+  background: black;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 29px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.CreateCont h1 {
+  font-weight: 1000;
+  font-size: 32px;
+}
+.createButton a {
+  display: none;
+}
+.InputRangeCont {
+  display: flex;
+  align-items: center;
+  /* background: green; */
+}
+
+.InputRangeCont input[type="number"] {
+  padding: 8px 4px;
+  margin: 8px;
+  background: #eee;
+  border-radius: 7px;
+  border: none;
+  max-width: 80px;
+}
+.InputRangeCont input[type="range"] {
+  width: 80%;
+}
+.createButton a,
+.createButton svg {
+  text-decoration: none;
+  color: white;
+}
+.createButton a {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+}
+
+.totalLinkForSingleVertical {
+  color: black;
+  text-decoration: none;
+}
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+.buttonClass2 {
+  background: white !important;
+  color: red !important;
+  width: 100%;
+}
+.LinkRotationHeader {
+  font-weight: 100;
+}
+.LinkRotationHeader svg {
+  cursor: pointer;
+}
+.ButtonCont {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.ButtonCont button:disabled {
+  background-color: #eee !important;
+
+  color: #bbb !important;
+}
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.SingleDomainGroup {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  font-weight: 100;
+
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleDomainGroup a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0.1;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleDomainGroup:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  margin-right: 4px;
+  color: white;
+}
+
+.Red {
+  background: crimson;
+}
+
+.black {
+  background: #444;
+}

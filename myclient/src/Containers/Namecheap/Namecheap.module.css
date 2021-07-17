@@ -1,0 +1,292 @@
+.Vertical {
+  background: rgb(247, 249, 251);
+
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.CreateCont {
+  background: black;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 29px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.CreateCont h1 {
+  font-weight: 1000;
+  font-size: 32px;
+}
+.createButton a {
+  display: none;
+}
+.createButton a,
+.createButton svg {
+  text-decoration: none;
+  color: white;
+}
+.createButton a {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.LoadingBody a {
+  text-decoration: none;
+}
+
+.LoadingBody {
+  background: white;
+  /* min-height: 400px; */
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+          align-items: center; */
+}
+
+.SingleVertical {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleVertical a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleVertical:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.totalLinkForSingleVertical {
+  color: black;
+  text-decoration: none;
+}
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+.buttonClass:disabled {
+  background: #888 !important;
+}
+.buttonClass2 {
+  background: white !important;
+  color: red !important;
+  width: 100%;
+}
+
+.ButtonCont {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.SingleDomainServer {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleDomainServer a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0.9;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleDomainServer:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  margin-right: 4px;
+  color: white;
+}
+
+.Red {
+  background: crimson;
+}
+
+.black {
+  background: #444;
+}
+
+/* TLD AREA */
+
+.SearchTLD {
+  border: 1px solid #eee;
+  min-height: 300px;
+  /* padding: 10px; */
+}
+
+.tldcont {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  /* height: 100px; */
+  /* height: 500px; */
+  max-height: 300px;
+}
+
+.tld {
+  background-color: rgb(181, 201, 247);
+  margin: 5px;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 100;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.tld:hover {
+  transition: 0.4s;
+  background: black;
+}
+
+.Flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Item p {
+  font-weight: 100;
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+}
+
+.Item h4 {
+  font-weight: 900;
+}
+
+.Item button {
+  padding: 10px;
+  border: none;
+  color: white;
+  /* width: 100%; */
+  background: black;
+  border-radius: 5px;
+  transition: 0.4s;
+  cursor: pointer;
+}
+.Item button:hover {
+  transition: 0.4s;
+  box-shadow: 1px 0px 10px #888;
+}
+
+.SingleDomain {
+  background: white;
+  padding: 20px 20px;
+  /* max-width: 100px; */
+  margin-bottom: 10px;
+
+  /* box-shadow: 1px 0px 10px rgb(230, 229, 229); */
+  border-radius: 4px;
+}
+
+.Loadingcont {
+  transform: scale(0.4);
+  height: 25px;
+}
+
+.fetchedDomains {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.InputCont {
+  padding: 20px 0px;
+}
+
+.Button {
+  width: 100%;
+  padding: 14px 10px;
+  color: white;
+  background: black;
+  border: none;
+  transition: 0.4s;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Button:hover {
+  transition: 0.4s;
+  box-shadow: 1px 0px 10px #666;
+}
+.Button:disabled {
+  background: #eee;
+  /* transition: 0.4s; */
+  color: #999;
+  cursor: not-allowed;
+}

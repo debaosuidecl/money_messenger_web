@@ -1,0 +1,50 @@
+.dashboard {
+  /* font-family: arial; */
+  padding: 20px 10px;
+}
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.container {
+  min-height: 400px;
+  background-color: rgba(255, 255, 255, 0.2);
+  max-width: 1200px;
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  border-radius: 30px;
+  text-align: left;
+  /* box-shadow: 1px 0px 13px #eee; */
+}
+
+.title {
+  font-size: 20px;
+  padding: 0px;
+  margin: 0px;
+
+  margin-bottom: 10px;
+  font-weight: 900 !important;
+}
+
+.Row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+  flex-wrap: wrap;
+  /* z-index: 2000; */
+  /* justify-content: space-between; */
+}

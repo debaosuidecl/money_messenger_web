@@ -1,0 +1,46 @@
+.SideNav {
+  height: 80vh;
+  /* position: fixed; */
+  padding-top: 60px;
+  min-width: 220px;
+  background: white;
+  /* padding: */
+  /* padding: 20px; */
+  /* box-shadow: 11px 0px 4px #eee; */
+
+  overflow-y: auto;
+  display: none;
+}
+
+.SideNav p {
+  padding: 5px 14px;
+  color: #333;
+  text-align: left;
+  font-weight: 400;
+  font-size: 14px;
+
+  /* border-bottom: 0.1px solid #eee; */
+}
+.SideNav svg {
+  color: #bbb;
+}
+
+.SideNav p a {
+  color: black;
+  text-decoration: none;
+}
+.SideNav p a:hover {
+  color: crimson;
+  /* text-decoration: none; */
+}
+
+p.crimson a {
+  color: crimson;
+  font-weight: 900;
+}
+
+@media (min-width: 900px) {
+  .SideNav {
+    display: block;
+  }
+}

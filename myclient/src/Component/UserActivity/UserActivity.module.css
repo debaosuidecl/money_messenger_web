@@ -1,0 +1,26 @@
+.UserActivity {
+  background: black;
+  box-shadow: 1px 0px 10px #222;
+  min-height: 300px;
+  border-radius: 15px;
+}
+
+.UserActivity .title {
+  color: white;
+  font-weight: 100;
+  padding: 14px;
+  border-bottom: 0.09px solid white;
+}
+
+.UserActivity ul {
+  list-style: none;
+}
+
+.noactivity {
+  padding: 20px;
+  text-align: center;
+}
+.noactivity h3 {
+  color: white;
+  font-weight: 100;
+}

@@ -1,0 +1,35 @@
+.Card {
+  box-shadow: 1px 0px 14px rgb(240, 241, 255);
+  max-width: 320px;
+  min-height: 180px;
+  border-radius: 20px;
+  width: 100%;
+  background-color: white;
+  text-align: center;
+  padding: 20px 10px;
+  margin-bottom: 13px;
+}
+
+.Majortitle {
+  font-weight: 800;
+  font-size: 35px;
+}
+
+.Card svg:first-child {
+  font-size: 35px;
+}
+.Card svg:nth-child(2) {
+  /* margin: 10p */
+  cursor: pointer;
+}
+
+.Row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subtitle {
+  font-weight: 100;
+  color: #bbb;
+}

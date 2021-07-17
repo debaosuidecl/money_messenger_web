@@ -1,0 +1,145 @@
+.CreateVertical {
+  background: rgb(247, 249, 251);
+  /* max-width: 1000px; */
+  /* padding: ; */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.Container {
+  margin: 0px auto;
+  max-width: 1000px;
+}
+
+.title {
+  display: flex;
+  background: black;
+  /* background: white; */
+  padding: 10px 20px;
+  color: #fff;
+  /* color: #111; */
+  /* border-top: 5px solid black; */
+}
+
+.title h1 {
+  font-weight: 100;
+}
+
+.body {
+  min-height: 300px;
+  background: white;
+  margin-top: 20px;
+}
+
+.InputCont {
+  /* padding: 10px; */
+}
+.buttonClass {
+  background: #268ece !important;
+  color: white !important;
+  /* width: 100%; */
+}
+.error {
+  background: red !important;
+}
+
+.ButtonCont {
+  padding: 10px;
+  text-align: left;
+}
+
+.ImportantPixels {
+  display: flex;
+  padding: 20px;
+}
+.subtitle {
+  text-align: left;
+  padding: 0px 20px 0px;
+  font-weight: 100;
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+    align-items: center; */
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* flex-flow: column; */
+  padding: 10px 10px;
+}
+.Title {
+  width: 150px;
+  cursor: pointer;
+  background: #eee;
+  color: #999;
+  margin-right: 10px;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.subtitle2 {
+  /* width: 150px; */
+  cursor: pointer;
+  /* background: rgba(0, 0, 0, 0.1); */
+  color: #999;
+  text-align: left;
+  flex: 1;
+  /* margin-right: 10px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.ImportantText {
+  font-weight: 400;
+  text-align: left;
+  padding: 10px;
+  font-size: 13px;
+  color: #bbb;
+}

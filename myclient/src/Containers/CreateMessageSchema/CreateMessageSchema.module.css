@@ -1,0 +1,366 @@
+.CreateMessageSchema {
+  background: rgb(247, 249, 251);
+  /* max-width: 1000px; */
+  /* padding: ; */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.Container {
+  margin: 0px auto;
+  max-width: 1000px;
+}
+
+.title {
+  display: flex;
+  background: black;
+  /* background: white; */
+  padding: 10px 20px;
+  color: #fff;
+  /* color: #111; */
+  /* border-top: 5px solid black; */
+}
+
+.title h1 {
+  font-weight: 100;
+}
+
+.InputCont textarea {
+  width: 100% !important;
+  resize: none;
+  min-height: 200px;
+  border: 1px solid #eee;
+  padding: 20px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 14px;
+}
+
+.TextAreaCont {
+  position: relative;
+}
+.TextAreaCont label {
+  text-align: left;
+  left: 8px;
+  top: -8px;
+  font-size: 12px;
+  position: absolute;
+  background-color: white;
+}
+
+.body {
+  min-height: 400px;
+  background: white;
+  margin-top: 20px;
+}
+
+.InputCont {
+  padding: 20px;
+}
+.InputCont input {
+  width: 100%;
+  margin: 2px;
+  padding: 10px;
+}
+
+/* .InputCont {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+} */
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+      align-items: center; */
+}
+.UserCreatedSection {
+  /* background-color: green; */
+  padding-left: 10px;
+}
+
+.buttonClass2 {
+  background-color: crimson !important;
+  color: white !important;
+  width: 100%;
+}
+
+.AddUserSchema {
+  background: #eee;
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+
+  color: #bbb;
+  cursor: pointer;
+}
+
+.AddUserSchema p {
+  margin-right: 1px;
+  margin: 0px;
+}
+.CL svg {
+  cursor: pointer;
+  color: #999;
+  transition: 0.3s;
+}
+.CL svg:hover {
+  color: #111;
+  transition: 0.3s;
+}
+
+.AddUserSchema p {
+  font-size: 13px;
+}
+.AddUserSchema:hover {
+  box-shadow: 1px 0px 12px #eee;
+}
+.buttonClass:disabled {
+  background: #eee !important;
+  color: #888 !important;
+}
+.InjectButtonCont button,
+.ButtonContForRules button {
+  padding: 10px;
+  width: 80%;
+  background-color: rgb(50, 105, 206);
+  border: none;
+  color: white;
+  margin-top: 10px;
+  transition: 0.4s;
+}
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.ButtonContForRules button:disabled {
+  background: #eee !important;
+  color: #888 !important;
+}
+.ButtonContForRules {
+  flex-flow: column;
+}
+
+.ButtonCont {
+  padding: 20px;
+}
+
+.ImportantPixels {
+  display: flex;
+  padding: 20px;
+}
+.subtitle {
+  text-align: left;
+  padding: 0px 20px 0px;
+  font-weight: 100;
+}
+.Pixel {
+  min-width: 50px;
+  cursor: pointer;
+  background: #eee;
+  color: #999;
+  margin-right: 10px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.Legend {
+  padding: 19px;
+}
+
+.Legend ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+}
+
+.Legend ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 10px;
+  font-weight: 100;
+  font-size: 13px;
+  background: #eee;
+  box-shadow: 1px 0px 10px #eee;
+  transition: 0.3s;
+}
+
+.Legend ul li:hover {
+  box-shadow: 1px 0px 10px #bbb;
+  transition: 0.3s;
+}
+
+.EditSeedCont {
+  min-height: 200px;
+  width: 100%;
+  /* padding: 20px; */
+}
+.inputAndTags {
+  border: 1px solid #bbb;
+  width: 100%;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+
+  margin: auto;
+}
+.ListOfTags {
+  display: flex;
+  /* justify-content: center; */
+  max-height: 300px;
+  overflow-y: auto;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.Delete {
+  padding: 1px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: crimson;
+  padding: 0px;
+  top: -3px;
+  right: -8px;
+  font-weight: bold;
+  position: absolute;
+  cursor: pointer;
+
+  /* background: crimson; */
+}
+
+.ListOfTags .Option {
+  background: #eee;
+  color: #555;
+  position: relative;
+  border-radius: 10px;
+  /* width: 20px; */
+  /* max-width: 140px; */
+  padding: 6px;
+  margin-right: 13px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  box-shadow: 1px 0px 14px #eee;
+}
+.inputAndTags input {
+  border: none;
+  width: 100%;
+  outline: none;
+  margin-left: 0px;
+  padding: 10px;
+  /* background: green; */
+}
+.InjectButtonCont button,
+.ButtonContForRules button {
+  padding: 10px;
+  width: 90%;
+  margin-top: 10px;
+}
+.ButtonContForRules {
+  flex-flow: column;
+}
+.CustomSchema {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CustomSchema svg {
+  transition: 0.3s;
+  opacity: 0;
+}
+
+input {
+  outline: none;
+}
+.CustomSchema:hover svg {
+  opacity: 1;
+  transition: 0.3s;
+}
+.DeleteRule {
+  color: white;
+  background: red;
+  padding: 8px 10px;
+  cursor: pointer;
+  /* max-width: 200px; */
+
+  width: 90%;
+  text-align: center;
+  /* border-radius: 10px; */
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  /* margin-right: 4px; */
+  color: white;
+}
+
+.Red {
+  background: crimson;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.black {
+  background: #111;
+  cursor: pointer;
+}
+.InjectButtonCont,
+.ButtonContForRules {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: green; */
+  padding: 5px;
+  width: 100%;
+}

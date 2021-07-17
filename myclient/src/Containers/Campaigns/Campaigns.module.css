@@ -1,0 +1,632 @@
+.CAMPAIGNS {
+  background: rgb(247, 249, 251);
+
+  min-height: 85vh;
+  padding: 20px;
+}
+
+.Container2 {
+  max-width: 1400px;
+  margin: auto;
+}
+.loadmorecont {
+  text-align: center;
+  margin-top: 20px;
+}
+.loadmorecont .loadmore {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #222;
+  background: none;
+  cursor: pointer;
+}
+.CreateCont {
+  background: black;
+  max-width: 1400px;
+  margin: auto;
+  padding: 10px 29px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.CreateCont h1 {
+  font-weight: 1000;
+  font-size: 32px;
+}
+.createButton a {
+  display: none;
+}
+.createButton a,
+.createButton svg {
+  text-decoration: none;
+  color: white;
+}
+.createButton a {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1400px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+                align-items: center; */
+}
+
+.SingleSMSROUT {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleSMSROUT a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleSMSROUT:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.totalLinkForSingleSMSROUT {
+  color: black;
+  text-decoration: none;
+}
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+
+.buttonClass:disabled {
+  color: #eee !important;
+  background: #bbb !important;
+  cursor: not-allowed !important;
+}
+.buttonClass2 {
+  background: white !important;
+  color: red !important;
+  width: 100%;
+}
+
+.ButtonCont {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.ButtonCont button {
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.SingleDomainServer {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleDomainServer a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0.9;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleDomainServer:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  margin-right: 4px;
+  color: white;
+}
+
+.Red {
+  background: crimson;
+}
+
+.black {
+  background: #444;
+}
+
+.SMSURLSECTION,
+.SMSHEADERSSECTION {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.SMSROUTEDETAILS span {
+  /* background: lightgreen; */
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+
+  margin-right: 10px;
+}
+
+.SMSROUTEDETAILS button {
+  background: #111;
+  /* height: 100%; */
+  color: white;
+  border: none;
+  padding: 15px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.SMSROUTEDETAILS p {
+  font-weight: 100;
+}
+
+.SMSROUTEDETAILS .First {
+  display: flex;
+  align-items: center;
+}
+
+.HeaderList {
+  text-align: left;
+}
+.ItemInLine {
+  padding: 5px;
+  color: white;
+  margin-right: 4px;
+
+  display: inline;
+  /* width: 20px; */
+  border-radius: 5px;
+  background: #bbb;
+  cursor: pointer;
+}
+
+.ItemInLine:hover {
+  box-shadow: 1px 0px 14px #eee;
+}
+
+.SelectCont {
+  position: relative;
+}
+.SelectCont label {
+  text-align: left;
+  left: 8px;
+  top: -8px;
+  font-size: 12px;
+  position: absolute;
+  background-color: white;
+}
+
+.SelectCont select {
+  width: 100%;
+  border: 1px solid #eee;
+  color: #888;
+  font-weight: 100;
+  padding: 10px;
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.HeaderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0px;
+  cursor: pointer;
+}
+
+.HeaderList {
+  list-style: circle;
+}
+
+.HeaderItem:hover strong,
+.HeaderItem:hover svg {
+  color: gold;
+  /* font-weight: 800; */
+  transition: 0.5s;
+}
+
+.HeaderItem svg {
+  margin-right: 6px;
+}
+.HeaderItem strong {
+  color: #444;
+}
+
+.InputCont textarea {
+  width: 100%;
+  resize: none;
+  min-height: 200px;
+  border: 1px solid #eee;
+  padding: 20px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.InputCont {
+  text-align: left;
+}
+
+.Button {
+  border: none;
+  padding: 10px;
+  color: white;
+
+  background: black;
+  cursor: pointer;
+}
+
+.Group {
+  /* border-bottom: 1px solid #eee; */
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.LeadGroup {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0px;
+}
+.LeadGroup p {
+  padding: 4px 0px;
+}
+.LeadGroup strong {
+  font-weight: 500;
+}
+
+.Group .Trailing button {
+  padding: 10px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.status {
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 13px;
+  width: 80px;
+  text-align: center;
+}
+
+.Group .Leading {
+  flex: 1;
+}
+.NoPhoneNumbers {
+  text-align: center;
+}
+
+.Flex {
+  display: flex;
+  align-items: center;
+}
+
+.Trailing button {
+  padding: 10px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Rolling svg {
+  animation: rolling 1s infinite;
+}
+
+@keyframes rolling {
+  0%,
+  100% {
+    transform-origin: center;
+    transform: scale(1) rotateZ(0);
+  }
+  50% {
+    transform-origin: center;
+    transform: scale(1.2) rotateZ(180deg);
+  }
+}
+
+.search-table {
+  table-layout: fixed;
+  /* width: 100%; */
+  width: 100%;
+  max-width: 1400px;
+  min-width: 1400px;
+  margin: 0px auto 0px auto;
+}
+
+.search-table,
+/* td, */
+th {
+  border-collapse: collapse;
+
+  text-align: left;
+  /* border: 1px solid #eee; */
+}
+
+th {
+  padding: 29px 7px;
+  font-size: 15px;
+  color: #222;
+  background: rgb(245, 245, 245);
+  font-weight: 80;
+}
+
+td {
+  /* padding: 1px 17px; */
+  /* height: 25px; */
+}
+
+.search-table-outter {
+  /* margin-top: 20px; */
+  overflow-x: auto;
+  /* box-shadow: 1px 0px 10px #eee; */
+}
+tr {
+  background: white;
+}
+
+th,
+td {
+  /* min-width: 300px; */
+}
+
+.DeleteCont svg {
+  color: red;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.DeleteCont svg:hover {
+  /* box-shadow: 1px 0px 14px #bbb; */
+  transform: scale(1.1);
+  transition: 0.4s;
+}
+
+.SelectContainer {
+  font-weight: 100;
+  border-left: 9px solid #111;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.SelectContainer p {
+  width: 100%;
+  text-align: left;
+  box-shadow: 1px 0px 10px rgb(246, 246, 246);
+  padding: 15px 10px;
+  background-color: white;
+  border: none;
+  font-weight: 100;
+}
+
+.SelectContainer strong {
+  font-weight: 500;
+  color: black;
+}
+
+.SelectContainer font {
+  font-size: 14px;
+}
+
+.SelectContainer.active {
+  border-left: 9px solid rgb(1, 106, 255) !important;
+  transition: 0.3s;
+}
+.SelectionModal h3 {
+  font-weight: 100;
+}
+
+.Card {
+  box-shadow: 0px 0px 2px #eee;
+  min-height: 40px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px;
+}
+.Card:hover {
+  box-shadow: 0px 0px 13px #eee;
+}
+
+.Card h4,
+.Card p {
+  font-weight: 100;
+  font-size: 17px;
+}
+
+.Card p {
+  font-size: 14px;
+}
+.results {
+  height: 240px;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.loadmorecont {
+  text-align: center;
+}
+
+.loadmorecont .loadmore {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #222;
+  background: none;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #222;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #222;
+}
+
+.AnimateIn {
+  /* animation: slide 3s linear; */
+  transition: 0.3s;
+  transform: rotateX(0deg);
+  height: 230px;
+}
+
+.schedule {
+  transition: 0.3s;
+  transform: rotateX(90deg);
+  height: 0px;
+}
+
+@keyframes slide {
+  0% {
+    transform: rotateX("180deg");
+  }
+  100% {
+    transform: rotateX("0deg");
+  }
+}
+
+.FilterCont {
+  display: flex;
+  /* background-color: green; */
+  margin: 2px auto;
+  justify-content: space-between;
+  max-width: 1400px;
+}
+
+.inputcont {
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  /* flex: 1; */
+  /* background-color: green; */
+}
+.inputcont input {
+  flex: 1 !important;
+  width: 100% !important;
+  /* width: inherit; */
+}
+
+.inputcont svg {
+  position: absolute;
+  right: 5px;
+  color: #eee;
+}
+.inputcont label {
+  color: #bbb;
+  top: 1px;
+}

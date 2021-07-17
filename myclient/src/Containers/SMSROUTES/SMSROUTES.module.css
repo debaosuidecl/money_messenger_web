@@ -1,0 +1,197 @@
+.SMSROUTE {
+  background: rgb(247, 249, 251);
+
+  /* min-height: 100vh; */
+  padding: 20px;
+}
+
+.Container2 {
+  max-width: 1000px;
+  margin: auto;
+}
+.loadmorecont {
+  text-align: center;
+  margin-top: 20px;
+}
+.loadmorecont .loadmore {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #222;
+  background: none;
+  cursor: pointer;
+}
+.CreateCont {
+  background: black;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 29px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.CreateCont h1 {
+  font-weight: 1000;
+  font-size: 32px;
+}
+.createButton a {
+  display: none;
+}
+.createButton a,
+.createButton svg {
+  text-decoration: none;
+  color: white;
+}
+.createButton a {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+    align-items: center; */
+}
+
+.SingleSMSROUTE {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleSMSROUTE a:nth-child(1) {
+  text-decoration: none;
+  color: black;
+  font-weight: 100;
+}
+.OptionModal h5 {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.OptionModal ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.OptionModal a {
+  text-decoration: none !important;
+  color: black;
+  padding: 13px;
+  display: inline-block;
+  box-shadow: 1px 0px 14px #bbb;
+  background: white;
+  transition: 0.3s;
+  /* border: 1px solid black; */
+  border-radius: 18px;
+}
+
+.OptionModal a:hover {
+  background-color: black;
+  color: white;
+  transition: 0.3s;
+}
+
+.SingleSMSROUTE a:nth-child(2) {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 1;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleSMSROUTE:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.totalLinkForSingleVertical {
+  color: black;
+  text-decoration: none;
+  margin-bottom: 0px;
+  border-radius: 5px;
+}
+
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
+
+.ButtonCont {
+  /* padding: 10px; */
+  text-align: left;
+}
+
+.ButtonCont button {
+}
+
+.buttonClass {
+  background: #268ece !important;
+  color: white !important;
+  /* width: 100%; */
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.ButtonCont {
+  background: black;
+  padding: 10px;
+  cursor: pointer;
+}
+.ButtonCont a {
+  text-decoration: none;
+  width: 100%;
+  display: block;
+
+  color: white;
+  /* background: green; */
+}

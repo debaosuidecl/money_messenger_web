@@ -1,0 +1,341 @@
+.SMSROUTE {
+  background: rgb(247, 249, 251);
+
+  min-height: 85vh;
+  padding: 20px;
+}
+
+.CreateCont {
+  background: black;
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px 29px;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+.CreateCont h1 {
+  font-weight: 1000;
+  font-size: 32px;
+}
+.createButton a {
+  display: none;
+}
+.createButton a,
+.createButton svg {
+  text-decoration: none;
+  color: white;
+}
+.createButton a {
+  background: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.LoadingBody {
+  background: white;
+  min-height: 400px;
+  width: 100%;
+  margin: 20px auto;
+  max-width: 1000px;
+  padding: 20px;
+  /* display: flex; */
+  /* flex-flow: column; */
+  /* justify-content: center;
+              align-items: center; */
+}
+
+.SingleSMSROUT {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleSMSROUT a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleSMSROUT:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.totalLinkForSingleSMSROUT {
+  color: black;
+  text-decoration: none;
+}
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+
+.buttonClass:disabled {
+  background: grey !important;
+  cursor: not-allowed !important;
+}
+.buttonClass2 {
+  background: white !important;
+  color: red !important;
+  width: 100%;
+}
+
+.ButtonCont {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.ButtonCont button {
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.SingleDomainServer {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+.SingleDomainServer a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0.9;
+  color: white;
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleDomainServer:hover a {
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  margin-right: 4px;
+  color: white;
+}
+
+.Red {
+  background: crimson;
+}
+
+.black {
+  background: #444;
+}
+
+.SMSURLSECTION,
+.SMSHEADERSSECTION {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.SMSROUTEDETAILS span {
+  /* background: lightgreen; */
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+
+  margin-right: 10px;
+}
+
+.SMSROUTEDETAILS button {
+  background: #111;
+  /* height: 100%; */
+  color: white;
+  border: none;
+  padding: 15px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.SMSROUTEDETAILS p {
+  font-weight: 100;
+}
+
+.SMSROUTEDETAILS .First {
+  display: flex;
+  align-items: center;
+}
+
+.HeaderList {
+  text-align: left;
+}
+.ItemInLine {
+  padding: 5px;
+  color: white;
+  margin-right: 4px;
+
+  display: inline;
+  /* width: 20px; */
+  border-radius: 5px;
+  background: #bbb;
+  cursor: pointer;
+}
+
+.ItemInLine:hover {
+  box-shadow: 1px 0px 14px #eee;
+}
+
+.SelectCont {
+  position: relative;
+}
+.SelectCont label {
+  text-align: left;
+  left: 8px;
+  top: -8px;
+  font-size: 12px;
+  position: absolute;
+  background-color: white;
+}
+
+.SelectCont select {
+  width: 100%;
+  border: 1px solid #eee;
+  color: #888;
+  font-weight: 100;
+  padding: 10px;
+}
+
+.Success {
+  background: rgba(20, 200, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  /* display: */
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Successes {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.Error {
+  background: rgba(220, 20, 60, 0.9);
+  color: white;
+  padding: 10px;
+  width: 200px;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.Errors {
+  position: fixed;
+  right: 13px;
+  top: 90px;
+}
+
+.HeaderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0px;
+  cursor: pointer;
+}
+
+.HeaderList {
+  list-style: circle;
+}
+
+.HeaderItem:hover strong,
+.HeaderItem:hover svg {
+  color: gold;
+  /* font-weight: 800; */
+  transition: 0.5s;
+}
+
+.HeaderItem svg {
+  margin-right: 6px;
+}
+.HeaderItem strong {
+  color: #444;
+}
+
+.InputCont textarea {
+  width: 100%;
+  resize: none;
+  min-height: 200px;
+  border: 1px solid #eee;
+  padding: 20px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.InputCont {
+  text-align: left;
+}
+
+.Button {
+  border: none;
+  padding: 10px;
+  color: white;
+
+  background: black;
+  cursor: pointer;
+}

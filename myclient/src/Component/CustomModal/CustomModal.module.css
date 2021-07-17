@@ -1,0 +1,45 @@
+.Modal {
+  position: fixed;
+  z-index: 5510;
+  min-width: 280px;
+  background-color: white;
+  border-radius: 10px;
+  /* border: 1px solid #ccc; */
+  /* box-shadow: 1px 1px 1px black; */
+  /* border-top: 5px solid #41549b; */
+  /* padding: 16px; */
+  /* left: 15%; */
+  transform: translateX(-50%);
+  top: -1000px;
+  left: 50%;
+
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+  width: 100%;
+}
+.SlideDown {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+@media (min-width: 600px) {
+  .Modal {
+    /* width: 500px; */
+    width: 80%;
+    max-width: 400px;
+    /* left: 50%;
+      transform: translate(-50%, -50%);
+      top: 50%; */
+
+    /* left: calc(50% - 250px); */
+  }
+}
+
+@media (max-height: 400px) {
+  .Modal {
+    /* padding: 10px 0; */
+    overflow-y: scroll;
+    height: 300px;
+  }
+}
