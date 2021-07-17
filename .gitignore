@@ -1,0 +1,7 @@
+config
+node_modules
+redistest.js
+phone.txt
+package-lock.json
+.env
+testsend.js
