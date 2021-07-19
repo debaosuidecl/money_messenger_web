@@ -48,7 +48,7 @@ var upload = multer({
   },
   fileFilter: (req, file, cb) => {
     console.log(file);
-    if (file.mimetype == "application/vnd.ms-excel") {
+    if (file.mimetype == "application/vnd.ms-excel" || file.mimetype == "text/csv") {
       console.log("Hit here2222");
       cb(null, true);
     } else {
@@ -137,15 +137,15 @@ router.post(
       });
 
       let neworiginalname = req.file.originalname;
-      if (phoneGroupWithSameOriginalName) {
-        return res.status(400).send({
-          errors: [
-            {
-              msg: "Phone group already exists",
-            },
-          ],
-        });
-      }
+      // if (phoneGroupWithSameOriginalName) {
+      //   return res.status(400).send({
+      //     errors: [
+      //       {
+      //         msg: "Phone group already exists",
+      //       },
+      //     ],
+      //   });
+      // }
       const newphonegroup = new SendingPhonesGroup({
         user: req.user.id,
         name: "phone-uploads/" + req.file.filename,

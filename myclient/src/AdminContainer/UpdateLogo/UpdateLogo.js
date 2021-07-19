@@ -99,7 +99,7 @@ function UpdateLogo() {
         <br />
         <div className={classes.CreateCont}>
           <div className={classes.title}>
-            <h1>Update My Info</h1>
+            <h1>Customization</h1>
           </div>
         </div>
 

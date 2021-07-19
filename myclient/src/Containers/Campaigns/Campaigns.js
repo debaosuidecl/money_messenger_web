@@ -52,7 +52,11 @@ function Campaigns({ history }) {
         setcampaigns((mycampaigns) =>
           [...mycampaigns].map((l) => {
             if (l._id === _group._id) {
-              return _group;
+              return {
+                ...l,
+                status: _group.status,
+                totalsent: _group.totalsent
+              };
             }
 
             return l;
@@ -279,7 +283,7 @@ function Campaigns({ history }) {
           if (c._id === data._id) {
             return {
               ...c,
-              status: data.status,
+              status: action == "pause"? "paused": "sending",
             };
           }
 
