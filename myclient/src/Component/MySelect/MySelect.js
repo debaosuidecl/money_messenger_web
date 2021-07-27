@@ -7,6 +7,7 @@ function MySelect(props) {
     <div className={classes.MyInput}>
       <label>{props.label}</label>
       <select
+      style={{fontWeight: 100}}
         className={
           props.bottomBorder
             ? [classes.bottomBorder].join(" ")

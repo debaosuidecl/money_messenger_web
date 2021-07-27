@@ -13,6 +13,7 @@ function TestComponent({
   handleRouteTest,
   istestsending,
   testresult,
+  setistestsending,
   testagain,
 }) {
   const [input1, setinput1] = useState("");
@@ -30,8 +31,7 @@ function TestComponent({
                 onClick={() => {
                   testagain();
                 }}
-                className={classes.buttonClass}
-              >
+                className={classes.buttonClass}>
                 Test Again
               </Button>
             </div>
@@ -39,9 +39,12 @@ function TestComponent({
         ) : (
           <React.Fragment>
             {!istestsending ? null : (
-              <ProcessLoader message="Sending Message" />
+              <ProcessLoader
+                message="Sending Message"
+                action={setistestsending}
+              />
             )}
-            <h2>Test Your Newly Created Route</h2>
+            <h2 style={{ fontWeight: 100 }}>Send a test message</h2>
             <br />
             <MyInput
               value={input1}
@@ -63,10 +66,11 @@ function TestComponent({
               <textarea
                 placeholder="Please Enter the test message"
                 value={input3}
-                onChange={(e) => setinput3(e.target.value)}
-              ></textarea>
+                onChange={(e) => setinput3(e.target.value)}></textarea>
             </div>
-            <div className={classes.ButtonCont}>
+
+            <br></br>
+            <div>
               <Button
                 onClick={() => {
                   handleRouteTest({
@@ -75,8 +79,7 @@ function TestComponent({
                     message: input3,
                   });
                 }}
-                className={classes.buttonClass}
-              >
+                className={classes.buttonClass}>
                 SEND TEST MESSAGE
               </Button>
             </div>

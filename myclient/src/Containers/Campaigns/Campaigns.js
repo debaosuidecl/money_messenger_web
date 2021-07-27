@@ -7,6 +7,7 @@ import {
   faStop,
   faSyncAlt,
   faTrash,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +23,7 @@ import MyModal from "../../Component/MyModal/MyModal";
 import Info from "../../Component/Info/Info";
 import { Link } from "react-router-dom";
 import MyInput from "../../Component/Input/Input";
-import FilterCont from "./FilterCont";
+// import FilterCont from "./FilterCont";
 
 function Campaigns({ history }) {
   const [loading, setloading] = useState(true);
@@ -55,7 +56,8 @@ function Campaigns({ history }) {
               return {
                 ...l,
                 status: _group.status,
-                totalsent: _group.totalsent
+                successfulsends: _group.successfulsends,
+                failedsends: _group.failedsends,
               };
             }
 
@@ -198,7 +200,7 @@ function Campaigns({ history }) {
       // setcampaigns(data);
       setsuccesses([
         {
-          msg: "Successfully delete " + selectedcampaign.name,
+          msg: "Successfully deleted " + selectedcampaign.name,
         },
       ]);
       // setsmsroute(data.route);
@@ -246,7 +248,7 @@ function Campaigns({ history }) {
       // setcampaigns(data);
       setsuccesses([
         {
-          msg: "Successfully delete " + selectedcampaign.name,
+          msg: "Successfully aborted " + selectedcampaign.name,
         },
       ]);
       // setsmsroute(data.route);
@@ -283,7 +285,7 @@ function Campaigns({ history }) {
           if (c._id === data._id) {
             return {
               ...c,
-              status: action == "pause"? "paused": "sending",
+              status: action == "pause" ? "paused" : "sending",
             };
           }
 
@@ -291,14 +293,22 @@ function Campaigns({ history }) {
         });
       });
       // setcampaigns(data);
-      setsuccesses([
-        {
-          msg:
-            "Successfully " + action === "resume"
-              ? "resumed "
-              : "paused " + selectedcampaign.name,
-        },
-      ]);
+
+      if (action === "pause") {
+        setsuccesses([
+          {
+            msg: "Successfully paused " + selectedcampaign.name,
+          },
+        ]);
+      }
+
+      if (action === "resume") {
+        setsuccesses([
+          {
+            msg: "Successfully resumed " + selectedcampaign.name,
+          },
+        ]);
+      }
       // setsmsroute(data.route);
       clearSuccesses();
 
@@ -339,8 +349,7 @@ function Campaigns({ history }) {
       handleClose={() => {
         setdeletemodalshowing(false);
       }}
-      maxWidth="500px"
-    >
+      maxWidth="500px">
       <h6 style={{ color: "red", fontWeight: 100 }}>
         Are you sure you want to abort {selectedcampaign?.name}?
       </h6>
@@ -351,15 +360,13 @@ function Campaigns({ history }) {
       <div className={classes.ButtonCont}>
         <button
           onClick={() => deletecampaign()}
-          className={[classes.Option, classes.Red].join(" ")}
-        >
+          className={[classes.Option, classes.Red].join(" ")}>
           Yes
         </button>
         <button
           style={{ background: "black" }}
           onClick={() => setdeletemodalshowing(false)}
-          className={[classes.Option].join(" ")}
-        >
+          className={[classes.Option].join(" ")}>
           No
         </button>
       </div>
@@ -371,8 +378,7 @@ function Campaigns({ history }) {
       handleClose={() => {
         setabortmodalshowing(false);
       }}
-      maxWidth="500px"
-    >
+      maxWidth="500px">
       <h6 style={{ color: "red", fontWeight: 100 }}>
         Are you sure you want to abort {selectedcampaign?.name}?
       </h6>
@@ -383,15 +389,13 @@ function Campaigns({ history }) {
       <div className={classes.ButtonCont}>
         <button
           onClick={() => abortcampaign()}
-          className={[classes.Option, classes.Red].join(" ")}
-        >
+          className={[classes.Option, classes.Red].join(" ")}>
           Yes
         </button>
         <button
           style={{ background: "black" }}
           onClick={() => setdeletemodalshowing(false)}
-          className={[classes.Option].join(" ")}
-        >
+          className={[classes.Option].join(" ")}>
           No
         </button>
       </div>
@@ -426,8 +430,7 @@ function Campaigns({ history }) {
                 history.push(`/campaigns/create`);
               }}
               className=""
-              style={{ marginRight: 20, cursor: "pointer" }}
-            >
+              style={{ marginRight: 20, cursor: "pointer" }}>
               Create Campaign{" "}
               <FontAwesomeIcon
                 style={{ cursor: "pointer" }}
@@ -439,8 +442,7 @@ function Campaigns({ history }) {
                 loading
                   ? [classes.Trailing, classes.Rolling].join(" ")
                   : classes.Trailing
-              }
-            >
+              }>
               Reload{" "}
               <FontAwesomeIcon
                 onClick={() => {
@@ -477,8 +479,7 @@ function Campaigns({ history }) {
                       <br />
                       <button
                         onClick={() => history.push(`/campaigns/create/step1`)}
-                        className={classes.Button}
-                      >
+                        className={classes.Button}>
                         Create One <FontAwesomeIcon icon={faPlusCircle} />
                       </button>
                     </div>
@@ -495,7 +496,8 @@ function Campaigns({ history }) {
                 <tr>
                   <th>Campaign Name</th>
                   <th>No. of Leads</th>
-                  <th>Total Sent</th>
+                  <th>Successful Sends</th>
+                  <th>Failed Sends</th>
                   <th>Payout</th>
                   <th>Clicks</th>
                   <th>Conversions</th>
@@ -519,7 +521,12 @@ function Campaigns({ history }) {
                         </td>
 
                         <td style={{ fontWeight: 100, marginRight: 10 }}>
-                          {campaign?.totalsent}
+                          {campaign?.successfulsends
+                            ? campaign?.successfulsends
+                            : campaign?.totalsent}
+                        </td>
+                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          {campaign?.failedsends}
                         </td>
                         <td style={{ fontWeight: 100, marginRight: 10 }}>
                           {campaign?.payout || 0}
@@ -566,10 +573,16 @@ function Campaigns({ history }) {
                                 : campaign?.status === "sending"
                                 ? "blue"
                                 : "lightgreen",
-                          }}
-                        >
-                          {campaign?.status}{" "}
-                          {campaign?.status === "processing" &&
+                          }}>
+                          {campaign?.status}
+                          {campaign?.status === "scheduled" ? (
+                            <>
+                              <FontAwesomeIcon icon={faClock} />{" "}
+                              {moment(campaign?.numericdate).format("HH:mm")}
+                            </>
+                          ) : null}
+                          {/* {" "}{ } */}
+                          {/* {campaign?.status === "processing" &&
                           campaign?.uploadCount ? (
                             <span>
                               {(
@@ -580,7 +593,7 @@ function Campaigns({ history }) {
                               ).toFixed(2)}
                               %
                             </span>
-                          ) : null}
+                          ) : null} */}
                         </td>
 
                         <td className={classes.DeleteCont}>
@@ -623,7 +636,7 @@ function Campaigns({ history }) {
                               }}
                             />
                           )}
-                          <FontAwesomeIcon
+                          {/* <FontAwesomeIcon
                             icon={faTrash}
                             title="Delete Campaign"
                             style={{ color: "red", marginRight: 10 }}
@@ -631,7 +644,7 @@ function Campaigns({ history }) {
                               setselectedlead(campaign);
                               setabortmodalshowing(true);
                             }}
-                          />
+                          /> */}
                         </td>
                       </tr>
                     );
@@ -651,8 +664,7 @@ function Campaigns({ history }) {
             <button
               disabled={isfetching}
               onClick={() => setfetchvalue("campaigns", page + 1)}
-              className={classes.loadmore}
-            >
+              className={classes.loadmore}>
               Load More
             </button>
           ) : null}

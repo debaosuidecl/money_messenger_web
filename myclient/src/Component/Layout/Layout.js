@@ -1,28 +1,21 @@
 //@ts-nocheck
 import React, { useState, useContext } from "react";
 import classes from "./Layout.module.css";
-// import Logo from "./logo.png";
 import { withRouter, Link } from "react-router-dom";
 import LoadScreen from "../../Containers/LoadScreen/LoadScreen";
-// import Axios from "axios";
-// import GLOBAL from "../../Containers/GLOBAL/GLOBAL";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown } from "react-bootstrap";
-// import Sidebar from "./Sidebar";
 import {
   faChartLine,
   faCog,
   faDatabase,
   faGripHorizontal,
-  // faGripVertical,
   faLink,
   faMapSigns,
   faMarker,
   faRoute,
-  // faRulerVertical,
   faSms,
   faUserEdit,
-  // faTrafficLight,
   faUsersCog,
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
@@ -31,8 +24,9 @@ import SideNav from "../SideNav/SideNav";
 
 import { AuthContext } from "../../context/Auth.context";
 function Layout({ children }) {
-  const { loading, fullName, email, admin, logo, isauth } =
-    useContext(AuthContext);
+  const { loading, fullName, email, admin, logo, isauth } = useContext(
+    AuthContext
+  );
   let [navitems] = useState([
     {
       name: "Dashboard",
@@ -151,8 +145,7 @@ function Layout({ children }) {
                         style={{
                           color: item.isactive ? "crimson" : "black",
                         }}
-                        to={item.link}
-                      >
+                        to={item.link}>
                         {item.name}
                       </Link>
                     </li>
@@ -163,8 +156,7 @@ function Layout({ children }) {
                         style={{
                           color: item.isactive ? "crimson" : "black",
                         }}
-                        to={item.link}
-                      >
+                        to={item.link}>
                         {item.name}
                       </Link>
                     </li>
@@ -186,9 +178,14 @@ function Layout({ children }) {
                 </div>
               </Dropdown.Item>
               {admin ? null : (
-                <Dropdown.Item href="/info/update-my-info">
-                  Update My Info
-                </Dropdown.Item>
+                <>
+                  <Dropdown.Item href="/info/update-my-info">
+                    Update My Info
+                  </Dropdown.Item>
+                  <Dropdown.Item href="/frequently-asked-questions">
+                    FAQs
+                  </Dropdown.Item>
+                </>
               )}
 
               <div className={classes.mobileonly}>
@@ -198,8 +195,7 @@ function Layout({ children }) {
                       style={{
                         color: item.isactive ? "crimson" : "black",
                       }}
-                      to={item.link}
-                    >
+                      to={item.link}>
                       {item.name}
                     </Link>
                   </Dropdown.Item>
@@ -207,8 +203,7 @@ function Layout({ children }) {
               </div>
               <Dropdown.Item
                 onClick={() => localStorage.removeItem("token")}
-                href="/login"
-              >
+                href="/login">
                 <span style={{ color: "red" }}>Logout</span>
               </Dropdown.Item>
             </Dropdown.Menu>

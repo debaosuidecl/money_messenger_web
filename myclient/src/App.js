@@ -12,7 +12,7 @@ import DomainPurchase from "./Containers/DomainPurchase/DomainPurchase";
 import MyDomains from "./Containers/MyDomains/MyDomains";
 import Namecheap from "./Containers/Namecheap/Namecheap";
 import SMSROUTES from "./Containers/SMSROUTES/SMSROUTES";
-import SMSROUTE from "./Containers/SMSROUTE/SMSROUTE";
+// import SMSROUTE from "./Containers/SMSROUTE/SMSROUTE";
 import Smsroutephones from "./Containers/Smsroutephones/Smsroutephones";
 import SmsAddPhones from "./Containers/SmsAddPhones/SmsAddPhones";
 import SmsAddPhonesStep2 from "./Containers/SmsAddPhonesStep2/SmsAddPhonesStep2";
@@ -36,6 +36,8 @@ import HomeAdmin from "./AdminContainer/Home/Home";
 import UpdateLogo from "./AdminContainer/UpdateLogo/UpdateLogo";
 import Users from "./AdminContainer/Users/Users";
 import UserStatisticsPage from "./AdminContainer/Users/UserStatisticsPage";
+import SMSROUTEWRAPPER from "./Containers/SMSROUTE/SMSROUTEWRAPPER";
+import FAQ from "./Containers/FAQ/FAQ";
 // import ErrorPage from "./Containers/ErrorPage/ErrorPage";
 function App() {
   const { admin } = useContext(AuthContext);
@@ -62,7 +64,7 @@ function App() {
         <Route path="/domain-purchase/namecheap" exact component={Namecheap} />
         <Route path="/sms-routes" exact component={SMSROUTES} />
         <Route path="/leads" exact component={Leads} />
-        <Route path="/sms-routes/:id" exact component={SMSROUTE} />
+        <Route path="/sms-routes/:id" exact component={SMSROUTEWRAPPER} />
         <Route path="/sms-route-phones/:id" exact component={Smsroutephones} />
         <Route
           path="/sms-route-phones-create/step1/:id"
@@ -88,6 +90,8 @@ function App() {
           exact
           component={SuccessPasswordSet}
         />
+
+        <Route path="/frequently-asked-questions" exact component={FAQ} />
         <Route path="/info/update-my-info" exact component={Settings} />
 
         <Route path="/subscription" exact component={Subscription} />

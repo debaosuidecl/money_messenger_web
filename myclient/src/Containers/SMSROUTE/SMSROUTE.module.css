@@ -1,3 +1,23 @@
+.ErrorsOn {
+}
+
+.smppcredcont {
+  text-align: left;
+}
+.smppcredcont p {
+  font-weight: 100;
+}
+
+.credtitle {
+  background: #eee;
+  /* box-shadow: 1px 0px 4px #999; */
+  font-size: 14px;
+  color: black !important;
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
 .SMSROUTE {
   background: rgb(247, 249, 251);
 
@@ -26,6 +46,21 @@
 .TPS {
   font-size: 20px;
 }
+
+.TPS svg {
+  margin-left: 10px;
+  color: #eee;
+  opacity: 0.4;
+  transition: 0.4s;
+}
+
+.TPS:hover svg {
+  transition: 0.4s;
+  opacity: 1;
+  cursor: pointer;
+  color: #bbb;
+}
+
 .CreateCont h1 {
   font-weight: 1000;
   font-size: 32px;
@@ -138,14 +173,18 @@
   color: white;
   padding: 10px;
   width: 200px;
+  position: relative;
   border-radius: 12px;
   font-size: 13px;
+  z-index: 2000;
+
   margin-bottom: 10px;
 }
 
 .Errors {
   position: fixed;
   right: 13px;
+  z-index: 5000;
   top: 90px;
 }
 

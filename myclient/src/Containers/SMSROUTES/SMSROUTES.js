@@ -18,7 +18,7 @@ import SingleSMSROUTE from "./SingleSMSROUTE";
 import MyModal from "../../Component/MyModal/MyModal";
 import MyInput from "../../Component/Input/Input";
 import OptionsModal from "./OptionsModal";
-
+import MySelect from "../../Component/MySelect/MySelect";
 function SMSROUTES() {
   const [smsroutelist, setsmsrouteslist] = useState([]);
   const [loading, setloading] = useState(true);
@@ -31,6 +31,12 @@ function SMSROUTES() {
   const [successes, setsuccesses] = useState([]);
   const [showingoptions, setshowingoptions] = useState(false);
   const [selectedsmsroute, setselectedsmsroute] = useState(null);
+  const [username, setusername] = useState("");
+  const [port, setport] = useState("");
+  const [password, setpassword] = useState("");
+  const [endpoint, setendpoint] = useState("");
+  const [bindtype, setbindtype] = useState("");
+  const [routetype, setroutetype] = useState("");
   /* PAGINATION STATE */
   const [searchvalue, setsearchvalue] = useState("");
   const [page, setpage] = useState(0);
@@ -140,10 +146,16 @@ function SMSROUTES() {
             ? `edit/${editid}`
             : isDeleting
             ? `delete/${editid}`
-            : "create"
+            : `create-${routetype.toLowerCase()}`
         }`,
         {
           name: editname,
+          routetype,
+          username,
+          password,
+          endpoint,
+          bindtype,
+          port,
         },
         true
       );
@@ -210,6 +222,28 @@ function SMSROUTES() {
     }
   };
 
+  const disableenabler = () => {
+    if (!routetype || (routetype !== "SMPP" && routetype !== "API")) {
+      return true;
+    }
+    if (routetype === "SMPP") {
+      if (!endpoint || !editname || !username || !password || !bindtype) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    if (routetype === "API") {
+      if (!editname) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  };
   const createRouteModal = (
     <MyModal
       open={editmodalshowing}
@@ -219,15 +253,13 @@ function SMSROUTES() {
         setEditMode(false);
         seteditid("");
         seteditname("");
-      }}
-    >
+      }}>
       <MyModal
         open={deletemodalshowing}
         handleClose={() => {
           setdeletemodalshowing(false);
         }}
-        maxWidth="500px"
-      >
+        maxWidth="500px">
         <h3 style={{ color: "red", fontWeight: 400 }}>
           Are you sure delete this SMS Route?
         </h3>
@@ -241,14 +273,12 @@ function SMSROUTES() {
         <div className={classes.ButtonCont}>
           <button
             onClick={() => smsroute_crud(true)}
-            className={[classes.Option, classes.Red].join(" ")}
-          >
+            className={[classes.Option, classes.Red].join(" ")}>
             Yes
           </button>
           <button
             onClick={() => setdeletemodalshowing(false)}
-            className={[classes.Option, classes.black].join(" ")}
-          >
+            className={[classes.Option, classes.black].join(" ")}>
             No
           </button>
         </div>
@@ -265,11 +295,75 @@ function SMSROUTES() {
           placeholder="eg: Message Bird"
         />
         <br></br>
+
+        <MySelect
+          label="Route Type"
+          value={routetype}
+          onChange={(e) => {
+            setroutetype(e.target.value);
+          }}>
+          <option value="">-- Select Route Type --</option>
+          <option value="API">API</option>
+          <option value="SMPP">SMPP (Recommended)</option>
+        </MySelect>
+
+        {routetype === "SMPP" ? (
+          <div>
+            <br></br>
+            <MyInput
+              value={endpoint}
+              onChange={(e) => setendpoint(e.target.value)}
+              label="END POINT IP"
+              placeholder="eg: 0.0.0.0.0"
+            />
+            <br></br>
+            <MyInput
+              value={port}
+              onChange={(e) => setport(e.target.value)}
+              label="PORT"
+              placeholder="eg: 3000"
+            />
+            <br></br>
+
+            <MyInput
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
+              label="SMPP User Name"
+              placeholder="Enter SMPP user name"
+            />
+
+            <br></br>
+            <MyInput
+              value={password}
+              type="password"
+              onChange={(e) => setpassword(e.target.value)}
+              label="SMPP Password"
+              placeholder=" Enter SMPP Password"
+            />
+            <br></br>
+            <MySelect
+              label="Select  Bindtype"
+              value={bindtype}
+              onChange={(e) => {
+                setbindtype(e.target.value);
+              }}>
+              <option value="">-- Select Bind Type --</option>
+              <option value="transceiver">Transceiver</option>
+              <option value="transmitter">Transmitter</option>
+            </MySelect>
+            <br></br>
+          </div>
+        ) : null}
+        <br></br>
+
         <div className={classes.ButtonCont2}>
           <Button
             onClick={() => smsroute_crud()}
             className={classes.buttonClass}
-          >
+            variant="contained"
+            color="primary"
+            disabled={disableenabler()}
+            style={{ background: "black", width: "100%", color: "white" }}>
             {editMode ? "Edit SMS Route" : "Add SMS Route"}
           </Button>
         </div>
@@ -279,7 +373,10 @@ function SMSROUTES() {
             <Button
               onClick={() => setdeletemodalshowing(true)}
               className={[classes.buttonClass2].join(" ")}
-            >
+              disabled={disableenabler()}
+              variant="contained"
+              color="secondary"
+              style={{ backgroundColor: "black", width: "100%" }}>
               Delete SMS Route <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
           </div>
@@ -313,8 +410,7 @@ function SMSROUTES() {
 
           <div
             onClick={() => seteditmodalshowing(true)}
-            className={classes.createButton}
-          >
+            className={classes.createButton}>
             <Link>Create SMS Route</Link>
             <F icon={faPlusCircle} />
           </div>
@@ -367,8 +463,7 @@ function SMSROUTES() {
                 <button
                   disabled={isfetching}
                   onClick={() => setfetchvalue("smsroutes", page + 1)}
-                  className={classes.loadmore}
-                >
+                  className={classes.loadmore}>
                   Load More
                 </button>
               ) : null}

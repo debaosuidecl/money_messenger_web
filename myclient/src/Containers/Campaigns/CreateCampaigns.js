@@ -53,7 +53,7 @@ function CreateCampaigns({ history }) {
   const [errorinfetch, seterrorinfetch] = useState(false);
   const [searchvalue, setsearchvalue] = useState("");
   const [nomoreresults, setnomoreresults] = useState(false);
-  const [scheduletype] = useState("off");
+  const [scheduletype, setscheduletype] = useState("off");
   const [scheduledate, setscheduledate] = useState(new Date());
   const [scheduletime, setscheduletime] = useState(new Date());
 
@@ -122,6 +122,7 @@ function CreateCampaigns({ history }) {
           leadgroup: leadgroup._id,
           name: name,
           dateofschedule: isodt,
+          scheduletype,
 
           ischeduled: scheduletype === "on" ? true : false,
           // vertical: vertical._id,
@@ -475,7 +476,7 @@ function CreateCampaigns({ history }) {
                   ))}
                 </div>
 
-                {/* <div className="custom-control custom-switch">
+                <div className="custom-control custom-switch">
                   <input
                     type="checkbox"
                     className="custom-control-input"
@@ -500,7 +501,7 @@ function CreateCampaigns({ history }) {
                   >
                     Toggle to set to schedule mode
                   </label>
-                </div> */}
+                </div>
 
                 {/* {scheduletype === "off" ? null : ( */}
                 <div

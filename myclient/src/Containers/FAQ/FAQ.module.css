@@ -1,25 +1,13 @@
-.SMSROUTE {
+.Vertical {
   background: rgb(247, 249, 251);
 
   /* min-height: 100vh; */
   padding: 20px;
 }
-
-.Container2 {
-  max-width: 1000px;
-  margin: auto;
-}
-.loadmorecont {
-  text-align: center;
-  margin-top: 20px;
-}
-.loadmorecont .loadmore {
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #222;
-  background: none;
+.Question {
   cursor: pointer;
 }
+
 .CreateCont {
   background: black;
   max-width: 1000px;
@@ -58,10 +46,10 @@
   /* display: flex; */
   /* flex-flow: column; */
   /* justify-content: center;
-    align-items: center; */
+        align-items: center; */
 }
 
-.SingleSMSROUTE {
+.SingleVertical {
   background: white;
   max-width: 1000px;
   margin: auto;
@@ -69,55 +57,21 @@
   text-align: left;
   align-items: center;
   padding: 20px;
-  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
 }
 
-.SingleSMSROUTE a:nth-child(1) {
-  text-decoration: none;
-  color: black;
-  font-weight: 100;
-}
-.OptionModal h5 {
-  text-decoration: underline;
-  text-align: center;
-}
-
-.OptionModal ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-.OptionModal a {
-  text-decoration: none !important;
-  color: black;
-  padding: 13px;
-  display: inline-block;
-  box-shadow: 1px 0px 14px #bbb;
-  background: white;
-  transition: 0.3s;
-  /* border: 1px solid black; */
-  border-radius: 18px;
-}
-
-.OptionModal a:hover {
-  background-color: black;
-  color: white;
-  transition: 0.3s;
-}
-
-.SingleSMSROUTE a:nth-child(2) {
+.SingleVertical a {
   text-decoration: none;
   transition: 0.3s;
-  opacity: 1;
+  opacity: 0;
   color: white;
   background: #222;
   padding: 10px;
   border-radius: 3px;
 }
-.SingleSMSROUTE:hover a {
+.SingleVertical:hover a {
   transition: 0.3s;
   opacity: 1;
 }
@@ -125,31 +79,22 @@
 .totalLinkForSingleVertical {
   color: black;
   text-decoration: none;
-  margin-bottom: 0px;
-  border-radius: 5px;
 }
-
-@media (min-width: 600px) {
-  .createButton a {
-    display: inline-block;
-  }
+.buttonClass {
+  background: black !important;
+  color: white !important;
+  width: 100%;
+}
+.buttonClass2 {
+  background: white !important;
+  color: red !important;
+  width: 100%;
 }
 
 .ButtonCont {
-  /* padding: 10px; */
-  text-align: left;
-}
-
-.ButtonCont button {
-}
-
-.buttonClass {
-  background: #111 !important;
-  color: white !important;
-  /* width: 100%; */
-}
-.buttonClass:disabled {
-  background-color: #eee !important;
+  padding: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .Success {
@@ -168,6 +113,11 @@
   right: 13px;
   top: 90px;
 }
+@media (min-width: 600px) {
+  .createButton a {
+    display: inline-block;
+  }
+}
 
 .Error {
   background: rgba(220, 20, 60, 0.9);
@@ -184,17 +134,53 @@
   right: 13px;
   top: 90px;
 }
-
-.ButtonCont {
-  background: black;
-  padding: 10px;
-  cursor: pointer;
+.QCont {
+  font-weight: 400 !important;
 }
-.ButtonCont a {
-  text-decoration: none;
-  width: 100%;
-  display: block;
+.Question p {
+  font-weight: 100;
+}
+.FAQ {
+  background: white;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  align-items: center;
 
+  border-bottom: 1px solid #eee;
+}
+.Question {
+  padding: 20px 20px;
+
+  border-bottom: 0.51px solid #eee;
+}
+.SingleDomainServer a {
+  text-decoration: none;
+  transition: 0.3s;
+  opacity: 0.9;
   color: white;
-  /* background: green; */
+  background: #222;
+  padding: 10px;
+  border-radius: 3px;
+}
+.SingleDomainServer:hover a {
+  transition: 0.3s;
+  opacity: 1;
+  text-decoration: none;
+  color: white;
+}
+
+.Option {
+  border: none;
+  padding: 10px;
+  margin-right: 4px;
+  color: white;
+}
+
+.Red {
+  background: crimson;
+}
+
+.black {
+  background: #444;
 }
