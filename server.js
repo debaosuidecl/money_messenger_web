@@ -4,7 +4,7 @@ const express = require("express");
 
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
-const redis = require("./redisfunctions/redisclient");
+// const redis = require("./redisfunctions/redisclient");
 const transporter = require("./mailer/nodemailer.mailer");
 const bodyParser = require("body-parser");
 dotenv.config();
@@ -38,9 +38,9 @@ app.use("/api/uploadsenderphone", require("./routes/uploadsenderphone"));
 app.use("/api/leadactivity", require("./routes/leadactivity"));
 app.use("/api/subscriptions", require("./routes/subscription"));
 app.use("/api/admin", require("./routes/admin"));
-redis.on("connect", () => {
-  console.log("connected to redis");
-});
+// redis.on("connect", () => {
+//   console.log("connected to redis");
+// });
 
 let server = app.listen(PORT, async () => {
   await connectDB();

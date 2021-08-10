@@ -1,0 +1,5 @@
+{
+    "prettier.jsxBracketSameLine": true,
+    "html.format.indentInnerHtml": true,
+    "editor.formatOnSave": true
+}

@@ -11,6 +11,8 @@ const LIMIT = 30;
 const { validationResult } = require("express-validator");
 const { findoneuser } = require("../services/user.service");
 const { errorreturn } = require("../utils/returnerrorschema");
+
+const fs = require("fs")
 //@ts-ignore
 const socket1 = require("socket.io-client")(
   "http://localhost:" + process.env.campaignserver1
@@ -90,7 +92,7 @@ async function createcampaignhandler(req, res) {
     }
     // const { page = 1, limit = 30 } = req.query;
 
-    const { domaingroup, leadgroup, messageschema, route } = req.body;
+    const { domaingroup, leadgroup, messageschema, route,  ischeduled} = req.body;
 
     const myres = await bulkfindmodels(
       domaingroup,
@@ -106,66 +108,40 @@ async function createcampaignhandler(req, res) {
 
     // @ts-ignore
     const [domaingroupdoc, leadgroupdoc, messageschemadoc, routedoc] = myres;
-
-    console.log(
-      domaingroupdoc,
-      leadgroupdoc,
-      messageschemadoc,
-      routedoc,
-      messageschema,
-
-      177
-    );
-
-    // if(dateofschedule){
-
-    // }
-
     const userforserver = await findoneuser({ _id: req.user.id });
+    let carrierstoexclude = req.body.carrierstoexclude || [];
 
+    if(Array.isArray(carrierstoexclude)){
+      carrierstoexclude  = carrierstoexclude.slice(0,7)
+    }
     const newcampaign = await createcampaign({
       leadgroup,
       domaingroup,
-      //@ts-ignore
       dataowner: domaingroupdoc.dataowner,
       ischeduled: req.body.ischeduled,
-      //@ts-ignore
-
       vertical: domaingroupdoc.traffic,
       name: req.body.name,
       user: req.user.id,
       smsroute: route,
+      carrierstoexclude,
       servername: userforserver.servername,
       dateofschedule: req.body.dateofschedule,
+      numericdate: new Date(req.body.dateofschedule).getTime(),
       messageschema,
     });
 
     res.json(newcampaign);
-    // const cm = await CampaignManager.findOne({});
-    // console.log(cm);
 
-    // if (cm.currentIndex === 1 && !req.body.ischeduled) {
-    //   console.log("starting campaign now at cserver1");
-    socket1.emit("send", newcampaign);
-    // } else if (cm.currentIndex === 2 && !req.body.ischeduled) {
-    //   console.log("starting campaign now at cserver2");
-    //   socket1.emit("send", newcampaign);
-    // } else if (cm.currentIndex === 3 && !req.body.ischeduled) {
-    //   socket1.emit("send", newcampaign);
-    //   console.log("starting campaign now at cserver3");
-    // }
 
-    // if (cm.currentindex < 3) {
-    //   cm.currentindex = cm.currentindex + 1;
-    // } else {
-    //   cm.currentindex = 1;
-    // }
+    if(!ischeduled){
 
-    // newcampaign.handlingserver = cm.currentindex;
+      return socket1.emit("send", newcampaign);
+    } 
 
-    // await newcampaign.save();
+    console.log("writingto file")
 
-    // await cm.save();
+    fs.appendFileSync(`./scheduledorders/orders.txt`, `${newcampaign._id},${newcampaign.dateofschedule.toISOString()}\n`)
+    return socket1.emit("scheduledsend", newcampaign);
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });

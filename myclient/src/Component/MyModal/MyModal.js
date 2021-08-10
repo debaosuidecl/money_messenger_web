@@ -10,6 +10,7 @@ export default function TransitionsModal(props) {
       display: "flex",
       alignItems: "center",
       position: "relative",
+      borderRadius: 10,
       zIndex: 500000,
       justifyContent: "center",
     },
@@ -19,6 +20,7 @@ export default function TransitionsModal(props) {
 
       width: "90%",
       position: "relative",
+      borderRadius: 16,
 
       maxWidth: props.maxWidth || "400px",
       padding: theme.spacing(2, 4, 3),

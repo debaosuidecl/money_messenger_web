@@ -47,12 +47,12 @@ async function verticalCreateHandler(req, res) {
     const { name, url } = req.body;
 
     if (
-      url.toLowerCase().indexOf("{campaignid}") === -1 ||
+     
       url.toLowerCase().indexOf("{clickid}") === -1
     ) {
       return res
         .status(400)
-        .json([{ msg: "URL must contain both {campaignid} and {clickid}" }]);
+        .json([{ msg: "URL must contain {clickid}" }]);
     }
 
     const querystrings = url.split("?")[1];
@@ -64,7 +64,7 @@ async function verticalCreateHandler(req, res) {
     // make postback
     console.log(querystrings, "query strings");
     if (
-      querystrings.indexOf("={campaignid}") === -1 ||
+ 
       querystrings.indexOf("={clickid}") === -1
     ) {
       return res
@@ -78,7 +78,7 @@ async function verticalCreateHandler(req, res) {
     const keys = Object.keys(queryObj);
     const values = Object.values(queryObj);
 
-    let postback = `https://s20.powersms.land/postback/${req.user.id}?`;
+    let postback = `https://app.powersms.land/api/leadactivity/converter/${req.user.id}?`;
 
     console.log(values);
     let anyseenimportant = 0;
@@ -145,11 +145,11 @@ async function verticalEditHandler(req, res) {
     const { name, url, postback } = req.body;
 
     if (
-      url.toLowerCase().indexOf("{campaignid}") === -1 ||
+      // url.toLowerCase().indexOf("{campaignid}") === -1 ||
       url.toLowerCase().indexOf("{clickid}") === -1
     ) {
       return res.status(400).json({
-        errors: [{ msg: "URL must contain both {campaignid} and {clickid}" }],
+        errors: [{ msg: "URL must contain {clickid}" }],
       });
     }
 
@@ -168,24 +168,25 @@ async function verticalEditHandler(req, res) {
     const keys = Object.keys(queryObj);
     const values = Object.values(queryObj);
 
-    let postbackBaseURL = `https://s20.powersms.land/postback/${req.user.id}`;
+    let postbackBaseURL = `https://app.powersms.land/api/leadactivity/converters/${req.user.id}`;
 
     console.log(keys);
 
     if (
-      values.indexOf("{campaignid}") === -1 ||
+      // values.indexOf("{campaignid}") === -1 ||
       values.indexOf("{clickid}") === -1
     ) {
       return res.status(400).json({
         errors: [
           {
-            msg: "Tracking URL must contain both {campaignid} and {clickid} as pixel values",
+            msg: "Tracking URL must contain  a {clickid} as pixel value",
           },
         ],
       });
     }
 
-    if (postback.indexOf(postbackBaseURL) === -1) {
+    if (postback.split("?")[0] !== postbackBaseURL) {
+    // if (postback.indexOf(postbackBaseURL) === -1) {
       return res.status(400).json({
         errors: [
           {
@@ -200,11 +201,11 @@ async function verticalEditHandler(req, res) {
     );
 
     if (
-      !queryPostbackObj.hasOwnProperty("campaignid") ||
+
       !queryPostbackObj.hasOwnProperty("clickid")
     ) {
       return res.status(400).json({
-        errors: [{ msg: "Postback must contain campaignid and clickid" }],
+        errors: [{ msg: "Postback must contain a clickid" }],
       });
     }
 

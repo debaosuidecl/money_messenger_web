@@ -83,17 +83,16 @@
   padding: 10px;
   color: white;
   border-radius: 3px;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .SingleVertical p {
-  font-weight: 100;
+  font-weight: 300;
 }
 .SingleVertical:hover a {
   transition: 0.3s;
   color: white;
   opacity: 1;
-  font-weight: 100;
 }
 
 .totalLinkForSingleVertical,

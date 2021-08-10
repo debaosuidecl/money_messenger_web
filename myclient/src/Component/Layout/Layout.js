@@ -60,7 +60,7 @@ function Layout({ children }) {
     {
       name: "Domains",
 
-      isactive: window.location.href.includes("domains"),
+      isactive: window.location.href.includes("domains") || window.location.href.includes("domain-purchase") ,
 
       icon: faLink,
       link: "/domains",
@@ -84,14 +84,14 @@ function Layout({ children }) {
       name: "Messages",
       icon: faSms,
       link: "/campaign-message",
-      isactive: window.location.href.includes("message"),
+      isactive: window.location.href.includes("campaign-message"),
     },
 
     {
       name: "Campaigns",
       link: "/campaigns",
       icon: faMapSigns,
-      isactive: window.location.href.includes("campaign"),
+      isactive: window.location.href.includes("campaigns"),
     },
   ]);
 

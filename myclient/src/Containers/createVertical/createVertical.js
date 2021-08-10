@@ -115,11 +115,11 @@ function CreateVertical({ history }) {
               A Postback will be generated for with the schema{" "}
               <strong>
                 {
-                  "https://powersms.land/api/conversion?clickid={clickidpixel}&campaignid={campaignidpixel}&payout={payoutpixel}"
+                  "https://app.powersms.land/api/leadactivity/converters/{specialid}?clickid={clickidpixel}&campaignid={campaignidpixel}&payout={payoutpixel}"
                 }
               </strong>{" "}
               where {"{"}payoutpixel{"}"} will be the expected payout provided
-              by the advertiser
+              by the advertiser and {"{"}specialid{"}"}  is an id linked to your powersms account
             </h4>
             <div className={classes.ButtonCont}>
               <Button

@@ -8,7 +8,7 @@ import Routes from "../../Component/Routes/Routes";
 import classes from "./CreateMessageSchema.module.css";
 import REQ from "../../helperFunctions/requestModule";
 import GLOBAL from "../GLOBAL/GLOBAL";
-import { useParams, withRouter } from "react-router";
+import { useParams, withRouter, Prompt } from "react-router";
 import MySkeletonLoader from "../../Component/MySkeletonLoader/MySkeletonLoader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MyModal from "../../Component/MyModal/MyModal";
@@ -51,11 +51,18 @@ function CreateMessageSchema({ history }) {
   useEffect(() => {
     getSingle();
     fetchUserCreatedSchemas();
+    // setInterval(updateMessageStructure, 120000 )
+    // return ()=>{
+    //   updateMessageStructure()
+    //   clearInterval(updateMessageStructure)
+    // }
   }, []);
 
-  useEffect(() => {
-    setisupdated(true);
-  }, [isupdated]);
+  
+  // useEffect(() => {
+  //   console.log(633333)
+  //   setisupdated(true);
+  // }, [isupdated]);
 
   const fetchUserCreatedSchemas = async () => {
     try {
@@ -287,6 +294,7 @@ function CreateMessageSchema({ history }) {
   };
   const updateMessageStructure = async () => {
     try {
+      if(!formatSchema)return;
       const { data } = await REQ(
         "post",
         `${GLOBAL.domainMain}/api/messageschema/save-schema/${id}`,
@@ -304,6 +312,8 @@ function CreateMessageSchema({ history }) {
           msg: "Message Schema Saved",
         },
       ]);
+
+      setisupdated(false)
 
       clearSuccesses();
 
@@ -361,6 +371,11 @@ function CreateMessageSchema({ history }) {
   );
   return (
     <Layout>
+
+<Prompt
+  when={isupdated}
+  message="Are you sure you want to leave this page without saving your message schema?"
+/>
       {ruledeletemodal(
         "Are You sure you want to delete this rule now?",
         showDeleteModal,
@@ -436,7 +451,15 @@ function CreateMessageSchema({ history }) {
                     <textarea
                       placeholder="Please Enter a message schema"
                       value={formatSchema}
-                      onChange={(e) => setFormatSchema(e.target.value)}
+                      onChange={(e) => {
+                        setFormatSchema(e.target.value)
+
+                        setisupdated(true)
+                      
+                      }
+                      
+                      
+                      }
                     ></textarea>
                   </div>
                 </div>

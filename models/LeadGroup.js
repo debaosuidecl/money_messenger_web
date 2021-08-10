@@ -7,6 +7,43 @@ const LeadGroup = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  ATT: {
+    type: Number,
+    default: 0,
+  },
+  VERIZON: {
+    type: Number,
+    default: 0,
+  },
+
+  blacklist: {
+    type:Number, 
+    default: 0
+  },
+  METRO: {
+    type: Number,
+    default: 0,
+  },
+  SPRINT: {
+    type: Number,
+    default: 0,
+  },
+  TMOBILE: {
+    type: Number,
+    default: 0,
+  },
+  USCellular: {
+    type: Number,
+    default: 0,
+  },
+  OTHER: {
+    type: Number,
+    default: 0,
+  },
+  landline: {
+    type: Number,
+    default: 0,
+  },
   cloudinaryurl: {
     type: String,
   },

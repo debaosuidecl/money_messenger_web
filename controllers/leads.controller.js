@@ -382,10 +382,13 @@ async function fuzzysearchleads(req, res) {
 async function deleteleadgrouphandler(req, res) {
   console.log(req.params);
   try {
-    const leadgroupfound = await findOneleadgroup({
+    const leadgroupfound = await findAndUpdateleadgroup({
       _id: req.params.id,
       user: req.user.id,
-    });
+    },{
+      status: "deleted",
+
+    }, "set");
     if (!leadgroupfound) {
       return res.status(400).json({
         errors: [

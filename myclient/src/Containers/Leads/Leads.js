@@ -5,6 +5,7 @@ import {
   faPlusCircle,
   faSyncAlt,
   faTrashAlt,
+  faStopCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -353,10 +354,11 @@ function Leads({ history }) {
                       />
                     </th>
                     <th>Total Duplicates</th>
+                    <th>Carrier Details</th>
                     <th>Total Infile duplicates</th>
                     <th>Upload date</th>
                     <th>Status</th>
-                    <th>Delete Group</th>
+                    <th>Group Action</th>
                   </tr>
 
                   {leads &&
@@ -377,8 +379,19 @@ function Leads({ history }) {
                           <td style={{ fontWeight: 100, marginRight: 10 }}>
                             {lead?.totalProcessed}
                           </td>
+                      
                           <td style={{ fontWeight: 100, marginRight: 10 }}>
                             {lead?.globalduplicates}
+                          </td>
+                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                            <strong>METRO</strong>: {lead?.METRO || 0}<br></br> 
+                            <strong>AT{"&"}T:</strong> {lead?.ATT || 0}  <br></br>
+                            <strong>VERIZON:</strong> {lead?.VERIZON || 0}  <br></br>
+                            <strong>SPRINT:</strong> {lead?.SPRINT || 0}  <br></br>
+                            <strong>TMOBILE:</strong> {lead?.TMOBILE || 0} <br></br>
+                            <strong>US Cellular:</strong> {lead?.USCellular || 0} <br></br>
+                            <strong>Landlines:</strong> {lead?.landline || 0} <br></br>
+                            <strong style={{color: "red"}}>Blacklist:</strong> {lead?.blacklist || 0} <br></br>
                           </td>
                           <td style={{ fontWeight: 100, marginRight: 10 }}>
                             {lead?.infileduplicates}
@@ -417,13 +430,19 @@ function Leads({ history }) {
                           </td>
 
                           <td className={classes.DeleteCont}>
+                            {lead?.status === "processing"? 
+                            
+                            <>
+                            <span style={{fontWeight: 100, color: "red"}}>Stop</span> {" "}
                             <FontAwesomeIcon
-                              icon={faTrashAlt}
+                              icon={faStopCircle}
                               onClick={() => {
                                 setselectedlead(lead);
                                 setdeletemodalshowing(true);
                               }}
                             />
+                            </>
+                            : <p style={{fontWeight: 100}}>No Action</p>}
                           </td>
                         </tr>
                       );

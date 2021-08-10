@@ -18,7 +18,7 @@ import DomainSearcher from "./DomainSearcher";
 import EnterDomainGroupTrafficDataOwner from "./EnterDomainGroupTrafficDataOwner";
 
 function Namecheap({ history }) {
-  const [loading, setloading] = useState(true);
+  // const [loading, setloading] = useState(true);
   //   const [socket] = useState(socketIOClient(GLOBAL.domainDomains));
   const [errors, seterrors] = useState([]);
   const [_, seterrormode] = useState(false);
@@ -148,7 +148,7 @@ function Namecheap({ history }) {
       }
       // setdomaingrouplist(res.data);
 
-      setloading(false);
+      // setloading(false);
     } catch (error) {
       console.log(error.response.data);
       seterrormode(true);
@@ -159,7 +159,7 @@ function Namecheap({ history }) {
         },
       ]);
       clearErrors();
-      setloading(false);
+      // setloading(false);
     }
     try {
       const res = await REQ(
@@ -169,7 +169,7 @@ function Namecheap({ history }) {
         true
       );
       console.log(res);
-      setloading(false);
+      // setloading(false);
     } catch (error) {
       console.log(error);
     }
@@ -210,7 +210,8 @@ function Namecheap({ history }) {
       console.log(data);
 
       if (!data.user) {
-        return setloading(false);
+        return
+        // return setloading(false);
       }
 
       setconfigurationmodalshowing(false);
@@ -648,12 +649,7 @@ function Namecheap({ history }) {
 
       return;
     }
-    console.log({
-      domainstopurchase: tldlistfrombackendparent,
-      domaingroupid: selecteddomaingroup._id,
-      trafficid: selectedtraffic._id,
-      datasupplierid: selecteddatasupplier._id,
-    });
+
     socket.emit("purchase_domains", {
       domainstopurchase: tldlistfrombackendparent,
       domaingroupid: selecteddomaingroup._id,

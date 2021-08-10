@@ -15,8 +15,13 @@ const LeadsTotal = require("../models/LeadUndeduped");
 
 var srs = require("secure-random-string");
 
-const connectDB = require("../config/db");
+// const connectDB = require("../config/db");
 
+const {
+  bind,
+  connectsmpp,
+  // sendmessagesmpp,
+} = require("./smppfunc");
 // const Leads = require("../models/Leads");
 const split = require("./split");
 const { refinemessage, randomizefoundpipes } = require("./refinemessageschema");
@@ -53,7 +58,7 @@ function getModelBulkData(
   });
 }
 
-function sendcampaigns(campaigndetails, io, redis) {
+function sendcampaigns(campaigndetails, io, redis, sessionval) {
   return new Promise(async (resolve, reject) => {
     try {
       const campaign = await Campaigns.findOne({
@@ -287,6 +292,12 @@ function sendcampaigns(campaigndetails, io, redis) {
           shortid
         );
 
+        // write exclusion algorithm here
+        // skip the lead whose carrier details are to be exluded
+        let carrierstoexclude = campaign.carrierstoexclude || []
+        if(carrierstoexclude.indexOf(lead.carrier) !== -1){
+          continue;
+        }
         smsobject.push({
           lead,
           fromphone,
@@ -318,10 +329,135 @@ function sendcampaigns(campaigndetails, io, redis) {
       console.timeEnd("split");
 
       console.time("sending bulk");
+
+      // check if smpp
+
+      let session = sessionval;
+      let bindval = null;
+      if (smsroute.routetype === "SMPP") {
+        try {
+          // console.log(session, "fetching");
+
+          if (!session) {
+            session = await connectsmpp(smsroute.config);
+            session.on("error", async (err) => {
+              console.log(err, "error occured in session");
+
+              const update = await Campaign.findOneAndUpdate(
+                {
+                  _id: campaigndetails._id,
+                },
+                {
+                  $set: {
+                    error: "An SMPP ERROR OCCURED",
+                    status: "aborted",
+                  },
+                },
+                {
+                  new: true,
+                }
+              );
+              io.sockets.emit("status", update);
+              session.close();
+              resolve("done");
+            });
+          }
+
+          // console.log(session, "gotten");
+        } catch (error) {
+          // return errorreturn(res, 401, "could not connect to SMPP SERVER");
+          const update = await Campaign.findOneAndUpdate(
+            {
+              _id: campaigndetails._id,
+            },
+            {
+              $set: {
+                error: "Failed to connect to remote smpp server",
+                status: "aborted",
+              },
+            },
+            {
+              new: true,
+            }
+          );
+          io.sockets.emit("status", update);
+          return;
+        }
+
+        try {
+          // console.log("binding", bindval);
+          bindval = await bind(session, smsroute.config, true);
+          // console.log("binded", bindval);
+        } catch (error) {
+          console.log(error);
+
+          let errormessage = "";
+          if (error.pducode) {
+            errormessage = JSON.stringify(error);
+          }
+          // return errorreturn(res, 401, "could not connect to SMPP SERVER");
+          const update = await Campaign.findOneAndUpdate(
+            {
+              _id: campaigndetails._id,
+            },
+            {
+              $set: {
+                error: errormessage,
+                status: "aborted",
+              },
+            },
+            {
+              new: true,
+            }
+          );
+          io.sockets.emit("status", update);
+          return;
+          // "Binding Failed; error caught by error listener"
+        }
+      }
+
       for (let i = 0; i < smsobjectsplit.length; i++) {
+        console.log(i);
+        let successfulsends = 0;
+        let failedsends = 0;
         //
         try {
-          const axiosarray = await bulkSend(smsobjectsplit[i], smsroute);
+          const sendarray = await bulkSend(
+            smsobjectsplit[i],
+            smsroute,
+            session
+          );
+
+
+          if (smsroute.routetype === "API") {
+            successfulsends = sendarray.reduce((total, smsresponse) => {
+              if (smsresponse.value.status == 200) {
+                return total + 1;
+              }
+              return 0;
+            }, 0);
+            failedsends = sendarray.reduce((total, smsresponse) => {
+              if (smsresponse.value.status !== 200) {
+                return total + 1;
+              }
+              return 0;
+            }, 0);
+          } else if (smsroute.routetype === "SMPP") {
+            // console.log(sendarray[0], "smpp");
+
+            successfulsends = sendarray.reduce((total, smsresponse) => {
+              if (smsresponse.value.code == 0) {
+                return total + 1;
+              }
+              return 0;
+            }, 0);
+            failedsends = sendarray.reduce((total, smsresponse) => {
+              if (smsresponse.value.code !== 0) {
+                return total + 1;
+              }
+              return 0;
+            }, 0);
+          }
 
           // const
         } catch (error) {
@@ -331,14 +467,15 @@ function sendcampaigns(campaigndetails, io, redis) {
         // campaign.totalsent += smsobjectsplit[i].length;
 
         try {
-          // await campaign.save();
           let campaignvalue = await Campaigns.findOneAndUpdate(
             {
               _id: campaign._id,
             },
             {
               $inc: {
-                totalsent: smsobjectsplit[i].length,
+                successfulsends: successfulsends,
+                failedsends: failedsends,
+                totalsent: successfulsends + failedsends,
               },
             },
             {
@@ -420,7 +557,17 @@ function sendcampaigns(campaigndetails, io, redis) {
       console.log("campaign saved");
 
       console.log("running campaign next batch");
-      const finalresult = await sendcampaigns(campaigndetails, io, redis);
+      const finalresult = await sendcampaigns(
+        campaigndetails,
+        io,
+        redis,
+        session
+      );
+
+      if (smsroute.routetype === "SMPP") {
+        session.close();
+      }
+
       resolve(finalresult);
     } catch (error) {
       console.log(error);

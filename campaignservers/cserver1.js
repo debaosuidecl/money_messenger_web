@@ -45,4 +45,34 @@ io.on("connection", (socket) => {
 
     sendcampaigns(campaigndetails, io, redis);
   });
+
+  socket.on("scheduledsend", (campaigndetails) => {
+    console.log(campaigndetails, "to be scrubbed schedule" );
+    let  stop  = false
+
+    const task = cron.schedule("*/40 * * * * *", async function() {
+    console.log("running a task every 10 second");
+     const shouldcontinue = await campaignsender(campaigndetails);
+
+     if(shouldcontinue === "stop"){
+       stop = true
+     }
+     if(shouldcontinue){
+      sendcampaigns(campaigndetails, io, redis);
+      stop = true;
+     }
+
+
+    });
+    const interval = setInterval(()=>{
+      if(stop){
+      console.log(stop, 'stopping the campaign now');
+      task.stop()
+      clearInterval(interval)
+  }
+}, 60000)
+
+  });
 });
+
+

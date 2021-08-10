@@ -12,6 +12,32 @@ const SMSRoute = new mongoose.Schema({
     type: String,
   },
 
+  routetype: {
+    type: String,
+    default: "API",
+  },
+
+  istestsending: {
+    type: Boolean,
+  },
+  config: {
+    endpoint: {
+      type: String,
+    },
+    port: {
+      type: Number,
+    },
+    bindType: {
+      type: String,
+    }, // receiver || transmitter
+    user: {
+      type: String,
+    },
+    pass: {
+      type: String,
+    },
+  },
+
   numberofsources: {
     type: Number,
   },

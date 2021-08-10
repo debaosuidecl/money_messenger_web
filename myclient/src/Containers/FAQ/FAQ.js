@@ -2,13 +2,13 @@ import React from "react";
 // import "./FAQ.css";
 import Layout from "../../Component/Layout/Layout";
 import classes from "./FAQ.module.css";
-import { FontAwesomeIcon as F } from "@fortawesome/react-fontawesome";
-import { Collapse, CardBody, Card } from "reactstrap";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon as F } from "@fortawesome/react-fontawesome";
+import { Collapse } from "reactstrap";
+// import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 
 function FAQ() {
-  const [isOpen, setIsOpen] = React.useState(true);
-  const [faqs, setfaqs] = React.useState([
+  const [isOpen] = React.useState(true);
+  const [faqs] = React.useState([
     {
       question: "Can I send  my campaigns with any API Route of My choice?",
       id: 1,
@@ -23,10 +23,17 @@ function FAQ() {
       answer:
         "Yes you can, in a seemless manner. You can do this by clicking on the play pause or abort buttons that appear at the extreme right of an active campaign",
     },
+    {
+      question: "How fast can I send my campaign messages on PowerSMS?",
+      id: 3,
+      collapse: false,
+      answer:
+        "The speed of your campaign messages, first and foremost, depend on the recommended speed as specified by your API provider. But PowerSMS has a hard limit of 300 messages per second for API Routes. For SMPP routes, The speed limit is set at 600TPS.",
+    },
   ]);
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggle = () => {
+  //   setIsOpen(!isOpen);
+  // };
   return (
     <Layout>
       <div>
@@ -41,7 +48,10 @@ function FAQ() {
         <div className={classes.FAQ}>
           {faqs.map((faq) => {
             return (
-              <div onClick={toggle} className={classes.Question}>
+              <div
+                // onClick={toggle}
+
+                className={classes.Question}>
                 <p className={classes.QCont}>
                   {faq.question}{" "}
                   {/* <F

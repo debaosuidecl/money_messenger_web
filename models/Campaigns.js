@@ -8,6 +8,16 @@ const CampaignSchema = new mongoose.Schema({
     default: Date.now,
   },
 
+  carrierstoexclude: [ ],
+  failedsends: {
+    type: Number,
+    default: 0,
+  },
+
+  successfulsends: {
+    type: Number,
+    default: 0,
+  },
   error: {
     type: String,
   },
@@ -99,6 +109,11 @@ const CampaignSchema = new mongoose.Schema({
 
   servername: {
     type: String,
+  },
+
+  numericdate: {
+    type: Number,
+    default: Date.now,
   },
 });
 

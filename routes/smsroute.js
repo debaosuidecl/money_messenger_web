@@ -1,11 +1,8 @@
-// @ts-nocheck
-
 const express = require("express");
 const auth = require("../middleware/auth");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const SMSRoute = require("../models/SMSRoute");
-
 const {
   findrouteshandler,
   editsmsroutehandler,
@@ -23,7 +20,9 @@ const {
   setroutespeedhandler,
   deleteauthhandler,
   testsmsroutehandler,
+  editsmppconfighandler,
   checkhasphonegrouphandler,
+  testsmsroutehandlersmpp,
 } = require("../controllers/smsroute.controller");
 const premiumverify = require("../middleware/premiumverify");
 
@@ -54,7 +53,7 @@ router.post(
 );
 
 router.post(
-  "/create",
+  "/create-api",
   auth,
   premiumverify,
 
@@ -63,6 +62,44 @@ router.post(
       "name",
       "Name is required and must be more than 2 characters"
     ).isLength({ min: 3, max: 20 }),
+    check("routetype", "Route type must be API or SMPP").isIn(["API"]),
+  ],
+  createsmsroutehandler
+);
+router.post(
+  "/create-smpp",
+  auth,
+  premiumverify,
+
+  [
+    check(
+      "name",
+      "Name is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "username",
+      "SMPP username is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "password",
+      "SMPP password is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "endpoint",
+      "SMPP Endpoint is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "port",
+      "PORT Endpoint is required and most be between 1000 and 100,000"
+    ).isInt({
+      min: 1000,
+      max: 100000,
+    }),
+    check("routetype", "Route type must be API or SMPP").isIn(["SMPP"]),
+    check("bindtype", "bind type must be transceiver or transmitter").isIn([
+      "transceiver",
+      "transmitter",
+    ]),
   ],
   createsmsroutehandler
 );
@@ -255,6 +292,38 @@ router.post(
   ],
   setroutespeedhandler
 );
+router.post(
+  "/edit-sms-route/edit-smpp/:id",
+  auth,
+  premiumverify,
+
+  [
+    check(
+      "user",
+      "SMPP username is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "pass",
+      "SMPP password is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "endpoint",
+      "SMPP Endpoint is required and must be more than 2 characters"
+    ).isLength({ min: 3, max: 20 }),
+    check(
+      "port",
+      "PORT Endpoint is required and most be between 1000 and 100,000"
+    ).isInt({
+      min: 1000,
+      max: 100000,
+    }),
+    check("bindType", "bind type must be transceiver or transmitter").isIn([
+      "transceiver",
+      "transmitter",
+    ]),
+  ],
+  editsmppconfighandler
+);
 
 router.post(
   "/edit-sms-route/delete-auth/:id",
@@ -283,6 +352,15 @@ router.post(
   ],
 
   testsmsroutehandler
+);
+
+router.post(
+  "/test-sms-route-smpp/:id",
+
+  auth,
+  premiumverify,
+
+  testsmsroutehandlersmpp
 );
 
 // check if sms route has a phone group

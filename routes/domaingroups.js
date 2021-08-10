@@ -38,7 +38,7 @@ router.post(
       "rotationnumber",
       "Rotation Number must be an Integer between 1000 and 100,000"
     ).isInt({
-      min: 1000,
+      min: 1,
       max: 100000,
     }),
   ],
@@ -67,7 +67,7 @@ router.post(
       "rotationnumber",
       "Rotation Number must be an Integer between 1,000 and 100,000"
     ).isInt({
-      min: 1000,
+      min: 1,
       max: 100000,
     }),
   ],

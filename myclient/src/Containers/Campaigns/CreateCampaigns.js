@@ -56,6 +56,10 @@ function CreateCampaigns({ history }) {
   const [scheduletype, setscheduletype] = useState("off");
   const [scheduledate, setscheduledate] = useState(new Date());
   const [scheduletime, setscheduletime] = useState(new Date());
+  const [carrierstoexclude, setcarrierstoexclude] = useState([])
+
+  const [isstaticsearch, setisstaticsearch] = useState(false);
+  const [ismultiselect, setismultiselect] = useState(false);
 
   useEffect(() => {
     // getLeadGroup(id);
@@ -113,7 +117,7 @@ function CreateCampaigns({ history }) {
     // return;
     setisuploading(true);
     try {
-      const { data } = await REQ(
+      await REQ(
         "post",
         `${GLOBAL.domainMain}/api/campaigns/create`,
         {
@@ -123,6 +127,8 @@ function CreateCampaigns({ history }) {
           name: name,
           dateofschedule: isodt,
           scheduletype,
+
+          carrierstoexclude,
 
           ischeduled: scheduletype === "on" ? true : false,
           // vertical: vertical._id,
@@ -174,6 +180,19 @@ function CreateCampaigns({ history }) {
     }
     if (valueoffetch === "smsroutes") {
       setroute(result);
+    }
+
+    if(valueoffetch === "carrier"){
+        const carriers = [...carrierstoexclude]
+        const carrierexists = carriers.find((c)=> c._id === result._id)
+
+        if(carrierexists){
+          setcarrierstoexclude((prev)=> [...prev].filter(c=> c._id !== result._id))
+        }
+        else 
+        setcarrierstoexclude((prev)=> [...prev, result])
+        console.log(carrierstoexclude)
+        return;
     }
     handleClose();
   };
@@ -251,6 +270,15 @@ function CreateCampaigns({ history }) {
 
       action: () => setfetchvalue("smsroutes", "Route"),
     },
+    {
+      name: "Select the Carriers you wish to exclude from this campaign",
+      value: carrierstoexclude,
+      set: setroute,
+      //   action: vertical
+      friendlyname: "Carrier Exclusion",
+
+      action: () => setstaticvalue("carrier", "Carriers to exclude", null, true),
+    },
   ];
 
   const handleClose = () => {
@@ -260,6 +288,90 @@ function CreateCampaigns({ history }) {
     setnomoreresults(false);
     setpage(0);
     setvalueoffetch("");
+    setisstaticsearch(false);
+    setismultiselect(false)
+  };
+  const setstaticvalue = async (option, friendlyName, newpage, multiselect) => {
+    console.log(option);
+    // setisfetching(true);
+    setvalueoffetch(option);
+    setshowingmodal(true);
+    setsearchvalue("");
+    if(multiselect){
+    
+      setismultiselect(true)
+    }
+
+    setvalueoffetchfriendly(friendlyName);
+    setisstaticsearch(true)
+
+    // console.log(newpage);
+    // setpage(newpage | 0);
+    try {
+
+        setnomoreresults(true);
+
+      const data = [
+        {
+        name: "VERIZON",
+        date: new Date(),
+
+        _id: 1,
+      
+      },
+        {
+        name: "AT&T",
+        date: new Date(),
+
+        _id: 2,
+      
+      },
+        {
+        name: "SPRINT",
+        date: new Date(),
+
+        _id: 3,
+      
+      },
+    
+        {
+        name: "T-MOBILE",
+        date: new Date(),
+
+        _id: 4,
+      
+      },
+    
+    
+        {
+        name: "METRO",
+        date: new Date(),
+
+        _id: 5,
+      
+      },
+    
+    
+        {
+        name: "US Cellular",
+        date: new Date(),
+
+        _id: 6,
+      
+      },
+        {
+        name: "OTHER",
+        date: new Date(),
+        _id: 7,  
+      },
+    ]
+      setresultarray((prev) => {
+        return [ ...data];
+      });
+    } catch (error) {
+      seterrorinfetch(error?.response?.data?.errors[0].msg);
+    }
+    setisfetching(false);
   };
   const setfetchvalue = async (option, friendlyName, newpage) => {
     console.log(option);
@@ -329,12 +441,19 @@ function CreateCampaigns({ history }) {
           <h3> Select {valueoffetchfriendly}</h3>
           <br />
 
-          <MyInput
-            placeholder="Search"
-            value={searchvalue}
-            onChange={(e) => searchvaluechangehandler(e, valueoffetch)}
-            label={`Search ${valueoffetchfriendly} list`}
-          ></MyInput>
+{
+  isstaticsearch
+  ?
+  null :
+
+  <MyInput
+  placeholder="Search"
+  value={searchvalue}
+  onChange={(e) => searchvaluechangehandler(e, valueoffetch)}
+  label={`Search ${valueoffetchfriendly} list`}
+></MyInput>
+}
+       
           {/* <br /> */}
 
           <div className={classes.results}>
@@ -350,6 +469,10 @@ function CreateCampaigns({ history }) {
             {resultarray &&
               resultarray.map((result) => (
                 <div
+                style={{
+                  // boxShadow: "1px 0px 10px #bbb",
+                  border: valueoffetch === "carrier" && carrierstoexclude.find(c=> c._id === result._id)? "1px solid lightgreen": undefined,
+                }}
                   onClick={() => selectoption(result)}
                   className={classes.Card}
                   key={result._id}
@@ -358,6 +481,8 @@ function CreateCampaigns({ history }) {
                     <b>{result.friendlyname || result.name}</b>
                   </h4>
                   <p>{moment(result.date).format("MMMM Do YYYY")}</p>
+
+
                 </div>
               ))}
 
@@ -428,14 +553,9 @@ function CreateCampaigns({ history }) {
                 <div className={classes.InputCont}>
                   {inputList.map((item) => (
                     <div
-                      // map={item.name}
                       key={item.name}
                       onClick={item.action}
-                      // style={{
-                      //   borderLeft: item.value
-                      //     ? "9px solid lightgreen"
-                      //     : "9px solid #111",
-                      // }}
+                 
                       className={
                         item.value
                           ? [classes.SelectContainer, classes.active].join(" ")
@@ -443,7 +563,7 @@ function CreateCampaigns({ history }) {
                       }
                     >
                       <p>
-                        {item.value ? (
+                        {item.value  && !Array.isArray(item.value)? (
                           <>
                             <strong>{item.friendlyname}: </strong>
                             <span>
@@ -452,19 +572,27 @@ function CreateCampaigns({ history }) {
                                 : item.value.name}
                             </span>
                           </>
-                        ) : (
+                        ) : item.value && Array.isArray(item.value) && item.value.length > 0?
+                                // <p>show array value</p>
+                                <>
+                                <strong>Currently excluding the following carriers:</strong>
+                                {
+
+                              item.value && item.value.map(carrier=> <font style={{display: "block", marginBottom: 5,}}>{carrier.name}</font>)
+                                }
+                              </>
+                      : 
+                      (
                           item.name
                         )}
-                        <br />
-                        <br />
+                    
                         {item.friendlyname === "Domain Group" && item.value ? (
                           <>
-                            <font>
+                            <font style={{display: "block", marginBottom: 0,}}>
                               <strong>Vertical:</strong>{" "}
                               {item.value?.traffic.name}
                             </font>
-                            <br />
-                            <br />
+                      
                             <font>
                               <strong>Data owner:</strong>{" "}
                               {item.value?.dataowner.name}
@@ -476,13 +604,16 @@ function CreateCampaigns({ history }) {
                   ))}
                 </div>
 
+
+                {/* <div className={classes.InputCont}>
+                  <p>Let's get CARRIER FILTER CONTENT HERE</p>
+                </div> */}
+
                 <div className="custom-control custom-switch">
                   <input
                     type="checkbox"
                     className="custom-control-input"
                     id="customSwitchesChecked"
-                    // defaultChecked
-
                     value={scheduletype}
                     onChange={(e) => {
                       console.log(e.target.value);
@@ -502,8 +633,6 @@ function CreateCampaigns({ history }) {
                     Toggle to set to schedule mode
                   </label>
                 </div>
-
-                {/* {scheduletype === "off" ? null : ( */}
                 <div
                   className={
                     scheduletype === "off"
@@ -516,19 +645,7 @@ function CreateCampaigns({ history }) {
 
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-between">
-                      {/* <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Date picker inline"
-                        // value={selectedDate}
-                        // onChange={handleDateChange}
-                        KeyboardButtonProps={{
-                          "aria-label": "change date",
-                        }}
-                      /> */}
+            
                       <KeyboardDatePicker
                         margin="normal"
                         id="date-picker-dialog"
@@ -568,11 +685,8 @@ function CreateCampaigns({ history }) {
                     </Grid>
                   </MuiPickersUtilsProvider>
 
-                  {/* <Form.Control type="date" name="date_of_birth" />
-                  <br />
-                  <Form.Control type="time" name="date_of_birth" /> */}
+              
                 </div>
-                {/* )} */}
               </div>
               <br />
               <Button

@@ -8,6 +8,11 @@
   max-width: 1000px;
   margin: auto;
 }
+.Flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .loadmorecont {
   text-align: center;
   margin-top: 20px;

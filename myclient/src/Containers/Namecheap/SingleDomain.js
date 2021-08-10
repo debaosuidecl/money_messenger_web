@@ -14,7 +14,7 @@ function SingleDomain({ domain, fetcherror }) {
         {fetcherror ? (
           <p style={{ color: "red" }}>X</p>
         ) : domain.price ? (
-          <p>${domain.price}</p>
+          <p>${domain.price.toFixed(2)}</p>
         ) : (
           <img height="18px" src={Loader} />
         )}

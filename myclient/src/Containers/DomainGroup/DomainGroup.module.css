@@ -4,6 +4,11 @@
   /* min-height: 100vh; */
   padding: 20px;
 }
+.Flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .Container2 {
   max-width: 1000px;
   margin: auto;
@@ -148,7 +153,7 @@
   text-align: left;
   align-items: center;
   padding: 20px;
-  font-weight: 100;
+  font-weight: 300;
 
   display: flex;
   justify-content: space-between;

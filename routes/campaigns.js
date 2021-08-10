@@ -33,6 +33,7 @@ router.post(
       "ischeduled",
       "Scheduled value must be either true or false"
     ).isBoolean(),
+ 
   ],
 
   createcampaignhandler

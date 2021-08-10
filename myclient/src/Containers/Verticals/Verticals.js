@@ -4,21 +4,21 @@ import Layout from "../../Component/Layout/Layout";
 import classes from "./Verticals.module.css";
 import { FontAwesomeIcon as F } from "@fortawesome/react-fontawesome";
 import VerticalImage from "../../images/business2.jpg";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-// import { Button } from "@material-ui/core";
+import { faPlusCircle, faVideo, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Routes from "../../Component/Routes/Routes";
 import MyInput from "../../Component/Input/Input";
-
+import MyModal from "../../Component/MyModal/MyModal";
 import REQ from "../../helperFunctions/requestModule";
 import GLOBAL from "../GLOBAL/GLOBAL";
-// import Loader from "../../Component/Loader/Loader";
 import MySkeletonLoader from "../../Component/MySkeletonLoader/MySkeletonLoader";
 import SingleVertical from "./SingleVertical";
+import VideoDisplay from "../../Component/VideoDisplay/VideoDisplay";
 
 function Verticals() {
   const [verticallist, setverticallist] = useState([]);
   const [loading, setloading] = useState(true);
+  const [showingvideo, setshowingvideo] = useState(false)
 
   /* PAGINATION STATE */
   const [searchvalue, setsearchvalue] = useState("");
@@ -27,9 +27,7 @@ function Verticals() {
   const [isfetching, setisfetching] = useState(false);
   /* PAGINATION STATE ENDS*/
 
-  // const [verticallist, setverticallist] = useState([]);
 
-  // const [errors, seterrors] = useState([]);
 
   useEffect(() => {
     fetchVerticals();
@@ -53,24 +51,18 @@ function Verticals() {
       setpage(0);
 
       if (data.length === 0) {
-        // setnomoreresults(true);&removenonetraffic=true
         setverticallist([]);
       } else
         setverticallist((prev) => {
           return [...data];
         });
     } catch (error) {
-      // seterrorinfetch(error?.response?.data?.errors[0].msg);
       console.log(error);
     }
   };
 
   const setfetchvalue = async (option, newpage) => {
-    console.log(option);
     setisfetching(true);
-    // setsearchvalue("");
-
-    console.log(newpage);
     setpage(newpage | 0);
     try {
       const { data } = await REQ(
@@ -89,7 +81,6 @@ function Verticals() {
         return [...prev, ...data];
       });
     } catch (error) {
-      // seterrorinfetch(error?.response?.data?.errors[0].msg);
     }
     setisfetching(false);
   };
@@ -101,7 +92,6 @@ function Verticals() {
         null,
         true
       );
-      console.log(res);
       setverticallist(res.data);
       setloading(false);
     } catch (error) {
@@ -109,8 +99,24 @@ function Verticals() {
     }
   };
 
+
+  const showvideohandler = ()=>{
+    setshowingvideo(true)
+  }
+
   return (
     <Layout>
+
+
+<MyModal maxWidth={1000}  open={showingvideo}>
+    <div className={classes.Flex}>
+
+    <h2 style={{fontWeight: 200}}>Power SMS Verticals</h2>
+      <F style={{cursor: "pointer"}}  onClick={()=>setshowingvideo(false)}  icon={faTimesCircle}/>
+    </div>
+
+      <VideoDisplay src="https://player.vimeo.com/video/585096244?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Create A Vertical"/>
+</MyModal>
       <div className={classes.Vertical}>
         <Routes
           routeList={[
@@ -126,9 +132,16 @@ function Verticals() {
             <h1>My Verticals</h1>
           </div>
 
-          <div className={classes.createButton}>
-            <Link to="/create-vertical">Create a Vertical</Link>
-            <F icon={faPlusCircle} />
+          <div className={classes.Flex}>
+            <div className={classes.createButton}  onClick={showvideohandler}  >
+            <span>Tutorial  <F icon={faVideo} /></span>
+          
+            </div>
+
+            <div className={classes.createButton}>
+              <Link to="/create-vertical">Create a Vertical</Link>
+              <F icon={faPlusCircle} />
+            </div>
           </div>
         </div>
         <div className={classes.Container2}>

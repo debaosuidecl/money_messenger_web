@@ -4,14 +4,21 @@ const {
   findAndUpdatesmsroute,
   deletesmsroute,
   createsmsroute,
+  sendmessage,
 } = require("../services/smsroutes.service");
 const escapeRegex = require("../utils/escapeRegex");
+const { errorreturn } = require("../utils/returnerrorschema");
 const LIMIT = 30;
 
 const axios = require("axios");
 const { validationResult } = require("express-validator");
 const getconfigobject = require("../utils/getconfigobject");
 const { replacevariables } = require("../utils/replacevariables");
+const {
+  bind,
+  connectsmpp,
+  sendmessagesmpp,
+} = require("../helperfunctions/smppfunc");
 const {
   findOnesendingphonegroup,
 } = require("../services/sendingphonesgroup.service");
@@ -184,15 +191,93 @@ async function createsmsroutehandler(req, res) {
       });
     }
 
-    const { name } = req.body;
-    const smsroute = await createsmsroute({
+    const {
       name,
-      user: req.user.id,
-    });
+      routetype,
+      username,
+      password,
+      endpoint,
+      bindtype,
+      port,
+    } = req.body;
+
+    if (routetype === "API") {
+      const smsroute = await createsmsroute({
+        name,
+        routetype,
+        user: req.user.id,
+      });
+
+      return res.json(smsroute);
+    }
+
+    if (routetype === "SMPP") {
+      const smsroute = await createsmsroute({
+        name,
+        routetype,
+        user: req.user.id,
+        config: {
+          user: username,
+          pass: password,
+          endpoint,
+          bindType: bindtype,
+          port: parseInt(port),
+        },
+      });
+
+      res.json(smsroute);
+    }
 
     //   await smsroute.save();
+  } catch (error) {
+    console.log(error);
 
+    res.status(400).json({
+      errors: [
+        {
+          error: true,
+          msg: "Unable to store route",
+          errorMessage: error,
+        },
+      ],
+    });
+  }
+}
+
+async function editsmppconfighandler(req, res) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    const { user, pass, endpoint, bindType, port } = req.body;
+
+    const smsroute = await findAndUpdatesmsroute(
+      {
+        _id: req.params.id,
+        user: req.user.id,
+      },
+      {
+        config: {
+          user: user,
+          pass,
+          endpoint,
+          bindType,
+          port: parseInt(port),
+        },
+      },
+      "set"
+    );
+
+    if (!smsroute) {
+      return errorreturn(res, 401, "Could not update schema");
+    }
     res.json(smsroute);
+
+    //   await smsroute.save();
   } catch (error) {
     console.log(error);
 
@@ -938,6 +1023,89 @@ async function testsmsroutehandler(req, res) {
   }
 }
 
+async function testsmsroutehandlersmpp(req, res) {
+  try {
+    const {
+      fromphone,
+      tophone,
+
+      message,
+    } = req.body;
+
+    console.log(req.body);
+    const smsroute = await findOnesmsroute({
+      user: req.user.id,
+      _id: req.params.id,
+    });
+
+    console.log(smsroute, "sms route");
+
+    if (!smsroute) {
+      return errorreturn(res, 404, "SMS ROUTE NOT FOUND");
+    }
+
+    if (smsroute.routetype !== "SMPP") {
+      return errorreturn(res, 401, "ROUTE IS NOT AN SMPP ROUTE");
+    }
+
+    // create session
+    let session;
+
+    try {
+      // console.log(session, "fetching");
+      session = await connectsmpp(smsroute.config);
+      // console.log(session, "gotten");
+    } catch (error) {
+      return errorreturn(res, 401, "could not connect to SMPP SERVER");
+    }
+
+    // console.log(sesssion)
+
+    if (!session) {
+      return errorreturn(res, 401, "COULD NOT CONNECT SMPP SESSION");
+    }
+
+    // BIND SESSION
+
+    let bindval;
+
+    try {
+      // console.log("binding", bindval);
+      bindval = await bind(session, smsroute.config);
+      // console.log("binded", bindval);
+    } catch (error) {
+      console.log(error);
+
+      if (error.pducode) {
+        return errorreturn(res, 401, JSON.stringify(error));
+      }
+      return errorreturn(
+        res,
+        401,
+        "Binding Failed; error caught by error listener"
+      );
+    }
+
+    // console.log(bindval, "binding value");
+    if (!bindval) {
+      return errorreturn(res, 401, "COULD NOTE BIND SMPP SESSION");
+    }
+
+    // submit message
+
+    const messageresult = await sendmessagesmpp(
+      session,
+      fromphone,
+      tophone,
+      message
+    );
+
+    res.json(messageresult);
+  } catch (e) {
+    return errorreturn(res, 500, "could not initate test");
+  }
+}
+
 async function checkhasphonegrouphandler(req, res) {
   try {
     const phonegroup = await findOnesendingphonegroup({
@@ -977,6 +1145,8 @@ module.exports = {
   setauthhandler,
   setroutespeedhandler,
   deleteauthhandler,
+  editsmppconfighandler,
   testsmsroutehandler,
   checkhasphonegrouphandler,
+  testsmsroutehandlersmpp,
 };

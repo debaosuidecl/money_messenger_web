@@ -57,7 +57,21 @@ function getModelBulkData(Model, limit = 1000, page = 0, query, staticskip) {
     // __v: { $numberInt: "0" },
   };
   // ProcessGroup(leadGroup._id);
-  sendcampaigns(mycampaigndetailsfromsocket);
+
+  // const update = await Campaigns.updateMany(
+  //   {},
+  //   {
+  //     $set: {
+  //       failedsends: 0,
+  //     },
+  //   },
+  //   {
+  //     new: true,
+  //   }
+  // );
+
+  // console.log(update);
+  // sendcampaigns(mycampaigndetailsfromsocket);
 })();
 
 function sendcampaigns(campaigndetails, io) {

@@ -7,7 +7,7 @@ import {
   FontAwesomeIcon,
 } from "@fortawesome/react-fontawesome";
 import VerticalImage from "../../images/business2.jpg";
-import { faPlusCircle, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTrashAlt, faTimesCircle, faVideo } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Routes from "../../Component/Routes/Routes";
@@ -18,6 +18,7 @@ import MySkeletonLoader from "../../Component/MySkeletonLoader/MySkeletonLoader"
 import MyModal from "../../Component/MyModal/MyModal";
 import MyInput from "../../Component/Input/Input";
 import SingleDataowner from "./SingleDataOwner";
+import VideoDisplay from "../../Component/VideoDisplay/VideoDisplay";
 
 function Dataowner() {
   const [dataownerlist, setdataownerlist] = useState([]);
@@ -26,6 +27,8 @@ function Dataowner() {
   const [editname, seteditname] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [editid, seteditid] = useState("");
+  const [showingvideo, setshowingvideo] = useState(false)
+
 
   const [editmodalshowing, seteditmodalshowing] = useState(false);
   const [deletemodalshowing, setdeletemodalshowing] = useState(false);
@@ -297,6 +300,15 @@ function Dataowner() {
   };
   return (
     <Layout>
+      <MyModal maxWidth={1000}  open={showingvideo}>
+    <div className={classes.Flex}>
+
+    <h2 style={{fontWeight: 200}}>Power SMS Data Supplier</h2>
+      <F style={{cursor: "pointer"}}  onClick={()=>setshowingvideo(false)}  icon={faTimesCircle}/>
+    </div>
+
+      <VideoDisplay src="https://player.vimeo.com/video/585101579?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Create A Vertical"/>
+</MyModal>
       {createDataownermodal}
       <div className={classes.Vertical}>
         <Routes
@@ -313,6 +325,13 @@ function Dataowner() {
             <h1>My Data Suppliers</h1>
           </div>
 
+
+          <div className={classes.Flex}>
+          <div className={classes.createButton}  onClick={()=>setshowingvideo(true)}  >
+            <span>Tutorial  <F icon={faVideo} /></span>
+          
+            </div>
+
           <div
             onClick={() => seteditmodalshowing(true)}
             className={classes.createButton}
@@ -320,6 +339,9 @@ function Dataowner() {
             <Link> Create a Data Supplier</Link>
             <F icon={faPlusCircle} />
           </div>
+
+          </div>
+
         </div>
 
         <div className={classes.Container2}>

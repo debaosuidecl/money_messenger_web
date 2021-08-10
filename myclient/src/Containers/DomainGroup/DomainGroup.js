@@ -12,6 +12,8 @@ import {
   faInfoCircle,
   faPlusCircle,
   faTrashAlt,
+  faTimesCircle,
+  faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import Info from "../../Component/Info/Info";
 import { Button } from "@material-ui/core";
@@ -24,9 +26,11 @@ import MySkeletonLoader from "../../Component/MySkeletonLoader/MySkeletonLoader"
 import MyModal from "../../Component/MyModal/MyModal";
 import MyInput from "../../Component/Input/Input";
 import SingleDomainGroup from "./SingleDomainGroup";
+import VideoDisplay from "../../Component/VideoDisplay/VideoDisplay";
 
 function DomainGroup() {
   const [domaingrouplist, setdomaingrouplist] = useState([]);
+  const [showingvideo, setshowingvideo] = useState(false)
   const [loading, setloading] = useState(true);
   const [errors, seterrors] = useState([]);
   const [editname, seteditname] = useState("");
@@ -357,6 +361,15 @@ function DomainGroup() {
   );
   return (
     <Layout>
+           <MyModal maxWidth={1000}  open={showingvideo}>
+    <div className={classes.Flex}>
+
+    <h2 style={{fontWeight: 200}}>Power SMS Domain Groups</h2>
+      <F style={{cursor: "pointer"}}  onClick={()=>setshowingvideo(false)}  icon={faTimesCircle}/>
+    </div>
+
+      <VideoDisplay src="https://player.vimeo.com/video/585113720?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Create A Vertical"/>
+</MyModal>
       {createDataownermodal}
       {infomodal}
       <div className={classes.Vertical}>
@@ -373,6 +386,11 @@ function DomainGroup() {
           <div className={classes.title}>
             <h1>My Domain groups</h1>
           </div>
+          <div className={classes.Flex}>
+          <div className={classes.createButton}  onClick={()=>setshowingvideo(true)}  >
+            <span>Tutorial  <F icon={faVideo} /></span>
+          
+            </div>
 
           <div
             onClick={() => seteditmodalshowing(true)}
@@ -380,6 +398,7 @@ function DomainGroup() {
           >
             <Link> Create a Domain group</Link>
             <F icon={faPlusCircle} />
+          </div>
           </div>
         </div>
 
