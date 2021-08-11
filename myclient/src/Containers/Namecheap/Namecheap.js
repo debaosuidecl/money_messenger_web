@@ -74,6 +74,7 @@ function Namecheap({ history }) {
     _checkverificationstatus();
 
     const _socket = socketIOClient(GLOBAL.domainMain, {
+      secure: true,
       auth: {
         token: localStorage.getItem("token"),
       },
