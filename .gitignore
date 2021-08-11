@@ -5,6 +5,6 @@ phone.txt
 # package-lock.json
 .env
 testsend.js
-adminlogo
-phone-uploads
-lead-uploads
+# adminlogo
+# phone-uploads
+# lead-uploads
