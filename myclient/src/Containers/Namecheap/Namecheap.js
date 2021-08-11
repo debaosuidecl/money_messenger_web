@@ -73,7 +73,7 @@ function Namecheap({ history }) {
   useEffect(() => {
     _checkverificationstatus();
 
-    const _socket = socketIOClient(GLOBAL.domainDomains, {
+    const _socket = socketIOClient(GLOBAL.domainMain, {
       auth: {
         token: localStorage.getItem("token"),
       },
