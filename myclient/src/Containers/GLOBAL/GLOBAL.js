@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class GLOBAL extends Component {
   static domainMain =
     process.env.NODE_ENV === "production"
-      ? "https://powersms-9b6t6.ondigitalocean.app/"
+      ? "https://powersms-9b6t6.ondigitalocean.app"
       : "http://localhost:8080";
   static uploadlead1 =
     process.env.NODE_ENV === "production"
