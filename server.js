@@ -41,7 +41,12 @@ app.use("/api/admin", require("./routes/admin"));
 // redis.on("connect", () => {
 //   console.log("connected to redis");
 // });
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("myclient/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "myclient", "build", "index.html"));
+  });
+}
 let server = app.listen(PORT, async () => {
   await connectDB();
   transporter.verify((error, success) => {
@@ -53,3 +58,43 @@ let server = app.listen(PORT, async () => {
   });
   console.log(`listening on port ${PORT}`);
 });
+
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+io.use(require("./sockethandlers/domain").checkAuth);
+
+io.on("connection", (socket) => {
+  console.log(socket.id, socket.user);
+
+  socket.on("generate_domains", ({ numberoflinks, selectedtlds }) =>
+    require("./sockethandlers/check_domains").domainGeneration({
+      numberoflinks,
+      selectedtlds,
+      socket,
+    })
+  );
+  socket.on(
+    "purchase_domains",
+    ({ domainstopurchase, domaingroupid, trafficid, datasupplierid }) =>
+      require("./sockethandlers/purchase_domains").domainPurchase({
+        domainstopurchase,
+        domaingroupid,
+        trafficid,
+        datasupplierid,
+        socket,
+      })
+  );
+  socket.on("get_balance", (_) =>
+    require("./sockethandlers/check-namecheapbalance").balancecheck({
+      socket,
+    })
+  );
+
+  //   const token = socket.handshake.auth.token;
+});
+
