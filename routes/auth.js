@@ -55,7 +55,7 @@ router.post(
         },
       };
 
-      jwt.sign(payload, config.get("jwtSecret"), null, (error, token) => {
+      jwt.sign(payload, process.env.jwtSecret, null, (error, token) => {
         if (error) throw error;
 
         res.json({
