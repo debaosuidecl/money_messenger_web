@@ -4,6 +4,7 @@ const express = require("express");
 
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
+const path = require("path")
 // const redis = require("./redisfunctions/redisclient");
 const transporter = require("./mailer/nodemailer.mailer");
 const bodyParser = require("body-parser");
