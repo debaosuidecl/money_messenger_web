@@ -34,7 +34,7 @@
   font-weight: 1000;
   font-size: 32px;
 }
-.createButton a {
+.createButton a:first-child {
   display: none;
 }
 .createButton a,
