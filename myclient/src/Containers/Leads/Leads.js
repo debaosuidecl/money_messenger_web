@@ -201,10 +201,10 @@ function Leads({ history }) {
       }}
       maxWidth="500px"
     >
-      <p style={{ color: "red", fontWeight: 100 }}>
+      <p style={{ color: "red", fontWeight: 300 }}>
         Are you sure you want to delete {selectedlead?.friendlyname}?
       </p>
-      <p style={{ fontWeight: 100 }}>
+      <p style={{ fontWeight: 300 }}>
         If a campaign is using this dataset, it may lead to disruption in the
         campaign
       </p>
@@ -314,7 +314,7 @@ function Leads({ history }) {
                 <div className={classes.InputCont}>
                   {leads.length <= 0 ? (
                     <div className={classes.NoPhoneNumbers}>
-                      <h2 style={{ fontWeight: 100 }}>
+                      <h2 style={{ fontWeight: 300 }}>
                         No Lead Groups Created.
                       </h2>
                       <br />
@@ -365,25 +365,25 @@ function Leads({ history }) {
                     leads.map((lead) => {
                       return (
                         <tr className={classes.LeadGroup} key={lead._id}>
-                          <td style={{ fontWeight: 100 }}>
+                          <td style={{ fontWeight: 300 }}>
                             {lead?.friendlyname}
                           </td>
-                          <td style={{ fontWeight: 100 }}>
+                          <td style={{ fontWeight: 300 }}>
                             {lead?.originalname}
                           </td>
 
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             {lead?.uploadCount}
                           </td>
 
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             {lead?.totalProcessed}
                           </td>
                       
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             {lead?.globalduplicates}
                           </td>
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             <strong>METRO</strong>: {lead?.METRO || 0}<br></br> 
                             <strong>AT{"&"}T:</strong> {lead?.ATT || 0}  <br></br>
                             <strong>VERIZON:</strong> {lead?.VERIZON || 0}  <br></br>
@@ -393,17 +393,17 @@ function Leads({ history }) {
                             <strong>Landlines:</strong> {lead?.landline || 0} <br></br>
                             <strong style={{color: "red"}}>Blacklist:</strong> {lead?.blacklist || 0} <br></br>
                           </td>
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             {lead?.infileduplicates}
                           </td>
 
-                          <td style={{ fontWeight: 100, marginRight: 10 }}>
+                          <td style={{ fontWeight: 300, marginRight: 10 }}>
                             {moment(lead?.date).format("MM/DD/YYYY")}
                           </td>
 
                           <td
                             style={{
-                              fontWeight: 1000,
+                              fontWeight: 3000,
                               color:
                                 lead?.status === "scheduled"
                                   ? "gold"
@@ -433,7 +433,7 @@ function Leads({ history }) {
                             {lead?.status === "processing"? 
                             
                             <>
-                            <span style={{fontWeight: 100, color: "red"}}>Stop</span> {" "}
+                            <span style={{fontWeight: 300, color: "red"}}>Stop</span> {" "}
                             <FontAwesomeIcon
                               icon={faStopCircle}
                               onClick={() => {
@@ -442,7 +442,7 @@ function Leads({ history }) {
                               }}
                             />
                             </>
-                            : <p style={{fontWeight: 100}}>No Action</p>}
+                            : <p style={{fontWeight: 300}}>No Action</p>}
                           </td>
                         </tr>
                       );
@@ -451,7 +451,7 @@ function Leads({ history }) {
               </div>
               <div className={classes.loadmorecont}>
                 {nomoreresults ? (
-                  <p style={{ textAlign: "center", fontWeight: 100 }}>
+                  <p style={{ textAlign: "center", fontWeight: 300 }}>
                     End of results
                   </p>
                 ) : !nomoreresults && leads.length > 0 ? (

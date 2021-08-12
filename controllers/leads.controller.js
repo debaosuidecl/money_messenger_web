@@ -24,7 +24,7 @@ cloudinary.config({
 // @ts-ignore
 
 const socket1 = require("socket.io-client")(
-  "http://localhost:" + process.env.uploadleads1
+  "http://localhost:" + process.env.uploadleads1   // edit here
 );
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

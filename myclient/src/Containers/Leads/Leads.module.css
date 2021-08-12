@@ -228,7 +228,7 @@
 }
 
 .SMSROUTEDETAILS p {
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .SMSROUTEDETAILS .First {
@@ -452,7 +452,7 @@ th {
   font-size: 15px;
   color: #444;
   background: #eee;
-  font-weight: 80;
+  font-weight: 300;
 }
 
 td {

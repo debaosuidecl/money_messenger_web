@@ -475,7 +475,7 @@ function Campaigns({ history }) {
                 <div className={classes.InputCont}>
                   {campaigns.length <= 0 ? (
                     <div className={classes.NoPhoneNumbers}>
-                      <h2 style={{ fontWeight: 100 }}>You have No Campaigns</h2>
+                      <h2 style={{ fontWeight: 300 }}>You have No Campaigns</h2>
                       <br />
                       <button
                         onClick={() => history.push(`/campaigns/create/step1`)}
@@ -514,39 +514,39 @@ function Campaigns({ history }) {
                   campaigns.map((campaign) => {
                     return (
                       <tr className={classes.LeadGroup} key={campaign._id}>
-                        <td style={{ fontWeight: 100 }}>{campaign?.name}</td>
+                        <td style={{ fontWeight: 300 }}>{campaign?.name}</td>
 
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.leadgroup?.totalProcessed || "#no-lead"}
                         </td>
 
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.successfulsends
                             ? campaign?.successfulsends
                             : campaign?.totalsent}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.failedsends}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.payout || 0}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.clickcount || 0}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.conversioncount || 0}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.dataowner?.name}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.vertical?.name}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.domaingroup?.name}
                         </td>
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           <Link to={`/sms-routes/${campaign?.smsroute?._id}`}>
                             {campaign?.smsroute?.name}
                           </Link>{" "}
@@ -555,13 +555,13 @@ function Campaigns({ history }) {
                             : null}
                         </td>
 
-                        <td style={{ fontWeight: 100, marginRight: 10 }}>
+                        <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {moment(campaign?.date).format("MM/DD/YYYY")}
                         </td>
 
                         <td
                           style={{
-                            fontWeight: 1000,
+                            fontWeight: 3000,
                             color:
                               campaign?.status === "scheduled"
                                 ? "gold"
