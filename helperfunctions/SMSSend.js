@@ -14,7 +14,25 @@ function bulkSend(smsobjectsplit, smsroute, session) {
     resolve(res);
   });
 }
+async function bulkSendMoneyMessenger(smsobjectsplit) {
+  try {
+    // console.log(smsobjectsplit["lead"], smsobjectsplit["message"], 19999)
+    const result = await axios.post(
+      "http://localhost:1000/mmsend?api_key=u3PzY2kxEwCQ7mHDNq9B",
+      {
+        to_phone: smsobjectsplit["lead"],
+        message: smsobjectsplit["message"],
+      }
+    );
 
+    console.log(result.data, "from money_messenger");
+    return result.data;
+  } catch (error) {
+    console.log(error.response.data, "the error that occurred");
+    // return error.response.data
+    return { sent_data: false };
+  }
+}
 function sendfunc(smsobject, smsroute, session) {
   //   console.log(smsobject, smsroute, 15);
   return new Promise(async (resolve, reject) => {
@@ -75,4 +93,5 @@ function sendfunc(smsobject, smsroute, session) {
 
 module.exports = {
   bulkSend,
+  bulkSendMoneyMessenger,
 };

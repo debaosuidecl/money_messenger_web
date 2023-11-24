@@ -12,17 +12,17 @@ const LeadsTotal = new mongoose.Schema({
   },
 
   carrier: {
-    type: String
+    type: String,
   },
 
   status: {
     type: String,
   },
   reason: {
-    type: String
+    type: String,
   },
   type: {
-    type:  String,
+    type: String,
   },
   user: {
     type: String,
@@ -69,7 +69,7 @@ LeadsTotal.index({
 
 LeadsTotal.index({ shortid: 1 });
 
-LeadsTotal.index({user:1, phone: 1})
+LeadsTotal.index({ user: 1, phone: 1 });
 
 LeadsTotal.index({ user: 1, phone: 1, leadgroup: 1 }, { unique: true });
 

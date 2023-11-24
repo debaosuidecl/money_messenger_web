@@ -178,7 +178,8 @@ function SMSROUTESMPP() {
       handleClose={() => {
         setshowingspeedmodal(false);
         setinput1("");
-      }}>
+      }}
+    >
       <div className={classes.InputCont}>
         <h4 style={{ color: "#222", fontWeight: 100 }}>Set SMS TPS</h4>
         <br></br>
@@ -207,7 +208,8 @@ function SMSROUTESMPP() {
                 setspeed: true,
               })
             }
-            className={classes.buttonClass}>
+            className={classes.buttonClass}
+          >
             SET SPEED
           </Button>
         </div>
@@ -221,7 +223,8 @@ function SMSROUTESMPP() {
       handleClose={() => {
         setdeleteroutemodal(false);
       }}
-      maxWidth="500px">
+      maxWidth="500px"
+    >
       <h3 style={{ color: "red", fontWeight: 400 }}>
         Are you sure delete This Route?
       </h3>
@@ -239,12 +242,14 @@ function SMSROUTESMPP() {
             })
           }
           // onClick={() => dataowner_CRUD(true)}
-          className={[classes.Option, classes.Red].join(" ")}>
+          className={[classes.Option, classes.Red].join(" ")}
+        >
           Yes
         </button>
         <button
           onClick={() => setdeleteroutemodal(false)}
-          className={[classes.Option, classes.black].join(" ")}>
+          className={[classes.Option, classes.black].join(" ")}
+        >
           No
         </button>
       </div>
@@ -294,7 +299,8 @@ function SMSROUTESMPP() {
     <MyModal
       open={editmodalshowing}
       maxWidth="600px"
-      handleClose={handleclosesmppedit}>
+      handleClose={handleclosesmppedit}
+    >
       <div className={classes.InputCont}>
         <h4 style={{ color: "#222", fontWeight: 100 }}>
           Edit SMPP CONFIGURATION
@@ -339,7 +345,8 @@ function SMSROUTESMPP() {
             value={bindtypeedit}
             onChange={(e) => {
               setbindtypeedit(e.target.value);
-            }}>
+            }}
+          >
             <option value="">-- Select Bind Type --</option>
             <option value="transceiver">Transceiver</option>
             <option value="transmitter">Transmitter</option>
@@ -358,7 +365,8 @@ function SMSROUTESMPP() {
             className={classes.buttonClass}
             variant="contained"
             color="primary"
-            style={{ background: "black", width: "100%", color: "white" }}>
+            style={{ background: "black", width: "100%", color: "white" }}
+          >
             Confirm Edit
           </Button>
         </div>
@@ -421,7 +429,8 @@ function SMSROUTESMPP() {
                     setinput1(smsspeed);
                     // setinput2("");
                     setshowingspeedmodal(true);
-                  }}>
+                  }}
+                >
                   EDIT TPS <FontAwesomeIcon icon={faPen} />
                 </button>
               </div>
@@ -509,7 +518,8 @@ function SMSROUTESMPP() {
           <div className={classes.ButtonCont}>
             <button
               onClick={() => setdeleteroutemodal(true)}
-              className={classes.buttonClass2}>
+              className={classes.buttonClass2}
+            >
               DELETE ROUTE
             </button>
           </div>

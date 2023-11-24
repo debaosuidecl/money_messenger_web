@@ -58,7 +58,6 @@ function CreateMessageSchema({ history }) {
     // }
   }, []);
 
-  
   // useEffect(() => {
   //   console.log(633333)
   //   setisupdated(true);
@@ -294,7 +293,7 @@ function CreateMessageSchema({ history }) {
   };
   const updateMessageStructure = async () => {
     try {
-      if(!formatSchema)return;
+      if (!formatSchema) return;
       const { data } = await REQ(
         "post",
         `${GLOBAL.domainMain}/api/messageschema/save-schema/${id}`,
@@ -313,7 +312,7 @@ function CreateMessageSchema({ history }) {
         },
       ]);
 
-      setisupdated(false)
+      setisupdated(false);
 
       clearSuccesses();
 
@@ -371,11 +370,10 @@ function CreateMessageSchema({ history }) {
   );
   return (
     <Layout>
-
-<Prompt
-  when={isupdated}
-  message="Are you sure you want to leave this page without saving your message schema?"
-/>
+      <Prompt
+        when={isupdated}
+        message="Are you sure you want to leave this page without saving your message schema?"
+      />
       {ruledeletemodal(
         "Are You sure you want to delete this rule now?",
         showDeleteModal,
@@ -452,14 +450,10 @@ function CreateMessageSchema({ history }) {
                       placeholder="Please Enter a message schema"
                       value={formatSchema}
                       onChange={(e) => {
-                        setFormatSchema(e.target.value)
+                        setFormatSchema(e.target.value);
 
-                        setisupdated(true)
-                      
-                      }
-                      
-                      
-                      }
+                        setisupdated(true);
+                      }}
                     ></textarea>
                   </div>
                 </div>

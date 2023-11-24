@@ -12,7 +12,7 @@ const { validationResult } = require("express-validator");
 const { findoneuser } = require("../services/user.service");
 const { errorreturn } = require("../utils/returnerrorschema");
 
-const fs = require("fs")
+const fs = require("fs");
 //@ts-ignore
 const socket1 = require("socket.io-client")(
   "http://localhost:" + process.env.campaignserver1
@@ -92,7 +92,8 @@ async function createcampaignhandler(req, res) {
     }
     // const { page = 1, limit = 30 } = req.query;
 
-    const { domaingroup, leadgroup, messageschema, route,  ischeduled} = req.body;
+    const { domaingroup, leadgroup, messageschema, route, ischeduled } =
+      req.body;
 
     const myres = await bulkfindmodels(
       domaingroup,
@@ -111,13 +112,13 @@ async function createcampaignhandler(req, res) {
     const userforserver = await findoneuser({ _id: req.user.id });
     let carrierstoexclude = req.body.carrierstoexclude || [];
 
-    if(Array.isArray(carrierstoexclude)){
-      carrierstoexclude  = carrierstoexclude.slice(0,7)
+    if (Array.isArray(carrierstoexclude)) {
+      carrierstoexclude = carrierstoexclude.slice(0, 7);
     }
     const newcampaign = await createcampaign({
       leadgroup,
       domaingroup,
-      dataowner: domaingroupdoc.dataowner,
+      // dataowner: domaingroupdoc.dataowner,
       ischeduled: req.body.ischeduled,
       vertical: domaingroupdoc.traffic,
       name: req.body.name,
@@ -132,15 +133,16 @@ async function createcampaignhandler(req, res) {
 
     res.json(newcampaign);
 
-
-    if(!ischeduled){
-
+    if (!ischeduled) {
       return socket1.emit("send", newcampaign);
-    } 
+    }
 
-    console.log("writingto file")
+    console.log("writingto file");
 
-    fs.appendFileSync(`./scheduledorders/orders.txt`, `${newcampaign._id},${newcampaign.dateofschedule.toISOString()}\n`)
+    fs.appendFileSync(
+      `./scheduledorders/orders.txt`,
+      `${newcampaign._id},${newcampaign.dateofschedule.toISOString()}\n`
+    );
     return socket1.emit("scheduledsend", newcampaign);
   } catch (error) {
     console.log(error);

@@ -31,7 +31,8 @@ function TestComponent({
                 onClick={() => {
                   testagain();
                 }}
-                className={classes.buttonClass}>
+                className={classes.buttonClass}
+              >
                 Test Again
               </Button>
             </div>
@@ -66,7 +67,8 @@ function TestComponent({
               <textarea
                 placeholder="Please Enter the test message"
                 value={input3}
-                onChange={(e) => setinput3(e.target.value)}></textarea>
+                onChange={(e) => setinput3(e.target.value)}
+              ></textarea>
             </div>
 
             <br></br>
@@ -79,7 +81,8 @@ function TestComponent({
                     message: input3,
                   });
                 }}
-                className={classes.buttonClass}>
+                className={classes.buttonClass}
+              >
                 SEND TEST MESSAGE
               </Button>
             </div>

@@ -203,14 +203,14 @@ function CreateVertical({ history }) {
         />
 
         <br />
-        <div className={classes.ButtonCont}>
+        {/* <div className={classes.ButtonCont}>
           <Button
             onClick={() => editVertical()}
             className={classes.buttonClass}
           >
             Edit Vertical
           </Button>
-        </div>
+        </div> */}
       </div>
     </MyModal>
   );
@@ -272,7 +272,7 @@ function CreateVertical({ history }) {
                   <div className={classes.Title}>Tracking URL</div>
                   <div className={classes.subtitle2}>{url}</div>
                 </div>
-                <div className={classes.flex}>
+                {/* <div className={classes.flex}>
                   <Tooltip title="Click to copy postback" arrow>
                     <div
                       onClick={() => {
@@ -298,16 +298,16 @@ function CreateVertical({ history }) {
                   website or edit the query parameters to suit your needs while
                   keeping the root URL and the 2 important pixels "campaignid"
                   and "clickid" for proper revenue tracking.
-                </p>
+                </p> */}
 
-                <div className={classes.ButtonCont}>
+                {/* <div className={classes.ButtonCont}>
                   <Button
                     onClick={() => seteditmodalshowing(true)}
                     className={classes.buttonClass}
                   >
                     Edit Vertical
                   </Button>
-                </div>
+                </div> */}
                 <div className={classes.ButtonCont}>
                   <Button
                     // onClick={handleCreateVertical}

@@ -1,0 +1,40 @@
+.APIPage{
+    padding: 10px 30px;
+    margin: 20px auto;
+
+    background: white;
+    max-width: 1200px;
+    text-align: left;
+    /* border-top: 1px solid #19F318; */
+
+}
+
+.Header{
+    text-align: left;
+    font-size: 36px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+}
+.sub{
+    font-weight: 200;
+}
+
+.apikey1{
+    font-weight: 800;
+}
+.apikey2{
+    font-weight: 200;
+}
+.Copy{
+    color: #999;
+    transition: .3s;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.Copy:hover{
+    color: blue;
+    transition: .3s;
+    transform: translateY(-5px);
+    font-size: 25px;
+}

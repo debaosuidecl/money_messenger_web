@@ -4,7 +4,7 @@ import classes from "./Layout.module.css";
 import { withRouter, Link } from "react-router-dom";
 import LoadScreen from "../../Containers/LoadScreen/LoadScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import {
   faChartLine,
   faCog,
@@ -13,25 +13,30 @@ import {
   faLink,
   faMapSigns,
   faMarker,
-  faRoute,
+  // faRoute,
   faSms,
   faUserEdit,
   faUsersCog,
   faVectorSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
-import SideNav from "../SideNav/SideNav";
+// import SideNav from "../SideNav/SideNav";
 
 import { AuthContext } from "../../context/Auth.context";
 function Layout({ children }) {
-  const { loading, fullName, email, admin, logo, isauth } = useContext(
-    AuthContext
-  );
+  const { loading, fullName, email, admin, logo, isauth, balance } =
+    useContext(AuthContext);
   let [navitems] = useState([
     {
       name: "Dashboard",
       isactive: window.location.href.includes("dashboard"),
       link: "/dashboard",
+      icon: faChartLine,
+    },
+    {
+      name: "API Docs",
+      isactive: window.location.href.includes("api"),
+      link: "/apidocs",
       icon: faChartLine,
     },
     {
@@ -60,18 +65,20 @@ function Layout({ children }) {
     {
       name: "Domains",
 
-      isactive: window.location.href.includes("domains") || window.location.href.includes("domain-purchase") ,
+      isactive:
+        window.location.href.includes("domains") ||
+        window.location.href.includes("domain-purchase"),
 
       icon: faLink,
       link: "/domains",
     },
 
-    {
-      name: "SMS Routes",
-      icon: faRoute,
-      link: "/sms-routes",
-      isactive: window.location.href.includes("route"),
-    },
+    // {
+    //   name: "SMS Routes",
+    //   icon: faRoute,
+    //   link: "/sms-routes",
+    //   isactive: window.location.href.includes("route"),
+    // },
     {
       name: "My Leads",
       icon: faUsersCog,
@@ -81,7 +88,7 @@ function Layout({ children }) {
     },
 
     {
-      name: "Messages",
+      name: "Message Schema",
       icon: faSms,
       link: "/campaign-message",
       isactive: window.location.href.includes("campaign-message"),
@@ -131,7 +138,7 @@ function Layout({ children }) {
         <div className={classes.TopBar}>
           {/* <h1>Custom Logo</h1> */}
           <img
-            height="55px"
+            height="75px"
             src={logo}
             // src="https://www.pngarts.com/files/12/Budget-Logo-PNG-Image-Background.png"
             alt="logo"
@@ -145,7 +152,8 @@ function Layout({ children }) {
                         style={{
                           color: item.isactive ? "crimson" : "black",
                         }}
-                        to={item.link}>
+                        to={item.link}
+                      >
                         {item.name}
                       </Link>
                     </li>
@@ -156,58 +164,73 @@ function Layout({ children }) {
                         style={{
                           color: item.isactive ? "crimson" : "black",
                         }}
-                        to={item.link}>
+                        to={item.link}
+                      >
                         {item.name}
                       </Link>
                     </li>
                   ))}
             </ul>
           ) : null}
-          <Dropdown>
-            <Dropdown.Toggle variant="dark" id="dropdown-basic">
-              <FontAwesomeIcon icon={faCog} />
-            </Dropdown.Toggle>
+          <div className={classes.PaymentAndDropDown}>
+            <Button
+              onClick={() => {
+                window.location.href = "/payments";
+              }}
+            >
+              Topup Balance: ${balance.toFixed(2)}{" "}
+            </Button>
+            <Dropdown>
+              <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                <FontAwesomeIcon icon={faCog} />
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="#">
-                <div className={classes.flex}>
-                  <div className={classes.CircleAvatar}>
-                    {fullName?.substring(0, 1)?.toUpperCase()}
+              <Dropdown.Menu>
+                <Dropdown.Item href="#">
+                  <div className={classes.flex}>
+                    <div className={classes.CircleAvatar}>
+                      {fullName?.substring(0, 1)?.toUpperCase()}
+                    </div>
+                    <div>({email})</div>
                   </div>
-                  <div>({email})</div>
-                </div>
-              </Dropdown.Item>
-              {admin ? null : (
-                <>
-                  <Dropdown.Item href="/info/update-my-info">
-                    Update My Info
-                  </Dropdown.Item>
-                  <Dropdown.Item href="/frequently-asked-questions">
-                    FAQs
-                  </Dropdown.Item>
-                </>
-              )}
+                </Dropdown.Item>
+                {admin ? null : (
+                  <>
+                    <Dropdown.Item href="/info/update-my-info">
+                      Update My Info
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/info/update-my-info">
+                      Payments
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/frequently-asked-questions">
+                      FAQs
+                    </Dropdown.Item>
+                  </>
+                )}
 
-              <div className={classes.mobileonly}>
-                {navitems.map((item) => (
-                  <Dropdown.Item href={item.link} key={item.name}>
-                    <Link
-                      style={{
-                        color: item.isactive ? "crimson" : "black",
-                      }}
-                      to={item.link}>
-                      {item.name}
-                    </Link>
-                  </Dropdown.Item>
-                ))}
-              </div>
-              <Dropdown.Item
-                onClick={() => localStorage.removeItem("token")}
-                href="/login">
-                <span style={{ color: "red" }}>Logout</span>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <div className={classes.mobileonly}>
+                  {navitems.map((item) => (
+                    <Dropdown.Item href={item.link} key={item.name}>
+                      <Link
+                        style={{
+                          color: item.isactive ? "crimson" : "black",
+                        }}
+                        to={item.link}
+                      >
+                        {item.name}
+                      </Link>
+                    </Dropdown.Item>
+                  ))}
+                </div>
+                <Dropdown.Item
+                  onClick={() => localStorage.removeItem("token")}
+                  href="/login"
+                >
+                  <span style={{ color: "red" }}>Logout</span>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
         <div className={classes.Layout}>
           {/* {!removesidenav ? (

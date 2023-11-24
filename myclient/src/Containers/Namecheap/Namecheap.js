@@ -211,7 +211,7 @@ function Namecheap({ history }) {
       console.log(data);
 
       if (!data.user) {
-        return
+        return;
         // return setloading(false);
       }
 

@@ -31,18 +31,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function CreateCampaigns({ history }) {
-  // const [loading, setloading] = useState(true);
   const [errors, seterrors] = useState([]);
   const [successes, setsuccesses] = useState([]);
   const [isuploading, setisuploading] = useState(false);
 
-  // const [phone, setphone] = useState("");
-  // const [dataowner, setdataowner] = useState("");
   const [name, setname] = useState("");
   // const [vertical, setvertical] = useState("");
   const [messageschema, setmessageschema] = useState("");
   const [domaingroup, setdomaingroup] = useState("");
-  const [route, setroute] = useState("");
+  const [route, setroute] = useState({ _id: "64baf1a2d4868cd9b473948c" });
   const [leadgroup, setleadgroup] = useState("");
   const [resultarray, setresultarray] = useState([]);
   const [showingmodal, setshowingmodal] = useState(false);
@@ -56,7 +53,7 @@ function CreateCampaigns({ history }) {
   const [scheduletype, setscheduletype] = useState("off");
   const [scheduledate, setscheduledate] = useState(new Date());
   const [scheduletime, setscheduletime] = useState(new Date());
-  const [carrierstoexclude, setcarrierstoexclude] = useState([])
+  const [carrierstoexclude, setcarrierstoexclude] = useState([]);
 
   const [isstaticsearch, setisstaticsearch] = useState(false);
   const [ismultiselect, setismultiselect] = useState(false);
@@ -182,17 +179,17 @@ function CreateCampaigns({ history }) {
       setroute(result);
     }
 
-    if(valueoffetch === "carrier"){
-        const carriers = [...carrierstoexclude]
-        const carrierexists = carriers.find((c)=> c._id === result._id)
+    if (valueoffetch === "carrier") {
+      const carriers = [...carrierstoexclude];
+      const carrierexists = carriers.find((c) => c._id === result._id);
 
-        if(carrierexists){
-          setcarrierstoexclude((prev)=> [...prev].filter(c=> c._id !== result._id))
-        }
-        else 
-        setcarrierstoexclude((prev)=> [...prev, result])
-        console.log(carrierstoexclude)
-        return;
+      if (carrierexists) {
+        setcarrierstoexclude((prev) =>
+          [...prev].filter((c) => c._id !== result._id)
+        );
+      } else setcarrierstoexclude((prev) => [...prev, result]);
+      console.log(carrierstoexclude);
+      return;
     }
     handleClose();
   };
@@ -201,10 +198,10 @@ function CreateCampaigns({ history }) {
     if (
       // !dataowner ||
       // !vertical ||
-      !domaingroup ||
+      // !domaingroup ||
       !messageschema ||
       !leadgroup ||
-      !route ||
+      // !route ||
       !name
     ) {
       return true;
@@ -261,15 +258,7 @@ function CreateCampaigns({ history }) {
 
       action: () => setfetchvalue("leads", "Lead Group"),
     },
-    {
-      name: "Select an SMS route *",
-      value: route,
-      set: setroute,
-      //   action: vertical
-      friendlyname: "SMS Route",
 
-      action: () => setfetchvalue("smsroutes", "Route"),
-    },
     {
       name: "Select the Carriers you wish to exclude from this campaign",
       value: carrierstoexclude,
@@ -277,7 +266,8 @@ function CreateCampaigns({ history }) {
       //   action: vertical
       friendlyname: "Carrier Exclusion",
 
-      action: () => setstaticvalue("carrier", "Carriers to exclude", null, true),
+      action: () =>
+        setstaticvalue("carrier", "Carriers to exclude", null, true),
     },
   ];
 
@@ -289,7 +279,7 @@ function CreateCampaigns({ history }) {
     setpage(0);
     setvalueoffetch("");
     setisstaticsearch(false);
-    setismultiselect(false)
+    setismultiselect(false);
   };
   const setstaticvalue = async (option, friendlyName, newpage, multiselect) => {
     console.log(option);
@@ -297,76 +287,66 @@ function CreateCampaigns({ history }) {
     setvalueoffetch(option);
     setshowingmodal(true);
     setsearchvalue("");
-    if(multiselect){
-    
-      setismultiselect(true)
+    if (multiselect) {
+      setismultiselect(true);
     }
 
     setvalueoffetchfriendly(friendlyName);
-    setisstaticsearch(true)
+    setisstaticsearch(true);
 
     // console.log(newpage);
     // setpage(newpage | 0);
     try {
-
-        setnomoreresults(true);
+      setnomoreresults(true);
 
       const data = [
         {
-        name: "VERIZON",
-        date: new Date(),
+          name: "VERIZON",
+          date: new Date(),
 
-        _id: 1,
-      
-      },
+          _id: 1,
+        },
         {
-        name: "AT&T",
-        date: new Date(),
+          name: "AT&T",
+          date: new Date(),
 
-        _id: 2,
-      
-      },
+          _id: 2,
+        },
         {
-        name: "SPRINT",
-        date: new Date(),
+          name: "SPRINT",
+          date: new Date(),
 
-        _id: 3,
-      
-      },
-    
-        {
-        name: "T-MOBILE",
-        date: new Date(),
+          _id: 3,
+        },
 
-        _id: 4,
-      
-      },
-    
-    
         {
-        name: "METRO",
-        date: new Date(),
+          name: "T-MOBILE",
+          date: new Date(),
 
-        _id: 5,
-      
-      },
-    
-    
-        {
-        name: "US Cellular",
-        date: new Date(),
+          _id: 4,
+        },
 
-        _id: 6,
-      
-      },
         {
-        name: "OTHER",
-        date: new Date(),
-        _id: 7,  
-      },
-    ]
+          name: "METRO",
+          date: new Date(),
+
+          _id: 5,
+        },
+
+        {
+          name: "US Cellular",
+          date: new Date(),
+
+          _id: 6,
+        },
+        {
+          name: "OTHER",
+          date: new Date(),
+          _id: 7,
+        },
+      ];
       setresultarray((prev) => {
-        return [ ...data];
+        return [...data];
       });
     } catch (error) {
       seterrorinfetch(error?.response?.data?.errors[0].msg);
@@ -441,19 +421,15 @@ function CreateCampaigns({ history }) {
           <h3> Select {valueoffetchfriendly}</h3>
           <br />
 
-{
-  isstaticsearch
-  ?
-  null :
+          {isstaticsearch ? null : (
+            <MyInput
+              placeholder="Search"
+              value={searchvalue}
+              onChange={(e) => searchvaluechangehandler(e, valueoffetch)}
+              label={`Search ${valueoffetchfriendly} list`}
+            ></MyInput>
+          )}
 
-  <MyInput
-  placeholder="Search"
-  value={searchvalue}
-  onChange={(e) => searchvaluechangehandler(e, valueoffetch)}
-  label={`Search ${valueoffetchfriendly} list`}
-></MyInput>
-}
-       
           {/* <br /> */}
 
           <div className={classes.results}>
@@ -469,10 +445,14 @@ function CreateCampaigns({ history }) {
             {resultarray &&
               resultarray.map((result) => (
                 <div
-                style={{
-                  // boxShadow: "1px 0px 10px #bbb",
-                  border: valueoffetch === "carrier" && carrierstoexclude.find(c=> c._id === result._id)? "1px solid lightgreen": undefined,
-                }}
+                  style={{
+                    // boxShadow: "1px 0px 10px #bbb",
+                    border:
+                      valueoffetch === "carrier" &&
+                      carrierstoexclude.find((c) => c._id === result._id)
+                        ? "1px solid lightgreen"
+                        : undefined,
+                  }}
                   onClick={() => selectoption(result)}
                   className={classes.Card}
                   key={result._id}
@@ -481,8 +461,6 @@ function CreateCampaigns({ history }) {
                     <b>{result.friendlyname || result.name}</b>
                   </h4>
                   <p>{moment(result.date).format("MMMM Do YYYY")}</p>
-
-
                 </div>
               ))}
 
@@ -555,7 +533,6 @@ function CreateCampaigns({ history }) {
                     <div
                       key={item.name}
                       onClick={item.action}
-                 
                       className={
                         item.value
                           ? [classes.SelectContainer, classes.active].join(" ")
@@ -563,7 +540,7 @@ function CreateCampaigns({ history }) {
                       }
                     >
                       <p>
-                        {item.value  && !Array.isArray(item.value)? (
+                        {item.value && !Array.isArray(item.value) ? (
                           <>
                             <strong>{item.friendlyname}: </strong>
                             <span>
@@ -572,27 +549,34 @@ function CreateCampaigns({ history }) {
                                 : item.value.name}
                             </span>
                           </>
-                        ) : item.value && Array.isArray(item.value) && item.value.length > 0?
-                                // <p>show array value</p>
-                                <>
-                                <strong>Currently excluding the following carriers:</strong>
-                                {
-
-                              item.value && item.value.map(carrier=> <font style={{display: "block", marginBottom: 5,}}>{carrier.name}</font>)
-                                }
-                              </>
-                      : 
-                      (
+                        ) : item.value &&
+                          Array.isArray(item.value) &&
+                          item.value.length > 0 ? (
+                          // <p>show array value</p>
+                          <>
+                            <strong>
+                              Currently excluding the following carriers:
+                            </strong>
+                            {item.value &&
+                              item.value.map((carrier) => (
+                                <font
+                                  style={{ display: "block", marginBottom: 5 }}
+                                >
+                                  {carrier.name}
+                                </font>
+                              ))}
+                          </>
+                        ) : (
                           item.name
                         )}
-                    
+
                         {item.friendlyname === "Domain Group" && item.value ? (
                           <>
-                            <font style={{display: "block", marginBottom: 0,}}>
+                            <font style={{ display: "block", marginBottom: 0 }}>
                               <strong>Vertical:</strong>{" "}
                               {item.value?.traffic.name}
                             </font>
-                      
+
                             <font>
                               <strong>Data owner:</strong>{" "}
                               {item.value?.dataowner.name}
@@ -603,7 +587,6 @@ function CreateCampaigns({ history }) {
                     </div>
                   ))}
                 </div>
-
 
                 {/* <div className={classes.InputCont}>
                   <p>Let's get CARRIER FILTER CONTENT HERE</p>
@@ -645,7 +628,6 @@ function CreateCampaigns({ history }) {
 
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <Grid container justify="space-between">
-            
                       <KeyboardDatePicker
                         margin="normal"
                         id="date-picker-dialog"
@@ -684,8 +666,6 @@ function CreateCampaigns({ history }) {
                       />
                     </Grid>
                   </MuiPickersUtilsProvider>
-
-              
                 </div>
               </div>
               <br />

@@ -14,6 +14,7 @@ function AuthContextProvider({ children, location, history }) {
   const [loading, setLoading] = useState(true);
   const [isauth, setauth] = useState(true);
   const [fullName, setFullName] = useState("");
+  const [balance, setbalance] = useState(0);
   const [email, setemail] = useState("");
   const [admin, setadmin] = useState(false);
   const [logo, setlogo] = useState(false);
@@ -90,6 +91,7 @@ function AuthContextProvider({ children, location, history }) {
             adminlogo,
             companyname,
             adminfavicon,
+            balance,
           } = response.data;
 
           console.log(adminlogo);
@@ -104,6 +106,7 @@ function AuthContextProvider({ children, location, history }) {
           } else {
             setFullName(fullName);
             setemail(email);
+            setbalance(balance || 0);
             setpremium(premium || false);
             setadmin(admin || false);
             console.log(response.data);
@@ -169,6 +172,7 @@ function AuthContextProvider({ children, location, history }) {
         setnewpassword,
         company,
         favicon,
+        balance,
         // token,
         // loading,
       }}

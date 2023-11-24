@@ -14,7 +14,8 @@ function ProcessLoader({ action }) {
         variant="contained"
         onClick={() => action(false)}
         color="primary"
-        style={{ background: "black", color: "white" }}>
+        style={{ background: "black", color: "white" }}
+      >
         Cancel Test
       </Button>
       {/* </div> */}

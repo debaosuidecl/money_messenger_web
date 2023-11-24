@@ -5,6 +5,8 @@ const {
   sendnewpasswordtoemail,
   updateuserpassword,
   updateuser,
+  createUserMessage,
+  countUserMessage,
 } = require("../services/user.service");
 // const { check } = require("express-validator");
 let uuidv4 = require("uuid");
@@ -19,6 +21,7 @@ dotenv.config();
 const cloudinary = require("cloudinary").v2;
 const multer = require("multer");
 const { errorreturn } = require("../utils/returnerrorschema");
+const ApikeyModel = require("../models/Apikey.model");
 
 cloudinary.config({
   cloud_name: process.env.cloud_name,
@@ -390,8 +393,149 @@ async function updateuserfaviconhandler(req, res) {
     return errorreturn(res, 401, "could not upload to cloud");
   }
 }
+
+async function getApiKeyHandler(req, res) {
+  try {
+
+    let apiData = await ApikeyModel.findOne({}).sort("-createdAt")
+
+    if(req.params.apikey != apiData.apiKey){
+      // apiKey: req.params.apikey
+      return res.status(400).send({
+        message: "Invalid API Key",
+        error: true,
+      });
+    }
+    if (!apiData) {
+      return res.status(400).send({
+        message: "api key not found",
+        error: true,
+      });
+    }
+
+    // let user = await findoneuser({ _id: apiData.user }, "apiKey");
+
+
+    const currentDate = new Date();
+    const one_minute_ago_date = new Date(
+      currentDate.getTime() - 1 * 60 * 1000
+    ).getTime();
+    // return one_minute_ago_date;
+
+    let [allowedCountPerMinute, user] = await Promise.all([
+      
+      countUserMessage({
+      user_id: apiData.user,
+      createdAt: {
+        $gte: one_minute_ago_date,
+      },
+    }),
+   findoneuser({ _id: apiData.user }, "apiKey"),
+
+  ]);
+
+    return res.send({ user, allowedCountPerMinute ,apiData});
+  } catch (error) {
+    return errorreturn(res, 401, "could not find user");
+  }
+}
+async function createApiKeyHandler(req, res) {
+  try {
+  } catch (error) {}
+}
+// async function increaseSendCountOfUser(req, res) {
+//   try {
+//     // let user = updateuser({ apiKey: req.params.apikey }, {
+
+//     // })
+//     let user_id = req.params.user_id;
+//     let { to, from, message } = req.body
+
+//     console.log("user_id", user_id)
+
+//     if (!user) {
+//       return res.status(400).json({
+//         message: "User not found",
+//         error: true
+//       })
+//     }
+
+//     let res = await createUserMessage({ to, from, message, user_id })
+
+//     if (!res) {
+//       return res.status(400).json({
+//         message: "Could not create message",
+//         error: true
+//       })
+//     }
+
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).json({
+//       message: "server error"
+//     })
+//   }
+// }
+async function increaseSendCountOfUser(req, res) {
+  try {
+    // let user = updateuser({ apiKey: req.params.apikey }, {
+
+    // })
+    let user_id = req.params.user_id;
+    let { to, from, message } = req.body;
+
+    // console.log("user_id", user_id);
+    // console.log(req.body, 477);
+
+    let createdMessage = await createUserMessage({
+      to,
+      from,
+      message,
+      user_id,
+    });
+
+    if (!createdMessage) {
+      return res.status(400).json({
+        message: "Could not create message",
+        error: true,
+      });
+    }
+
+    return res.json({
+      message: "sent",
+      id: createdMessage._id,
+      stat
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "server error",
+    });
+  }
+}
+
+async function countUserSends(req, res) {
+  try {
+    let { from, to } = req.query;
+    let messageCount = await countUserMessage({
+      user_id: req.user.id,
+      createdAt: {
+        $lte: parseInt(to),
+        $gte: parseInt(from),
+      },
+    });
+
+    return res.send({ messageCount });
+  } catch (error) {
+    res.status(500).send({
+      message: "server error",
+      error: true,
+    });
+  }
+}
 module.exports = {
   forgotPasswordHandler,
+  countUserSends,
   tokenverifyhandler,
   resetpasswordhandler,
   verifyPasswordsMatch,
@@ -399,4 +543,7 @@ module.exports = {
   upload,
   uploadfavico,
   updateuserfaviconhandler,
+  getApiKeyHandler,
+  createApiKeyHandler,
+  increaseSendCountOfUser,
 };

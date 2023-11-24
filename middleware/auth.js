@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { findoneuser } = require("../services/user.service");
 const { errorreturn } = require("../utils/returnerrorschema");
-const dotenv = require("dotenv")
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 module.exports = async function (req, res, next) {
   //Get Token from header
   const token = req.header("x-auth-token"); // extract token from the request header

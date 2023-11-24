@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const UserMessage = require("../models/UserMessage");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
@@ -8,9 +9,15 @@ const { saltifytext } = require("../utils/saltifytext");
 dotenv.config();
 
 const JWT_SECRET = process.env.JWTSCERET;
-async function findoneuser(query) {
+async function findoneuser(query, remove) {
   try {
-    const user = await User.findOne(query);
+    let user;
+    if (remove) {
+      user = await User.findOne(query).select(`-${remove}`);
+    } else {
+      user = await User.findOne(query);
+    }
+
     return user;
   } catch (error) {
     console.log(error);
@@ -163,6 +170,47 @@ async function updateuser(query, update, type = "set") {
     return false;
   }
 }
+
+async function createUserMessage(query) {
+  const { user_id, message, from, to } = query;
+
+  try {
+    let res = await Promise.all([
+      new UserMessage({
+        user_id,
+        message,
+        from,
+        to,
+      }).save(),
+
+      User.findOneAndUpdate(
+        {
+          _id: user_id,
+        },
+        {
+          $inc: {
+            balance: -0.02,
+          },
+        }
+      ),
+    ]);
+
+    return res[0];
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+async function countUserMessage(query) {
+  try {
+    let res = await UserMessage.countDocuments(query);
+
+    return res;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
 module.exports = {
   findoneuser,
   createonetimelink,
@@ -173,4 +221,6 @@ module.exports = {
   countuserdocuments,
   createuser,
   deleteuser,
+  createUserMessage,
+  countUserMessage,
 };

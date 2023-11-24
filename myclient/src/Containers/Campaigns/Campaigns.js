@@ -21,7 +21,7 @@ import classes from "./Campaigns.module.css";
 import socketIOClient from "socket.io-client";
 import MyModal from "../../Component/MyModal/MyModal";
 import Info from "../../Component/Info/Info";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import MyInput from "../../Component/Input/Input";
 // import FilterCont from "./FilterCont";
 
@@ -349,7 +349,8 @@ function Campaigns({ history }) {
       handleClose={() => {
         setdeletemodalshowing(false);
       }}
-      maxWidth="500px">
+      maxWidth="500px"
+    >
       <h6 style={{ color: "red", fontWeight: 100 }}>
         Are you sure you want to abort {selectedcampaign?.name}?
       </h6>
@@ -360,13 +361,15 @@ function Campaigns({ history }) {
       <div className={classes.ButtonCont}>
         <button
           onClick={() => deletecampaign()}
-          className={[classes.Option, classes.Red].join(" ")}>
+          className={[classes.Option, classes.Red].join(" ")}
+        >
           Yes
         </button>
         <button
           style={{ background: "black" }}
           onClick={() => setdeletemodalshowing(false)}
-          className={[classes.Option].join(" ")}>
+          className={[classes.Option].join(" ")}
+        >
           No
         </button>
       </div>
@@ -378,7 +381,8 @@ function Campaigns({ history }) {
       handleClose={() => {
         setabortmodalshowing(false);
       }}
-      maxWidth="500px">
+      maxWidth="500px"
+    >
       <h6 style={{ color: "red", fontWeight: 100 }}>
         Are you sure you want to abort {selectedcampaign?.name}?
       </h6>
@@ -389,13 +393,15 @@ function Campaigns({ history }) {
       <div className={classes.ButtonCont}>
         <button
           onClick={() => abortcampaign()}
-          className={[classes.Option, classes.Red].join(" ")}>
+          className={[classes.Option, classes.Red].join(" ")}
+        >
           Yes
         </button>
         <button
           style={{ background: "black" }}
           onClick={() => setdeletemodalshowing(false)}
-          className={[classes.Option].join(" ")}>
+          className={[classes.Option].join(" ")}
+        >
           No
         </button>
       </div>
@@ -430,7 +436,8 @@ function Campaigns({ history }) {
                 history.push(`/campaigns/create`);
               }}
               className=""
-              style={{ marginRight: 20, cursor: "pointer" }}>
+              style={{ marginRight: 20, cursor: "pointer" }}
+            >
               Create Campaign{" "}
               <FontAwesomeIcon
                 style={{ cursor: "pointer" }}
@@ -442,7 +449,8 @@ function Campaigns({ history }) {
                 loading
                   ? [classes.Trailing, classes.Rolling].join(" ")
                   : classes.Trailing
-              }>
+              }
+            >
               Reload{" "}
               <FontAwesomeIcon
                 onClick={() => {
@@ -479,7 +487,8 @@ function Campaigns({ history }) {
                       <br />
                       <button
                         onClick={() => history.push(`/campaigns/create/step1`)}
-                        className={classes.Button}>
+                        className={classes.Button}
+                      >
                         Create One <FontAwesomeIcon icon={faPlusCircle} />
                       </button>
                     </div>
@@ -498,12 +507,12 @@ function Campaigns({ history }) {
                   <th>No. of Leads</th>
                   <th>Successful Sends</th>
                   <th>Failed Sends</th>
-                  <th>Payout</th>
+                  {/* <th>Payout</th>
                   <th>Clicks</th>
                   <th>Conversions</th>
                   <th>Data Supplier</th>
                   <th>Vertical</th>
-                  <th>Domain Group</th>
+                  <th>Domain Group</th> */}
                   <th>SMS Route</th>
                   <th>Upload date</th>
                   <th>Status</th>
@@ -528,7 +537,7 @@ function Campaigns({ history }) {
                         <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.failedsends}
                         </td>
-                        <td style={{ fontWeight: 300, marginRight: 10 }}>
+                        {/* <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.payout || 0}
                         </td>
                         <td style={{ fontWeight: 300, marginRight: 10 }}>
@@ -545,11 +554,11 @@ function Campaigns({ history }) {
                         </td>
                         <td style={{ fontWeight: 300, marginRight: 10 }}>
                           {campaign?.domaingroup?.name}
-                        </td>
+                        </td> */}
                         <td style={{ fontWeight: 300, marginRight: 10 }}>
-                          <Link to={`/sms-routes/${campaign?.smsroute?._id}`}>
-                            {campaign?.smsroute?.name}
-                          </Link>{" "}
+                          {/* <Link to={`/sms-routes/${campaign?.smsroute?._id}`}> */}
+                          {campaign?.smsroute?.name}
+                          {/* </Link>{" "} */}
                           {campaign?.status === "sending"
                             ? campaign?.smsroute?.defaultsendspeed + "T/S"
                             : null}
@@ -573,7 +582,8 @@ function Campaigns({ history }) {
                                 : campaign?.status === "sending"
                                 ? "blue"
                                 : "lightgreen",
-                          }}>
+                          }}
+                        >
                           {campaign?.status}
                           {campaign?.status === "scheduled" ? (
                             <>
@@ -664,7 +674,8 @@ function Campaigns({ history }) {
             <button
               disabled={isfetching}
               onClick={() => setfetchvalue("campaigns", page + 1)}
-              className={classes.loadmore}>
+              className={classes.loadmore}
+            >
               Load More
             </button>
           ) : null}

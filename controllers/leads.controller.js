@@ -24,7 +24,7 @@ cloudinary.config({
 // @ts-ignore
 
 const socket1 = require("socket.io-client")(
-  "http://localhost:" + process.env.uploadleads1   // edit here
+  "http://localhost:" + process.env.uploadleads1 // edit here
 );
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -46,7 +46,10 @@ var upload = multer({
   },
   fileFilter: (req, file, cb) => {
     console.log(file);
-    if (file.mimetype == "application/vnd.ms-excel" || file.mimetype == "text/csv") {
+    if (
+      file.mimetype == "application/vnd.ms-excel" ||
+      file.mimetype == "text/csv"
+    ) {
       console.log("Hit here2222");
       cb(null, true);
     } else {
@@ -382,13 +385,16 @@ async function fuzzysearchleads(req, res) {
 async function deleteleadgrouphandler(req, res) {
   console.log(req.params);
   try {
-    const leadgroupfound = await findAndUpdateleadgroup({
-      _id: req.params.id,
-      user: req.user.id,
-    },{
-      status: "deleted",
-
-    }, "set");
+    const leadgroupfound = await findAndUpdateleadgroup(
+      {
+        _id: req.params.id,
+        user: req.user.id,
+      },
+      {
+        status: "deleted",
+      },
+      "set"
+    );
     if (!leadgroupfound) {
       return res.status(400).json({
         errors: [
@@ -430,6 +436,7 @@ async function deleteleadgrouphandler(req, res) {
     });
   }
 }
+
 module.exports = {
   findleadshandler,
   findsingleleadhandler,

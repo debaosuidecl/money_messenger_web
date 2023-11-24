@@ -191,15 +191,8 @@ async function createsmsroutehandler(req, res) {
       });
     }
 
-    const {
-      name,
-      routetype,
-      username,
-      password,
-      endpoint,
-      bindtype,
-      port,
-    } = req.body;
+    const { name, routetype, username, password, endpoint, bindtype, port } =
+      req.body;
 
     if (routetype === "API") {
       const smsroute = await createsmsroute({

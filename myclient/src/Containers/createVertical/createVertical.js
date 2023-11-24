@@ -57,7 +57,7 @@ function CreateVertical({ history }) {
           routeList={[
             {
               name: "Home",
-              link: "/",
+              link: "/dashboard",
             },
             {
               name: "Verticals",
@@ -97,30 +97,30 @@ function CreateVertical({ history }) {
               Important Pixels for the Vertical URL
             </h4>
             <div className={classes.ImportantPixels}>
-              <div className={classes.Pixel}>
+              {/* <div className={classes.Pixel}>
                 {"{"}campaignid{"}"}
-              </div>
+              </div> */}
               <div className={classes.Pixel}>
                 {"{"}clickid{"}"}
               </div>
             </div>
             <h4 className={classes.subtitle} style={{ fontSize: 12 }}>
-              NOTE: Vertical URL must contain {"{"}campaignid{"}"} {"&"} {"{"}
+              NOTE: Vertical URL must contain {"{"}
               clickid{"}"} for proper tracking. eg:{" "}
               {
                 "https://my-example-vertical-link.com?clickidpixel={clickid}&campaignidpixel={campaignid}"
               }
             </h4>
-            <h4 className={classes.subtitle} style={{ fontSize: 12 }}>
+            {/* <h4 className={classes.subtitle} style={{ fontSize: 12 }}>
               A Postback will be generated for with the schema{" "}
               <strong>
                 {
-                  "https://app.powersms.land/api/leadactivity/converters/{specialid}?clickid={clickidpixel}&campaignid={campaignidpixel}&payout={payoutpixel}"
+                  "https://moneymessenger.com/api/leadactivity/converters/{specialid}?clickid={clickidpixel}&campaignid={campaignidpixel}&payout={payoutpixel}"
                 }
               </strong>{" "}
               where {"{"}payoutpixel{"}"} will be the expected payout provided
               by the advertiser and {"{"}specialid{"}"}  is an id linked to your powersms account
-            </h4>
+            </h4> */}
             <div className={classes.ButtonCont}>
               <Button
                 onClick={handleCreateVertical}

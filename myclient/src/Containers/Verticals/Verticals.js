@@ -4,7 +4,11 @@ import Layout from "../../Component/Layout/Layout";
 import classes from "./Verticals.module.css";
 import { FontAwesomeIcon as F } from "@fortawesome/react-fontawesome";
 import VerticalImage from "../../images/business2.jpg";
-import { faPlusCircle, faVideo, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle,
+  faVideo,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Routes from "../../Component/Routes/Routes";
 import MyInput from "../../Component/Input/Input";
@@ -18,7 +22,7 @@ import VideoDisplay from "../../Component/VideoDisplay/VideoDisplay";
 function Verticals() {
   const [verticallist, setverticallist] = useState([]);
   const [loading, setloading] = useState(true);
-  const [showingvideo, setshowingvideo] = useState(false)
+  const [showingvideo, setshowingvideo] = useState(false);
 
   /* PAGINATION STATE */
   const [searchvalue, setsearchvalue] = useState("");
@@ -26,8 +30,6 @@ function Verticals() {
   const [nomoreresults, setnomoreresults] = useState(false);
   const [isfetching, setisfetching] = useState(false);
   /* PAGINATION STATE ENDS*/
-
-
 
   useEffect(() => {
     fetchVerticals();
@@ -80,8 +82,7 @@ function Verticals() {
       setverticallist((prev) => {
         return [...prev, ...data];
       });
-    } catch (error) {
-    }
+    } catch (error) {}
     setisfetching(false);
   };
   const fetchVerticals = async () => {
@@ -99,30 +100,33 @@ function Verticals() {
     }
   };
 
-
-  const showvideohandler = ()=>{
-    setshowingvideo(true)
-  }
+  const showvideohandler = () => {
+    setshowingvideo(true);
+  };
 
   return (
     <Layout>
+      <MyModal maxWidth={1000} open={showingvideo}>
+        <div className={classes.Flex}>
+          <h2 style={{ fontWeight: 200 }}>Power SMS Verticals</h2>
+          <F
+            style={{ cursor: "pointer" }}
+            onClick={() => setshowingvideo(false)}
+            icon={faTimesCircle}
+          />
+        </div>
 
-
-<MyModal maxWidth={1000}  open={showingvideo}>
-    <div className={classes.Flex}>
-
-    <h2 style={{fontWeight: 200}}>Power SMS Verticals</h2>
-      <F style={{cursor: "pointer"}}  onClick={()=>setshowingvideo(false)}  icon={faTimesCircle}/>
-    </div>
-
-      <VideoDisplay src="https://player.vimeo.com/video/585096244?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Create A Vertical"/>
-</MyModal>
+        <VideoDisplay
+          src="https://player.vimeo.com/video/585096244?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          title="Create A Vertical"
+        />
+      </MyModal>
       <div className={classes.Vertical}>
         <Routes
           routeList={[
             {
               name: "Home",
-              link: "/",
+              link: "/dashboard",
             },
           ]}
         />
@@ -133,9 +137,10 @@ function Verticals() {
           </div>
 
           <div className={classes.Flex}>
-            <div className={classes.createButton}  onClick={showvideohandler}  >
-            <span>Tutorial  <F icon={faVideo} /></span>
-          
+            <div className={classes.createButton} onClick={showvideohandler}>
+              <span>
+                Tutorial <F icon={faVideo} />
+              </span>
             </div>
 
             <div className={classes.createButton}>

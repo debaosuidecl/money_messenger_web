@@ -1,9 +1,9 @@
 // @ts-nocheck
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 function checkAuth(socket, next) {
   const token = socket.handshake.auth.token;
   if (!token) {

@@ -46,13 +46,8 @@ async function verticalCreateHandler(req, res) {
 
     const { name, url } = req.body;
 
-    if (
-     
-      url.toLowerCase().indexOf("{clickid}") === -1
-    ) {
-      return res
-        .status(400)
-        .json([{ msg: "URL must contain {clickid}" }]);
+    if (url.toLowerCase().indexOf("{clickid}") === -1) {
+      return res.status(400).json([{ msg: "URL must contain {clickid}" }]);
     }
 
     const querystrings = url.split("?")[1];
@@ -63,10 +58,7 @@ async function verticalCreateHandler(req, res) {
 
     // make postback
     console.log(querystrings, "query strings");
-    if (
- 
-      querystrings.indexOf("={clickid}") === -1
-    ) {
+    if (querystrings.indexOf("={clickid}") === -1) {
       return res
         .status(400)
         .json([{ msg: "URL string is in an incorrect schema" }]);
@@ -78,7 +70,7 @@ async function verticalCreateHandler(req, res) {
     const keys = Object.keys(queryObj);
     const values = Object.values(queryObj);
 
-    let postback = `https://app.powersms.land/api/leadactivity/converter/${req.user.id}?`;
+    let postback = `https://moneymessenger.com/api/leadactivity/converter/${req.user.id}?`;
 
     console.log(values);
     let anyseenimportant = 0;
@@ -186,7 +178,7 @@ async function verticalEditHandler(req, res) {
     }
 
     if (postback.split("?")[0] !== postbackBaseURL) {
-    // if (postback.indexOf(postbackBaseURL) === -1) {
+      // if (postback.indexOf(postbackBaseURL) === -1) {
       return res.status(400).json({
         errors: [
           {
@@ -200,10 +192,7 @@ async function verticalEditHandler(req, res) {
       JSON.stringify(queryString.parseUrl(postback).query)
     );
 
-    if (
-
-      !queryPostbackObj.hasOwnProperty("clickid")
-    ) {
+    if (!queryPostbackObj.hasOwnProperty("clickid")) {
       return res.status(400).json({
         errors: [{ msg: "Postback must contain a clickid" }],
       });

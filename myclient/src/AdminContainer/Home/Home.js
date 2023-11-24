@@ -12,7 +12,6 @@ import Layout from "../../Component/Layout/Layout";
 import { AuthContext } from "../../context/Auth.context";
 import currencyformat from "../../helperFunctions/currencyformat";
 import Card from "../../Component/Card/Card";
-import UserActivity from "../../Component/UserActivity/UserActivity";
 //@ts-ignore
 import classes from "./Home.module.css";
 import GLOBAL from "../../Containers/GLOBAL/GLOBAL";

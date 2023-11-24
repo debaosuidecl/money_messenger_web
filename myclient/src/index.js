@@ -9,18 +9,39 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import AuthContextProvider from "./context/Auth.context";
 import SubscriptionProvider from "./context/Subscription.context";
-const stripePromise = loadStripe("pk_test_BVTxf6PPvqo3es8Y5BG6d6oS");
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
+const stripePromise = loadStripe("pk_test_BVTxf6PPvqo3es8Y5BG6d6oS");
+const queryClient = new QueryClient()
+
+const options = {
+  // you can also just use 'bottom center'
+  position: positions.BOTTOM_CENTER,
+  timeout: 5000,
+  offset: '30px',
+  // you can also just use 'scale'
+  transition: transitions.SCALE
+}
 ReactDOM.render(
+  <QueryClientProvider client={queryClient}>
+
   <Elements stripe={stripePromise}>
     <AuthContextProvider>
+
       <SubscriptionProvider>
+      <AlertProvider template={AlertTemplate} {...options}>
+
         <React.StrictMode>
           <App />
         </React.StrictMode>
+        </AlertProvider>
       </SubscriptionProvider>
     </AuthContextProvider>
-  </Elements>,
+  </Elements>
+  </QueryClientProvider>
+  ,
   document.getElementById("root")
 );
 

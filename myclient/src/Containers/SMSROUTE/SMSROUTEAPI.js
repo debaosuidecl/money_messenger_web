@@ -307,7 +307,8 @@ function SMSROUTE() {
       handleClose={() => {
         setshowingspeedmodal(false);
         setinput1("");
-      }}>
+      }}
+    >
       <div className={classes.InputCont}>
         <h4 style={{ color: "#222", fontWeight: 100 }}>Set SMS TPS</h4>
         <br></br>
@@ -336,7 +337,8 @@ function SMSROUTE() {
                 setspeed: true,
               })
             }
-            className={classes.buttonClass}>
+            className={classes.buttonClass}
+          >
             SET SPEED
           </Button>
         </div>
@@ -350,7 +352,8 @@ function SMSROUTE() {
       handleClose={() => {
         seturlmodalshowing(false);
         setinput1("");
-      }}>
+      }}
+    >
       <div className={classes.InputCont}>
         <h4 style={{ color: "#222", fontWeight: 100 }}>Set SMS URL</h4>
         <br></br>
@@ -369,7 +372,8 @@ function SMSROUTE() {
             value={input2}
             onChange={(e) => setinput2(e.target.value)}
             name=""
-            id="">
+            id=""
+          >
             <option value="">-- SELECT AN REQUEST METHOD</option>
             <option value="GET">GET</option>
             <option value="POST">POST</option>
@@ -383,7 +387,8 @@ function SMSROUTE() {
                 seturl: true,
               })
             }
-            className={classes.buttonClass}>
+            className={classes.buttonClass}
+          >
             SET URL
           </Button>
         </div>
@@ -399,13 +404,15 @@ function SMSROUTE() {
         setinput1("");
         setinput2("");
         setdeletemodalshowing(false);
-      }}>
+      }}
+    >
       <MyModal
         open={deletemodalshowing}
         handleClose={() => {
           setdeletemodalshowing(false);
         }}
-        maxWidth="500px">
+        maxWidth="500px"
+      >
         <h3 style={{ color: "red", fontWeight: 400 }}>
           Are you sure delete this Auth?
         </h3>
@@ -422,12 +429,14 @@ function SMSROUTE() {
                 deleteauth: true,
               })
             }
-            className={[classes.Option, classes.Red].join(" ")}>
+            className={[classes.Option, classes.Red].join(" ")}
+          >
             Yes
           </button>
           <button
             onClick={() => setdeletemodalshowing(false)}
-            className={[classes.Option, classes.black].join(" ")}>
+            className={[classes.Option, classes.black].join(" ")}
+          >
             No
           </button>
         </div>
@@ -465,7 +474,8 @@ function SMSROUTE() {
                   editauth: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Edit Auth
             </Button>
           ) : (
@@ -475,7 +485,8 @@ function SMSROUTE() {
                   addauth: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Create Auth
             </Button>
           )}
@@ -485,7 +496,8 @@ function SMSROUTE() {
         <div className={classes.ButtonCont}>
           <Button
             onClick={() => setdeletemodalshowing(true)}
-            className={[classes.buttonClass2].join(" ")}>
+            className={[classes.buttonClass2].join(" ")}
+          >
             Delete Auth <FontAwesomeIcon icon={faTrashAlt} />
           </Button>
         </div>
@@ -502,13 +514,15 @@ function SMSROUTE() {
         setinput2("");
         seteditmode(false);
         setdeletemodalshowing(false);
-      }}>
+      }}
+    >
       <MyModal
         open={deletemodalshowing}
         handleClose={() => {
           setdeletemodalshowing(false);
         }}
-        maxWidth="500px">
+        maxWidth="500px"
+      >
         <h3 style={{ color: "red", fontWeight: 400 }}>
           Are you sure delete this Header?
         </h3>
@@ -526,12 +540,14 @@ function SMSROUTE() {
               })
             }
             // onClick={() => dataowner_CRUD(true)}
-            className={[classes.Option, classes.Red].join(" ")}>
+            className={[classes.Option, classes.Red].join(" ")}
+          >
             Yes
           </button>
           <button
             onClick={() => setdeletemodalshowing(false)}
-            className={[classes.Option, classes.black].join(" ")}>
+            className={[classes.Option, classes.black].join(" ")}
+          >
             No
           </button>
         </div>
@@ -565,7 +581,8 @@ function SMSROUTE() {
                   editheader: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Edit Header
             </Button>
           ) : (
@@ -575,7 +592,8 @@ function SMSROUTE() {
                   addheader: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Add Header
             </Button>
           )}
@@ -585,7 +603,8 @@ function SMSROUTE() {
           <div className={classes.ButtonCont}>
             <Button
               onClick={() => setdeletemodalshowing(true)}
-              className={[classes.buttonClass2].join(" ")}>
+              className={[classes.buttonClass2].join(" ")}
+            >
               Delete Header <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
           </div>
@@ -604,13 +623,15 @@ function SMSROUTE() {
         setinput1("");
         setinput2("");
         seteditmode("");
-      }}>
+      }}
+    >
       <MyModal
         open={deletemodalshowing}
         handleClose={() => {
           setdeletemodalshowing(false);
         }}
-        maxWidth="500px">
+        maxWidth="500px"
+      >
         <h3 style={{ color: "red", fontWeight: 400 }}>
           Are you sure delete this Post body item?
         </h3>
@@ -628,12 +649,14 @@ function SMSROUTE() {
               })
             }
             // onClick={() => dataowner_CRUD(true)}
-            className={[classes.Option, classes.Red].join(" ")}>
+            className={[classes.Option, classes.Red].join(" ")}
+          >
             Yes
           </button>
           <button
             onClick={() => setdeletemodalshowing(false)}
-            className={[classes.Option, classes.black].join(" ")}>
+            className={[classes.Option, classes.black].join(" ")}
+          >
             No
           </button>
         </div>
@@ -672,7 +695,8 @@ function SMSROUTE() {
                   editpostbodyitem: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Edit post body Item
             </Button>
           ) : (
@@ -682,7 +706,8 @@ function SMSROUTE() {
                   addpostbodyitem: true,
                 })
               }
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               Add Post body item
             </Button>
           )}
@@ -691,7 +716,8 @@ function SMSROUTE() {
           <div className={classes.ButtonCont}>
             <Button
               onClick={() => setdeletemodalshowing(true)}
-              className={[classes.buttonClass2].join(" ")}>
+              className={[classes.buttonClass2].join(" ")}
+            >
               Delete <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
           </div>
@@ -706,7 +732,8 @@ function SMSROUTE() {
       handleClose={() => {
         setdeleteroutemodal(false);
       }}
-      maxWidth="500px">
+      maxWidth="500px"
+    >
       <h3 style={{ color: "red", fontWeight: 400 }}>
         Are you sure delete This Route?
       </h3>
@@ -724,12 +751,14 @@ function SMSROUTE() {
             })
           }
           // onClick={() => dataowner_CRUD(true)}
-          className={[classes.Option, classes.Red].join(" ")}>
+          className={[classes.Option, classes.Red].join(" ")}
+        >
           Yes
         </button>
         <button
           onClick={() => setdeleteroutemodal(false)}
-          className={[classes.Option, classes.black].join(" ")}>
+          className={[classes.Option, classes.black].join(" ")}
+        >
           No
         </button>
       </div>
@@ -822,7 +851,8 @@ function SMSROUTE() {
                     setinput1(smsspeed);
                     setinput2("");
                     setshowingspeedmodal(true);
-                  }}>
+                  }}
+                >
                   EDIT TPS <FontAwesomeIcon icon={faPen} />
                 </button>
               </div>
@@ -841,7 +871,8 @@ function SMSROUTE() {
                       setinput1(smsurl);
                       setinput2(smsmethod);
                       seturlmodalshowing(true);
-                    }}>
+                    }}
+                  >
                     EDIT SMS URL <FontAwesomeIcon icon={faPen} />
                   </button>
                 ) : (
@@ -856,7 +887,8 @@ function SMSROUTE() {
                     style={{
                       padding: "2px 5px",
                       background: smsmethod === "GET" ? "lightgreen" : "indigo",
-                    }}>
+                    }}
+                  >
                     {smsmethod}
                   </span>
                   {smsurl}
@@ -893,7 +925,8 @@ function SMSROUTE() {
                           setinput2(headeritem.value);
                           setaddheadermodalshowing(true);
                         }}
-                        className={classes.HeaderItem}>
+                        className={classes.HeaderItem}
+                      >
                         <p>
                           <FontAwesomeIcon icon={faPen} color="#222" />{" "}
                           <strong>{headeritem.key}</strong>: {headeritem.value}
@@ -923,7 +956,8 @@ function SMSROUTE() {
                       setinput2(smsauthpassword);
                       seteditmode("editme");
                       setaddauthmodalshowing(true);
-                    }}>
+                    }}
+                  >
                     Edit SMS AUTH <FontAwesomeIcon icon={faPlusCircle} />
                   </button>
                 )}
@@ -990,7 +1024,8 @@ function SMSROUTE() {
                           setinput2(postbodyitem.value);
                           setaddpostbodymodalshowing(true);
                         }}
-                        className={classes.HeaderItem}>
+                        className={classes.HeaderItem}
+                      >
                         <p>
                           <FontAwesomeIcon icon={faPen} color="#222" />{" "}
                           <strong>{postbodyitem.key}</strong>:{" "}
@@ -1008,14 +1043,16 @@ function SMSROUTE() {
           <div className={classes.ButtonCont}>
             <button
               onClick={() => settestmodalopen(true)}
-              className={classes.buttonClass}>
+              className={classes.buttonClass}
+            >
               TEST ROUTE
             </button>
           </div>
           <div className={classes.ButtonCont}>
             <button
               onClick={() => setdeleteroutemodal(true)}
-              className={classes.buttonClass2}>
+              className={classes.buttonClass2}
+            >
               DELETE ROUTE
             </button>
           </div>

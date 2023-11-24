@@ -4,7 +4,7 @@ const express = require("express");
 
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
-const path = require("path")
+const path = require("path");
 // const redis = require("./redisfunctions/redisclient");
 const transporter = require("./mailer/nodemailer.mailer");
 const bodyParser = require("body-parser");
@@ -39,6 +39,9 @@ app.use("/api/uploadsenderphone", require("./routes/uploadsenderphone"));
 app.use("/api/leadactivity", require("./routes/leadactivity"));
 app.use("/api/subscriptions", require("./routes/subscription"));
 app.use("/api/admin", require("./routes/admin"));
+app.use("/api/payments", require("./routes/payments"));
+app.use("/api/apiroute", require("./routes/api.route"));
+
 // redis.on("connect", () => {
 //   console.log("connected to redis");
 // });
@@ -59,7 +62,6 @@ let server = app.listen(PORT, async () => {
   });
   console.log(`listening on port ${PORT}`);
 });
-
 
 const io = require("socket.io")(server, {
   cors: {
@@ -98,4 +100,3 @@ io.on("connection", (socket) => {
 
   //   const token = socket.handshake.auth.token;
 });
-

@@ -253,13 +253,15 @@ function SMSROUTES() {
         setEditMode(false);
         seteditid("");
         seteditname("");
-      }}>
+      }}
+    >
       <MyModal
         open={deletemodalshowing}
         handleClose={() => {
           setdeletemodalshowing(false);
         }}
-        maxWidth="500px">
+        maxWidth="500px"
+      >
         <h3 style={{ color: "red", fontWeight: 400 }}>
           Are you sure delete this SMS Route?
         </h3>
@@ -273,12 +275,14 @@ function SMSROUTES() {
         <div className={classes.ButtonCont}>
           <button
             onClick={() => smsroute_crud(true)}
-            className={[classes.Option, classes.Red].join(" ")}>
+            className={[classes.Option, classes.Red].join(" ")}
+          >
             Yes
           </button>
           <button
             onClick={() => setdeletemodalshowing(false)}
-            className={[classes.Option, classes.black].join(" ")}>
+            className={[classes.Option, classes.black].join(" ")}
+          >
             No
           </button>
         </div>
@@ -301,7 +305,8 @@ function SMSROUTES() {
           value={routetype}
           onChange={(e) => {
             setroutetype(e.target.value);
-          }}>
+          }}
+        >
           <option value="">-- Select Route Type --</option>
           <option value="API">API</option>
           <option value="SMPP">SMPP (Recommended)</option>
@@ -346,7 +351,8 @@ function SMSROUTES() {
               value={bindtype}
               onChange={(e) => {
                 setbindtype(e.target.value);
-              }}>
+              }}
+            >
               <option value="">-- Select Bind Type --</option>
               <option value="transceiver">Transceiver</option>
               <option value="transmitter">Transmitter</option>
@@ -363,7 +369,8 @@ function SMSROUTES() {
             variant="contained"
             color="primary"
             disabled={disableenabler()}
-            style={{ background: "black", width: "100%", color: "white" }}>
+            style={{ background: "black", width: "100%", color: "white" }}
+          >
             {editMode ? "Edit SMS Route" : "Add SMS Route"}
           </Button>
         </div>
@@ -376,7 +383,8 @@ function SMSROUTES() {
               disabled={disableenabler()}
               variant="contained"
               color="secondary"
-              style={{ backgroundColor: "black", width: "100%" }}>
+              style={{ backgroundColor: "black", width: "100%" }}
+            >
               Delete SMS Route <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
           </div>
@@ -410,7 +418,8 @@ function SMSROUTES() {
 
           <div
             onClick={() => seteditmodalshowing(true)}
-            className={classes.createButton}>
+            className={classes.createButton}
+          >
             <Link>Create SMS Route</Link>
             <F icon={faPlusCircle} />
           </div>
@@ -463,7 +472,8 @@ function SMSROUTES() {
                 <button
                   disabled={isfetching}
                   onClick={() => setfetchvalue("smsroutes", page + 1)}
-                  className={classes.loadmore}>
+                  className={classes.loadmore}
+                >
                   Load More
                 </button>
               ) : null}

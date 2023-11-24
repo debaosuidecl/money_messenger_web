@@ -3,8 +3,8 @@ const parseCSV = require("../helperfunctions/parseCSV");
 const LeadGroup = require("../models/LeadGroup");
 const split = require("../helperfunctions/split");
 const LeadsTotal = require("../models/LeadUndeduped");
-const carrierSwitch = require("./carrierswitch")
-const {blacklistScrub} = require("../services/blacklist.service")
+const carrierSwitch = require("./carrierswitch");
+const { blacklistScrub } = require("../services/blacklist.service");
 function leadupload(_id, io) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -117,63 +117,54 @@ function leadupload(_id, io) {
 
       let splitdata = split(csvparsed, 10000);
 
-
       const blacklistCount = 0;
 
       const carrierdetails = {
         "AT&T": 0,
-        "VERIZON": 0,
-        "SPRINT": 0,
+        VERIZON: 0,
+        SPRINT: 0,
         "T-MOBILE": 0,
 
-        "METRO": 0,
+        METRO: 0,
         "US Cellular": 0,
 
-        "OTHER": 0,
+        OTHER: 0,
 
-        "landline": 0,
+        landline: 0,
 
-        "blacklist": 0,
-
-      }
+        blacklist: 0,
+      };
 
       for (let i = 0; i < splitdata.length; i++) {
         console.time("adding records");
         try {
-
           // save 10000 in map
 
-
-          const phone_details_map = {}
-          let splitindividual = splitdata[i]
-          for(let j=0; j < splitindividual.length; j++){
-
-            phone_details_map[splitindividual[j]['phone']] = splitindividual[j]
+          const phone_details_map = {};
+          let splitindividual = splitdata[i];
+          for (let j = 0; j < splitindividual.length; j++) {
+            phone_details_map[splitindividual[j]["phone"]] = splitindividual[j];
             // onlyphonesarray.push({phone: splitindividual[j]['phone']})
           }
 
-
-
           // scrub splitdata[i]
 
-          let scrubresult = await blacklistScrub(splitindividual)
+          let scrubresult = await blacklistScrub(splitindividual);
 
-          scrubresult = scrubresult.flat().map(d=>{
+          scrubresult = scrubresult.flat().map((d) => {
             let fulldetails = phone_details_map[`${d.phone}`];
 
-
-            if(d.reason || d.status === "Blacklisted"){
-              carrierdetails['blacklist'] = carrierdetails['blacklist'] + 1;
-
+            if (d.reason || d.status === "Blacklisted") {
+              carrierdetails["blacklist"] = carrierdetails["blacklist"] + 1;
             }
             let carrier = carrierSwitch(d.company);
             carrierdetails[carrier] = carrierdetails[carrier] + 1;
 
-            console.log(carrierdetails, "carrier details")
-            if(d.phone_type === "Landline"){
-              carrierdetails['landline'] = carrierdetails['landline'] + 1;
+            console.log(carrierdetails, "carrier details");
+            if (d.phone_type === "Landline") {
+              carrierdetails["landline"] = carrierdetails["landline"] + 1;
             }
-            let res =  {
+            let res = {
               phone: d.phone,
               type: d.phone_type,
               carrier,
@@ -187,14 +178,13 @@ function leadupload(_id, io) {
 
               leadgroup: fulldetails.leadgroup,
               user: fulldetails.user,
-            }
-            return  JSON.parse(JSON.stringify(res))
-          })
+            };
+            return JSON.parse(JSON.stringify(res));
+          });
 
           //extract results from map in an efficient way
 
-
-            console.log(scrubresult, "final 197")
+          console.log(scrubresult, "final 197");
           // save carrier results
           const result = await LeadsTotal.collection.insertMany(scrubresult, {
             ordered: false,
@@ -219,31 +209,29 @@ function leadupload(_id, io) {
 
         io.sockets.emit("updatescrub", updatevalue);
 
-        if(updatevalue.status === "deleted"){
-          return console.log("halting upload")
+        if (updatevalue.status === "deleted") {
+          return console.log("halting upload");
         }
         console.timeEnd("adding records");
       }
 
       console.log(duplicates, "duplicates");
 
-      const  realdupes =   await LeadsTotal.aggregate([
+      const realdupes = await LeadsTotal.aggregate([
         {
-        $group: {
-        _id: { phone: "$phone", user: "$user"},
-        docs: { $push: "$leadgroup" },
-        count: { $sum:  1 },
-          }
+          $group: {
+            _id: { phone: "$phone", user: "$user" },
+            docs: { $push: "$leadgroup" },
+            count: { $sum: 1 },
+          },
         },
         {
           $match: {
-            count: { $gt : 1 },
-            docs: {"$in": [group._id.toString()]}
-
+            count: { $gt: 1 },
+            docs: { $in: [group._id.toString()] },
           },
         },
       ]);
-
 
       // console.log(realdupes, 195)
       const finalupdate = await LeadGroup.findOneAndUpdate(
@@ -260,11 +248,12 @@ function leadupload(_id, io) {
             SPRINT: carrierdetails["SPRINT"],
             TMOBILE: carrierdetails["T-MOBILE"],
             USCellular: carrierdetails["US Cellular"],
-            OTHER: carrierdetails['OTHER'],
-            landline: carrierdetails['landline'],
-            blacklist: carrierdetails['blacklist'],
+            OTHER: carrierdetails["OTHER"],
+            landline: carrierdetails["landline"],
+            blacklist: carrierdetails["blacklist"],
           },
-        },{new:true}
+        },
+        { new: true }
       );
 
       io.sockets.emit("updatescrub", finalupdate);
@@ -273,7 +262,6 @@ function leadupload(_id, io) {
       console.log(error);
     }
   });
-
 }
 
 module.exports = leadupload;

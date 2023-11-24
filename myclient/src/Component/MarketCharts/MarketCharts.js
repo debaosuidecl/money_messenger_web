@@ -21,7 +21,7 @@ function MarketCharts({ weekplot }) {
             {
               lineTension: 0.17,
 
-              label: "Revenue Generated this week ($)",
+              label: "Sends this week",
               data: weekplot,
               backgroundColor: [
                 "rgba(255, 99, 132, 0.2)",

@@ -1,0 +1,67 @@
+.Payments {
+  margin: 20px auto;
+  padding: 10px;
+  text-align: left;
+  max-width: 1200px;
+  /* min-height: 400px; */
+}
+
+.PaymentOption {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px 20px;
+  box-shadow: 1px 0px 10px #eee;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+  /* background-color: green; */
+  /* justify-content: ; */
+}
+
+.Payments p {
+  text-align: left;
+}
+
+.PaymentOption p {
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.PaymentOption:hover {
+  box-shadow: 10px 10px 20px #eee;
+  transition: 0.3s;
+  /* transform: scale(1.2); */
+}
+
+.Paypal {
+  margin: 20px auto;
+  padding: 10px;
+  text-align: left;
+  max-width: 700px;
+}
+.PaypalHeader {
+  display: flex;
+}
+
+.Paypal p {
+  font-family: sans-serif;
+}
+
+.InputCont {
+  /* margin: auto */
+  /* background: green; */
+  display: flex;
+  align-items: center;
+  /* justify-content: ; */
+
+  width: 100%;
+}
+.InputCont input {
+  /* padding: 15px 0px; */
+}
+
+.Paypal button {
+  padding: 20px;
+}

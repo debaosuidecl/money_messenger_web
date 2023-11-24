@@ -7,10 +7,32 @@ const FrontEndUserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  smppPass: {
+    type: String,
+  },
+  ipList: [{
+    type: String,
+  }],
+  
   email: {
     type: String,
     required: true,
     unique: true,
+  },
+  apikey: {
+    type: String,
+  },
+  requestLimit: {
+    type: Number,
+    default: 10,
+  },
+  balance:{
+    type: Number,
+    default: 0,
+  },
+  mmsender: {
+    type: Boolean,
+    default: false,
   },
   companyname: {
     type: String,
@@ -65,4 +87,9 @@ const FrontEndUserSchema = new mongoose.Schema({
 
 FrontEndUserSchema.index({ servername: 1, admin: 1 });
 FrontEndUserSchema.index({ servername: 1, admin: 1, premium: 1 });
-module.exports = mongoose.model("frontEndUser", FrontEndUserSchema); // takes in model name and schema
+const myModule = (module.exports = mongoose.model(
+  "frontEndUser",
+  FrontEndUserSchema
+)); // takes in model name and schema
+
+myModule.UserSchema1 = FrontEndUserSchema;

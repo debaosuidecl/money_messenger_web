@@ -12,6 +12,8 @@ const SMSRoute = require("../models/SMSRoute");
 const MessageSchema = require("../models/MessageSchema");
 const SendingPhones = require("../models/SendingPhones");
 const LeadsTotal = require("../models/LeadUndeduped");
+const User = require("../models/User");
+const axios = require("axios");
 
 var srs = require("secure-random-string");
 
@@ -25,18 +27,11 @@ const {
 // const Leads = require("../models/Leads");
 const split = require("./split");
 const { refinemessage, randomizefoundpipes } = require("./refinemessageschema");
-const { bulkSend } = require("./SMSSend");
+const { bulkSend, bulkSendMoneyMessenger } = require("./SMSSend");
 const delay = require("./delay");
 const bulksetintomap = require("../redisfunctions/bulksetintomap");
 
-function getModelBulkData(
-  Model,
-  limit = 1000,
-  page = 0,
-  query,
-  staticskip,
-  stepskip = 2000
-) {
+function getModelBulkData(Model, limit = 1000, page = 0, query, staticskip) {
   return new Promise(async (resolve, reject) => {
     console.log(limit, 30);
     let res;
@@ -112,9 +107,28 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
       } = campaign;
       const speed = smsroute.defaultsendspeed || 100;
 
-      const numberOfLeadsPerRun = speed * 60;
+      const numberOfLeadsPerRun = speed * 10;
 
-      const sendphonecount = smsroute.numberofsources;
+      // const sendphonecount = smsroute.numberofsources; // use this to get the actual users from money messenger and hence the count allocated to this user
+      // new code to fetch users
+
+      let users = [];
+      const numberOfMMSenders = await User.countDocuments({ mmsender: true });
+
+      {
+        let { data } = await axios.get(
+          "http://localhost:2300/money-messenger/v1/users"
+        );
+        console.log(data.length, "users");
+        users = data;
+      }
+      console.log(numberOfMMSenders, "number of mm senders");
+
+      const sendphonecount = Math.ceil(users.length / numberOfMMSenders); // use this to get the actual users from money messenger and hence the count allocated to this user
+
+      // const send
+
+      // new code end
 
       if (sendphonecount <= 0) {
         const update = await Campaign.findOneAndUpdate(
@@ -134,7 +148,7 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
         io.sockets.emit("status", update);
         return;
       }
-      const rotationnumber = domaingroup.rotationnumber;
+      const rotationnumber = domaingroup.rotationnumber; // normal
 
       console.log(leadgroup._id, 90);
 
@@ -144,7 +158,7 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
       console.log(startposleadphone, 139);
       // return;
 
-      let [leads, sourcephones] = await Promise.all([
+      let [leads] = await Promise.all([
         // leads
         getModelBulkData(
           LeadsTotal,
@@ -161,19 +175,22 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
         ),
 
         // sendingphones
-        getModelBulkData(
-          SendingPhones,
-          numberOfLeadsPerRun,
-          null,
-          {
-            route: mongoose.Types.ObjectId(smsroute._id),
-          },
-          startpossendingphone || 0,
-          5000
-        ),
+        // getModelBulkData( // the sending phones will be the users of money messenger apps phone numbers assigned to the sending user
+        //   // so the formula for getting the count will be the percentage of the sending users of the actual money messenger users
+        //   // and let's say we have 20,000 money messenger users, we have 2 money messenger senders, 10,000 will be available to both at x sends a minute
+        //   //  10,000
+        //   SendingPhones,
+        //   numberOfLeadsPerRun, // should be edited to account for minutes
+        //   null,
+        //   {
+        //     route: mongoose.Types.ObjectId(smsroute._id),
+        //   },
+        //   startpossendingphone || 0,
+        //   5000
+        // ),
       ]);
 
-      console.log(sourcephones.length, leads.length, 132);
+      // console.log(sourcephones.length, leads.length, 132);
 
       console.timeEnd("prelimdata");
 
@@ -189,42 +206,42 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
         return;
         resolve("done");
       }
-      if (sourcephones.length < numberOfLeadsPerRun) {
-        if (startpossendingphone + sourcephones.length === sendphonecount) {
-          // if we are at the end of the phone cycle
-          console.log("every thing right here with a less source phone");
-          let additiontosourchphone = [];
-          console.log(startpossendingphone, "startpostlead");
-          if (startpossendingphone !== 0) {
-            console.log(startpossendingphone, "is not zero");
-            additiontosourchphone = await getModelBulkData(
-              SendingPhones,
-              numberOfLeadsPerRun - sourcephones.length,
-              null,
-              {
-                route: smsroute._id,
-              },
-              0 // skip nothing and start from the beginning until you get the results to equalize
-            );
+      // if (sourcephones.length < numberOfLeadsPerRun) {
+      //   if (startpossendingphone + sourcephones.length === sendphonecount) {
+      //     // if we are at the end of the phone cycle
+      //     console.log("every thing right here with a less source phone");
+      //     let additiontosourcephone = [];
+      //     console.log(startpossendingphone, "startpostlead");
+      //     if (startpossendingphone !== 0) {
+      //       console.log(startpossendingphone, "is not zero");
+      //       additiontosourcephone = await getModelBulkData(
+      //         SendingPhones,
+      //         numberOfLeadsPerRun - sourcephones.length,
+      //         null,
+      //         {
+      //           route: smsroute._id,
+      //         },
+      //         0 // skip nothing and start from the beginning until you get the results to equalize
+      //       );
 
-            campaign.startpossendingphone = 0;
-            await campaign.save();
-            console.log("Saving startpostsendingphone as zero");
-          }
+      //       campaign.startpossendingphone = 0;
+      //       await campaign.save();
+      //       console.log("Saving startpostsendingphone as zero");
+      //     }
 
-          sourcephones = [...sourcephones, ...additiontosourchphone];
+      //     sourcephones = [...sourcephones, ...additiontosourcephone];
 
-          console.log("new sourcephones", sourcephones.length, sourcephones[2]);
-        } else {
-          console.log("there may be a problem", sourcephones.length);
-        }
-      } else {
-        console.log(
-          "length is equal or enough",
-          sourcephones.length,
-          numberOfLeadsPerRun
-        );
-      }
+      //     console.log("new sourcephones", sourcephones.length, sourcephones[2]);
+      //   } else {
+      //     console.log("there may be a problem", sourcephones.length);
+      //   }
+      // } else {
+      //   console.log(
+      //     "length is equal or enough",
+      //     sourcephones.length,
+      //     numberOfLeadsPerRun
+      //   );
+      // }
 
       // get domains
       const domains = await Domain.find({
@@ -275,7 +292,7 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
       for (let i = 0; i < leads.length; i++) {
         const shortid = srs({ length: 10 });
         let lead = leads[i];
-        let fromphone = sourcephones[i % sourcephones.length];
+        // let fromphone = sourcephones[i % sourcephones.length];
 
         campaignshortidmap.push(shortid);
         campaignshortidmap.push(
@@ -294,13 +311,13 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
 
         // write exclusion algorithm here
         // skip the lead whose carrier details are to be exluded
-        let carrierstoexclude = campaign.carrierstoexclude || []
-        if(carrierstoexclude.indexOf(lead.carrier) !== -1){
+        let carrierstoexclude = campaign.carrierstoexclude || [];
+        if (carrierstoexclude.indexOf(lead.carrier) !== -1) {
           continue;
         }
         smsobject.push({
           lead,
-          fromphone,
+          // fromphone,
           message,
         });
       }
@@ -333,133 +350,39 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
       // check if smpp
 
       let session = sessionval;
-      let bindval = null;
-      if (smsroute.routetype === "SMPP") {
-        try {
-          // console.log(session, "fetching");
-
-          if (!session) {
-            session = await connectsmpp(smsroute.config);
-            session.on("error", async (err) => {
-              console.log(err, "error occured in session");
-
-              const update = await Campaign.findOneAndUpdate(
-                {
-                  _id: campaigndetails._id,
-                },
-                {
-                  $set: {
-                    error: "An SMPP ERROR OCCURED",
-                    status: "aborted",
-                  },
-                },
-                {
-                  new: true,
-                }
-              );
-              io.sockets.emit("status", update);
-              session.close();
-              resolve("done");
-            });
-          }
-
-          // console.log(session, "gotten");
-        } catch (error) {
-          // return errorreturn(res, 401, "could not connect to SMPP SERVER");
-          const update = await Campaign.findOneAndUpdate(
-            {
-              _id: campaigndetails._id,
-            },
-            {
-              $set: {
-                error: "Failed to connect to remote smpp server",
-                status: "aborted",
-              },
-            },
-            {
-              new: true,
-            }
-          );
-          io.sockets.emit("status", update);
-          return;
-        }
-
-        try {
-          // console.log("binding", bindval);
-          bindval = await bind(session, smsroute.config, true);
-          // console.log("binded", bindval);
-        } catch (error) {
-          console.log(error);
-
-          let errormessage = "";
-          if (error.pducode) {
-            errormessage = JSON.stringify(error);
-          }
-          // return errorreturn(res, 401, "could not connect to SMPP SERVER");
-          const update = await Campaign.findOneAndUpdate(
-            {
-              _id: campaigndetails._id,
-            },
-            {
-              $set: {
-                error: errormessage,
-                status: "aborted",
-              },
-            },
-            {
-              new: true,
-            }
-          );
-          io.sockets.emit("status", update);
-          return;
-          // "Binding Failed; error caught by error listener"
-        }
-      }
 
       for (let i = 0; i < smsobjectsplit.length; i++) {
         console.log(i);
         let successfulsends = 0;
         let failedsends = 0;
         //
+
+        console.log("this is the  split: ", smsobjectsplit[i]);
         try {
-          const sendarray = await bulkSend(
-            smsobjectsplit[i],
-            smsroute,
-            session
+          const sendres = await Promise.all(
+            smsobjectsplit[i].map((smsobject) =>
+              bulkSendMoneyMessenger(
+                smsobject, // this will be the single object with lead and message that we will send to money messenger sendapi
+                smsroute
+              )
+            )
           );
 
-
           if (smsroute.routetype === "API") {
-            successfulsends = sendarray.reduce((total, smsresponse) => {
-              if (smsresponse.value.status == 200) {
-                return total + 1;
-              }
-              return 0;
+            successfulsends = sendres.reduce((prev, curr) => {
+              let success = curr.sent_data === true ? 1 : 0;
+              return success + prev;
             }, 0);
-            failedsends = sendarray.reduce((total, smsresponse) => {
-              if (smsresponse.value.status !== 200) {
-                return total + 1;
-              }
-              return 0;
+            failedsends = sendres.reduce((prev, curr) => {
+              let failure = curr.sent_data === false ? 1 : 0;
+              return failure + prev;
             }, 0);
-          } else if (smsroute.routetype === "SMPP") {
-            // console.log(sendarray[0], "smpp");
-
-            successfulsends = sendarray.reduce((total, smsresponse) => {
-              if (smsresponse.value.code == 0) {
-                return total + 1;
-              }
-              return 0;
-            }, 0);
-            failedsends = sendarray.reduce((total, smsresponse) => {
-              if (smsresponse.value.code !== 0) {
-                return total + 1;
-              }
-              return 0;
-            }, 0);
+            // successfulsends = sendres.sent_data === true ? 1 : 0
+            // failedsends = sendres.sent_data === false ? 1 : 0
           }
 
           // const
+          console.log(sendres, successfulsends, failedsends, "377....");
         } catch (error) {
           console.log(error);
         }
@@ -517,7 +440,7 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
           console.log(error, 268);
           io.sockets.emit("status", campaign);
         }
-        await delay(200);
+        await delay(1000);
       }
 
       console.timeEnd("sending bulk");
@@ -536,7 +459,7 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
         {
           $inc: {
             startposleadphone: leads.length,
-            startpossendingphone: sourcephones.length,
+            // startpossendingphone: sourcephones.length,
           },
         },
         {
@@ -563,10 +486,6 @@ function sendcampaigns(campaigndetails, io, redis, sessionval) {
         redis,
         session
       );
-
-      if (smsroute.routetype === "SMPP") {
-        session.close();
-      }
 
       resolve(finalresult);
     } catch (error) {

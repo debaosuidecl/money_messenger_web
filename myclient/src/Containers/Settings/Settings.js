@@ -175,7 +175,7 @@ function Settings() {
           </div>
           <br></br>
 
-          <hr />
+          {/* <hr />
 
           <br></br>
 
@@ -214,7 +214,7 @@ function Settings() {
             >
               Cancel Subscription
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 

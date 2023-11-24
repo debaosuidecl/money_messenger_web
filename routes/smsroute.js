@@ -286,8 +286,8 @@ router.post(
 
   [
     check("speed", "Text/second must be an integer between 10 and 500").isInt({
-      min: 10,
-      max: 500,
+      min: 1,
+      max: 2,
     }),
   ],
   setroutespeedhandler

@@ -17,8 +17,8 @@ const LeadGroup = new mongoose.Schema({
   },
 
   blacklist: {
-    type:Number, 
-    default: 0
+    type: Number,
+    default: 0,
   },
   METRO: {
     type: Number,

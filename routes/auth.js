@@ -33,6 +33,7 @@ router.post(
       // we want to check to see if there is no user. if there isn't we send an error
 
       let user = await User.findOne({ email });
+      console.log("USER FOUND", user);
       if (!user) {
         return res
           .status(400)
@@ -40,7 +41,7 @@ router.post(
       }
 
       const isMatch = await bcrypt.compare(password, user.password); // first arg is plain text password from request, second is the encrypted password, we want to check if these 2 match
-
+      console.log("hit here 43");
       if (!isMatch) {
         // if it doesn't match
         return res

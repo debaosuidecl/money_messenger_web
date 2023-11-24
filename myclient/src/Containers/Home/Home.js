@@ -6,6 +6,7 @@ import moment from "moment";
 import Card from "../../Component/Card/Card";
 import {
   faClipboardCheck,
+  faMailBulk,
   faMoneyCheck,
   faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
@@ -75,65 +76,88 @@ function Home() {
       const stats = await bulkstatisticsfetch([
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${weekstart}&end=${weekend}`,
-          null,
-          true
-        ),
-
-        REQ(
-          "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-count?start=${weekstart}&end=${weekend}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${weekstart}&to=${weekend}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/click-count?start=${weekstart}&end=${weekend}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${sunday.start}&to=${sunday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${sunday.start}&end=${sunday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${monday.start}&to=${monday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${monday.start}&end=${monday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${tuesday.start}&to=${tuesday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${tuesday.start}&end=${tuesday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${wednesday.start}&to=${wednesday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${wednesday.start}&end=${wednesday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${thursday.start}&to=${thursday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${thursday.start}&end=${thursday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${friday.start}&to=${friday.end}`,
           null,
           true
         ),
         REQ(
           "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${friday.start}&end=${friday.end}`,
+          `${GLOBAL.domainMain}/api/user/send-count?from=${saturday.start}&to=${saturday.end}`,
           null,
           true
         ),
-        REQ(
-          "get",
-          `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${saturday.start}&end=${saturday.end}`,
-          null,
-          true
-        ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${monday.start}&end=${monday.end}`,
+        //   null,
+        //   true
+        // ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${tuesday.start}&end=${tuesday.end}`,
+        //   null,
+        //   true
+        // ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${wednesday.start}&end=${wednesday.end}`,
+        //   null,
+        //   true
+        // ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${thursday.start}&end=${thursday.end}`,
+        //   null,
+        //   true
+        // ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${friday.start}&end=${friday.end}`,
+        //   null,
+        //   true
+        // ),
+        // REQ(
+        //   "get",
+        //   `${GLOBAL.domainMain}/api/leadactivity/conversion-amount?start=${saturday.start}&end=${saturday.end}`,
+        //   null,
+        //   true
+        // ),
       ]);
 
       if (!stats) {
@@ -149,10 +173,10 @@ function Home() {
 
       console.log(stats);
 
-      setrevenue(stats[0].data?.msg);
-      setconversioncount(stats[1].data?.msg);
-      setclickcount(stats[2].data?.msg);
-      let weekplotdata = stats.slice(3).map((val) => val.data.msg);
+      setrevenue(stats[0].data?.messageCount);
+      // setconversioncount(stats[1].data?.msg);
+      // setclickcount(stats[2].data?.msg);
+      let weekplotdata = stats.slice(1).map((val) => val.data.messageCount);
 
       setweekplot(weekplotdata);
     } catch (error) {
@@ -173,22 +197,22 @@ function Home() {
           <p className={classes.title}>Welcome {fullName}</p>
 
           <div className={classes.Row}>
-            <Card
+            {/* <Card
               icon={faMoneyCheck}
               title={`$${currencyformat(revenue.toFixed(2))}`}
               subtitle="This week's Revenue"
-            />
+            /> */}
 
             <Card
-              icon={faClipboardCheck}
-              title={currencyformat(clickcount.toFixed(0))}
-              subtitle="Clicks This week"
+              icon={faMailBulk}
+              title={currencyformat(revenue.toFixed(0))}
+              subtitle="Sends This week"
             />
-            <Card
+            {/* <Card
               icon={faShoppingBag}
               title={currencyformat(conversioncount.toFixed(0))}
               subtitle="Conversions This Week"
-            />
+            /> */}
           </div>
 
           <br></br>

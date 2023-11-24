@@ -8,7 +8,7 @@ const CampaignSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-  carrierstoexclude: [ ],
+  carrierstoexclude: [],
   failedsends: {
     type: Number,
     default: 0,

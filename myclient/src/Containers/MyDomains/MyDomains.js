@@ -124,8 +124,7 @@ function MyDomains() {
           <div className={classes.createButton}>
             <Link to="/domain-purchase">Create Domains</Link>
             <Link to="/domain-purchase">
-            
-            <F icon={faPlusCircle} />
+              <F icon={faPlusCircle} />
             </Link>
           </div>
         </div>

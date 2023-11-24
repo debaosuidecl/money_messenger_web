@@ -38,6 +38,10 @@ import Users from "./AdminContainer/Users/Users";
 import UserStatisticsPage from "./AdminContainer/Users/UserStatisticsPage";
 import SMSROUTEWRAPPER from "./Containers/SMSROUTE/SMSROUTEWRAPPER";
 import FAQ from "./Containers/FAQ/FAQ";
+import Payments from "./Containers/Payments/Payments";
+import Paypal from "./Containers/Payments/Paypal";
+import APIPage from "./Containers/API/APIPage";
+// import Bitcoin from "./Payments/Bitcoin";
 // import ErrorPage from "./Containers/ErrorPage/ErrorPage";
 function App() {
   const { admin } = useContext(AuthContext);
@@ -46,6 +50,10 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route path="/dashboard" component={Home} exact />
+        <Route path="/apidocs" component={APIPage} exact />
+        <Route path="/payments" component={Payments} exact />
+        <Route path="/payments/paypal" component={Paypal} exact />
+        {/* <Route path="/payments/bitcoin" component={Bitcoin} exact /> */}
         <Route path="/login" component={Auth} exact />
         <Route path="/create-vertical" exact component={createVertical} />
         <Route path="/verticals" exact component={Verticals} />

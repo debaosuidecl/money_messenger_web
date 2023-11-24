@@ -51,7 +51,8 @@ function FAQ() {
               <div
                 // onClick={toggle}
 
-                className={classes.Question}>
+                className={classes.Question}
+              >
                 <p className={classes.QCont}>
                   {faq.question}{" "}
                   {/* <F
