@@ -22,7 +22,7 @@
       },
       {
         "name": "smscronrefer",
-        "script": "cronjobs/messageSendRefer.cron.js",
+        "script": "cronjobs/messageSendReferV2.js",
         "node_args": "--expose-gc --max_old_space_size=50768"
       }
     ]

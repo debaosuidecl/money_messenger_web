@@ -60,7 +60,7 @@ async function messageSend() {
     // return console.log(m)
 
     const messages = await UserMessageModel.find({
-      status: "pending",
+      status: "refer",
     }).limit(40000);
     console.log({messages: messages.length});
     const fcmEngine = new FcmEngine();
@@ -79,7 +79,7 @@ async function messageSend() {
         lastping: {
           $gte: dateOfPingAllowed,
         },
-        timeOfLastSend: {
+        timeOfLastSendRef: {
           $lt: dateOfLastSendAllowed,
         },
 
@@ -126,7 +126,7 @@ async function messageSend() {
                     sendCount: 1,
                   },
                   $set: {
-                    timeOfLastSend: new Date().getTime(),
+                    timeOfLastSendRef: new Date().getTime(),
                   },
                 },
                 {
@@ -194,5 +194,11 @@ async function messageSend() {
 (async () => {
   await delay(1000);
   messageSend();
+
+//    const res =  await MoneyMessengerUserModel.updateMany({}, {
+//         timeOfLastSendRef: 0
+//     })
+
+//     console.log(res)
 })();
 // messageSend();

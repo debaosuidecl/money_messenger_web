@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    timeOfLastSendRef: {
+      type: Number,
+      default: 0,
+    },
     timeOfNextEligibility: {
       type: Number,
       default: 0,
