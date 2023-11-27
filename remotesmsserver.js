@@ -161,7 +161,11 @@ try {
       `http://localhost:8080/api/user/sendcount/status?api_key=${req.query.api_key}&msg_id=${req.query.msg_id}`,
       
     );
-
+      if(!data){
+        return res.status(404).send({
+          message: "message id not found"
+        })
+      }
     res.send(data);
 } catch (error) {
   console.log(error.response.data)
