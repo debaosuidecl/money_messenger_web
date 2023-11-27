@@ -174,13 +174,16 @@ function Layout({ children }) {
             </ul>
           ) : null}
           <div className={classes.PaymentAndDropDown}>
-            <Button
+          <div className={classes.DesktopOnly}>
+          <Button
               onClick={() => {
                 window.location.href = "/payments";
               }}
             >
               Topup Balance: ${balance.toFixed(2)}{" "}
             </Button>
+          </div>
+          
             <Dropdown>
               <Dropdown.Toggle variant="dark" id="dropdown-basic">
                 <FontAwesomeIcon icon={faCog} />
@@ -228,6 +231,18 @@ function Layout({ children }) {
                   href="/login"
                 >
                   <span style={{ color: "red" }}>Logout</span>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  // onClick={() => localStorage.removeItem("token")}
+                  // href="/login"
+                >
+                    <Button
+              // onClick={() => {
+              //   window.location.href = "/payments";
+              // }}
+            >
+              Topup Balance: ${balance.toFixed(2)}{" "}
+            </Button>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
