@@ -169,8 +169,9 @@ try {
     res.send(data);
 } catch (error) {
   console.log(error.response.data)
-     res.status(500).json({
+     res.status(400).json({
       message: error.response.data.message,
+      id: msg_id
     });
 }
 })
