@@ -49,7 +49,7 @@ function App() {
   let app = (
     <BrowserRouter>
       <Switch>
-        <Route path="/dashboard" component={Home} exact />
+        <Route path="/" component={Home} exact />
         <Route path="/apidocs" component={APIPage} exact />
         <Route path="/payments" component={Payments} exact />
         <Route path="/payments/paypal" component={Paypal} exact />
@@ -103,7 +103,7 @@ function App() {
         <Route path="/info/update-my-info" exact component={Settings} />
 
         <Route path="/subscription" exact component={Subscription} />
-        <Redirect exact from="/" to={email? "/dashboard":"/login"} />
+        {/* <Redirect exact from="/" to={email? "/dashboard":"/login"} /> */}
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

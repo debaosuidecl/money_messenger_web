@@ -1,10 +1,13 @@
 import React from "react";
+import Layout from "../../Component/Layout/Layout";
 
 function ErrorPage() {
   return (
-    <div>
-      <h1>Page Not Found</h1>
-    </div>
+    <Layout>
+      <h1 style={{
+        padding: 20,
+      }}>Page Not Found</h1>
+    </Layout>
   );
 }
 

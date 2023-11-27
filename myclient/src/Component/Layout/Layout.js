@@ -30,8 +30,8 @@ function Layout({ children }) {
   let [navitems] = useState([
     {
       name: "Dashboard",
-      isactive: window.location.href.includes("dashboard"),
-      link: "/dashboard",
+      isactive: window.location.href.includes("/"),
+      link: "/",
       icon: faChartLine,
     },
     {
