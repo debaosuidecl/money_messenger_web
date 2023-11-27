@@ -17,7 +17,7 @@
       },
       {
         "name": "smscron",
-        "script": "cronjobs/messageSend.cron.js",
+        "script": "cronjobs/messageSendV2.js",
         "node_args": "--expose-gc --max_old_space_size=50768"
       },
       {
