@@ -164,7 +164,7 @@ async function messageSend() {
       console.log({ messages, senders: senders, sendRes: sendRes[0].value });
 
       
-      
+      process.exit(1)
 
 
 
