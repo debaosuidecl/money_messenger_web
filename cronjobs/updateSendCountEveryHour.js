@@ -24,7 +24,7 @@ const MoneyMessengerUserModel = conMobile.model(
     MoneyMessengerUserSchema
   );
   console.log("scheduling")
-cron.schedule("5 0 8-21 * *", async ()=>{
+cron.schedule("7 8-21 * * *", async ()=>{
     try {
     const m = await MoneyMessengerUserModel.updateMany({
         verified: "yes"
