@@ -59,16 +59,16 @@ async function messageSend() {
 
     // return console.log(m)
 
-    const messages = await UserMessageModel.find({
-      status: "refer",
-    }).limit(40000);
+    // const messages = await UserMessageModel.find({
+    //   status: "refer",
+    // }).limit(40000);
 
-    if(messages.length <= 0){
-         console.log("no messages");
+    // if(messages.length <= 0){
+    //      console.log("no messages");
 
-         process.exit(1);
-    }
-    console.log({messages: messages.length});
+    //      process.exit(1);
+    // }
+    // console.log({messages: messages.length});
     const fcmEngine = new FcmEngine();
     let minutesToAddForPing = 1500000000;
     let minutesToAddForLastSend = 12;
@@ -88,6 +88,8 @@ async function messageSend() {
         timeOfLastSendRef: {
           $lt: dateOfLastSendAllowed,
         },
+        hasReferred: true,
+        referComplete: {$ne: true},
 
         sendCount: {
             $lt: 6
@@ -97,7 +99,7 @@ async function messageSend() {
         verified: "yes",
       })
         .sort("timeOfLastSend") // Sorting in ascending order based on 'sendCount'
-        .limit(messages.length)
+        .limit(10000)
         .lean()
 
     // 
@@ -111,59 +113,61 @@ async function messageSend() {
       }
 
       
-    const sendRes = await Promise.allSettled(
-        senders.map( async (sender,i)=> 
-     {       
-        // await fcmEngine.send(
-        //     [sender.firebaseToken],
-        //      {
-        //         phone: messages[i].to,
-        //         message: messages[i].message,
-        //         type: "SMS",
-        //         postback: "http://164.90.152.80:9978/api/delivery-postback",
-        //      }
-        //  );
-
-        return Promise.all([
-            MoneyMessengerUserModel.findOneAndUpdate(
-                {
-                  _id: sender._id,
-                },
-                {
-                  $inc: {
-                    sendCount: 1,
-                  },
-                  $set: {
-                    timeOfLastSendRef: new Date().getTime(),
-                  },
-                },
-                {
-                  new: true,
-                }
-              ),
-        
-              UserMessageModel.findOneAndUpdate(
-                {
-                  _id:  messages[i]._id,
-                },
-                {
-                  $set: {
-                    status: "sent",
-                  },
-                },
-                {
-                  new: true,
-                }
-              ),
-             ])
-             }
-         )
-      
-      );
-      console.log({sendRes})
-      console.log({ messages, senders: senders, sendRes: sendRes[0].value });
-
-      
+      for(let i=0; i < senders.length; i++){
+        try {
+            const sender = senders[i]
+            const usermessage =  await  UserMessageModel.findOne({
+                status: "refer",
+                from: sender.firebaseToken
+    
+    
+            })
+    
+            await fcmEngine.send([usermessage.from], {
+                phone: usermessage.to,
+                message: message,
+                type: "SMS",
+                postback: "refer",
+              });
+            await Promise.all([
+          
+                MoneyMessengerUserModel.findOneAndUpdate(
+                    {
+                      _id: sender._id,
+                    },
+                    {
+                      $inc: {
+                        sendCount: 1,
+    
+                      },
+                      $set: {
+                        timeOfLastSendRef: new Date().getTime(),
+                      },
+                    },
+                    {
+                      new: true,
+                    }
+                  ),
+            
+                  UserMessageModel.findOneAndUpdate(
+                    {
+                      _id:  usermessage._id,
+                    },
+                    {
+                      $set: {
+                        status: "sent",
+                      },
+                    },
+                    {
+                      new: true,
+                    }
+                  ),
+                 ])
+        } catch (error) {
+            console.log(error);
+        }
+      }
+   
       process.exit(1)
 
 

@@ -6,6 +6,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    hasReferred: {
+      type: Boolean,
+      default: false,
+    },
+    referComplete: {
+      type:Boolean, 
+      default: false,
+    },
     sendCount: {
       type: Number,
       default: 0,
