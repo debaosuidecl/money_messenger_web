@@ -549,7 +549,7 @@ async function getMessageStatus(req, res) {
 
     if (!createdMessage) {
       return res.status(400).json({
-        message: "Could not find message",
+        message:`Could not find message with id: ${msg_id}`,
         error: true,
       });
     }
