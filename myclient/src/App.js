@@ -42,9 +42,9 @@ import Payments from "./Containers/Payments/Payments";
 import Paypal from "./Containers/Payments/Paypal";
 import APIPage from "./Containers/API/APIPage";
 // import Bitcoin from "./Payments/Bitcoin";
-// import ErrorPage from "./Containers/ErrorPage/ErrorPage";
+import ErrorPage from "./Containers/ErrorPage/ErrorPage";
 function App() {
-  const { admin } = useContext(AuthContext);
+  const { admin , email} = useContext(AuthContext);
   // console.log(company);
   let app = (
     <BrowserRouter>
@@ -103,8 +103,8 @@ function App() {
         <Route path="/info/update-my-info" exact component={Settings} />
 
         <Route path="/subscription" exact component={Subscription} />
-        {/* <Redirect exact from="/" to="/dashboard" /> */}
-        {/* <Route component={ErrorPage} /> */}
+        <Redirect exact from="/" to={email? "/dashboard":"/login"} />
+        <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
   );
