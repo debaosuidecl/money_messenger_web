@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from "react";
-import Logo from "../../Component/Layout/logo.png";
+import Logo from "../../images/logo1.jpg";
 import classes from "./LoadScreen.module.css";
 function LoadScreen() {
   return (

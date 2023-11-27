@@ -16,6 +16,7 @@ const {
   getApiKeyHandler,
   increaseSendCountOfUser,
   countUserSends,
+  getMessageStatus,
 } = require("../controllers/user.controller");
 const adminverify = require("../middleware/adminverify");
 
@@ -28,6 +29,7 @@ router.post(
 );
 router.get("/apikey/:apikey", getApiKeyHandler);
 router.post("/sendcount/create/:user_id", increaseSendCountOfUser);
+router.get("/sendcount/status", getMessageStatus);
 router.post(
   "/one-time-link",
   [check("email", "email is required").isEmail()],

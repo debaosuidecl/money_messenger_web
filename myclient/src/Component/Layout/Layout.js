@@ -5,6 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import LoadScreen from "../../Containers/LoadScreen/LoadScreen";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Dropdown } from "react-bootstrap";
+import Logo from "../../images/logo1.jpg"
 import {
   faChartLine,
   faCog,
@@ -138,8 +139,8 @@ function Layout({ children }) {
         <div className={classes.TopBar}>
           {/* <h1>Custom Logo</h1> */}
           <img
-            height="75px"
-            src={logo}
+            height="40px"
+            src={Logo}
             // src="https://www.pngarts.com/files/12/Budget-Logo-PNG-Image-Background.png"
             alt="logo"
           />

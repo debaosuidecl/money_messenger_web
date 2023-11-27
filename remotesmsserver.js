@@ -58,12 +58,12 @@ mongoose
     console.log(err);
   });
 
-const apiLimiter = rateLimit({
-  windowMs: 1 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  store: new MemoryStore(),
-});
+// const apiLimiter = rateLimit({
+//   windowMs: 1 * 60 * 1000, // 15 minutes
+//   max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+//   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+//   store: new MemoryStore(),
+// });
 
 const userRateLimit = async (req, res, next) => {
   try {
@@ -106,32 +106,30 @@ const userRateLimit = async (req, res, next) => {
       });
     }
 
-    if (req.user.requestLimit < data.allowedCountPerMinute) {
-      return res.status(400).send({
-        message: `Too many requests, you are only allowed ${data.allowedCountPerMinute} sends per minute`,
-        sent_data: false,
-      });
-    }
+    // if (req.user.requestLimit < data.allowedCountPerMinute) {
+    //   return res.status(400).send({
+    //     message: `Too many requests, you are only allowed ${data.allowedCountPerMinute} sends per minute`,
+    //     sent_data: false,
+    //   });
+    // }
     // Apply the rate limit for the user's requests
-    const limiter = rateLimit({
-      windowMs: 1 * 60 * 1000, // 1 minute - The time frame for which requests are counted.
-      max: 100, // The maximum number of requests allowed within the specified windowMs.
-      message: `Too many requests for user please try again later.`,
-    });
+    // const limiter = rateLimit({
+    //   windowMs: 1 * 60 * 1000, // 1 minute - The time frame for which requests are counted.
+    //   max: 100, // The maximum number of requests allowed within the specified windowMs.
+    //   message: `Too many requests for user please try again later.`,
+    // });
 
     // Apply the rate limiter to the current request
-    limiter(req, res, next);
+    // limiter(req, res, next);
+    next();
   } catch (err) {
     console.error("Error fetching user:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
-app.post("/v1/messages/send", apiLimiter, userRateLimit, async (req, res) => {
+app.post("/v1/messages/send", userRateLimit, async (req, res) => {
   const { to_phone, message } = req.body;
-  // console.log(req.body, " here is the body 10009");
-  // res.send({
-  //   sent_data: true,
-  // });
+
   try {
     const {data} =await axios.post(
       `http://localhost:8080/api/user/sendcount/create/${req.user._id}`,
@@ -156,6 +154,22 @@ app.post("/v1/messages/send", apiLimiter, userRateLimit, async (req, res) => {
 
   
 });
+
+app.get("/v1/messages/status", async(req,res)=>{
+try {
+    const {data} =await axios.get(
+      `http://localhost:8080/api/user/sendcount/status?api_key=${req.query.api_key}&msg_id=${req.query.msg_id}`,
+      
+    );
+
+    res.send(data);
+} catch (error) {
+  console.log(error.response.data)
+     res.status(500).json({
+      message: error.response.data.message,
+    });
+}
+})
 app.post("/sendsms", async (req, res) => {
   res.status(200).send({
     message: "sms sent",

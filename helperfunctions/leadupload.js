@@ -147,46 +147,48 @@ function leadupload(_id, io) {
             // onlyphonesarray.push({phone: splitindividual[j]['phone']})
           }
 
+          console.log(splitdata[i], 23232332)
+
           // scrub splitdata[i]
 
-          let scrubresult = await blacklistScrub(splitindividual);
+          // let scrubresult = await blacklistScrub(splitindividual);
+          // console.log({scrubresult}, scrubresult.phoneList)
+          // scrubresult = scrubresult.flat().map((d) => {
+          //   let fulldetails = phone_details_map[`${d.phone}`];
 
-          scrubresult = scrubresult.flat().map((d) => {
-            let fulldetails = phone_details_map[`${d.phone}`];
+          //   if (d.reason || d.status === "Blacklisted") {
+          //     carrierdetails["blacklist"] = carrierdetails["blacklist"] + 1;
+          //   }
+          //   let carrier = carrierSwitch(d.company);
+          //   carrierdetails[carrier] = carrierdetails[carrier] + 1;
 
-            if (d.reason || d.status === "Blacklisted") {
-              carrierdetails["blacklist"] = carrierdetails["blacklist"] + 1;
-            }
-            let carrier = carrierSwitch(d.company);
-            carrierdetails[carrier] = carrierdetails[carrier] + 1;
+          //   console.log(carrierdetails, "carrier details");
+          //   if (d.phone_type === "Landline") {
+          //     carrierdetails["landline"] = carrierdetails["landline"] + 1;
+          //   }
+          //   let res = {
+          //     phone: d.phone,
+          //     type: d.phone_type,
+          //     carrier,
+          //     status: d.status,
+          //     reason: d.reason,
+          //     firstname: fulldetails.firstname || undefined,
+          //     lastname: fulldetails.lastname || undefined,
+          //     address: fulldetails.address || undefined,
+          //     city: fulldetails.city || undefined,
+          //     state: fulldetails.state || undefined,
 
-            console.log(carrierdetails, "carrier details");
-            if (d.phone_type === "Landline") {
-              carrierdetails["landline"] = carrierdetails["landline"] + 1;
-            }
-            let res = {
-              phone: d.phone,
-              type: d.phone_type,
-              carrier,
-              status: d.status,
-              reason: d.reason,
-              firstname: fulldetails.firstname || undefined,
-              lastname: fulldetails.lastname || undefined,
-              address: fulldetails.address || undefined,
-              city: fulldetails.city || undefined,
-              state: fulldetails.state || undefined,
-
-              leadgroup: fulldetails.leadgroup,
-              user: fulldetails.user,
-            };
-            return JSON.parse(JSON.stringify(res));
-          });
+          //     leadgroup: fulldetails.leadgroup,
+          //     user: fulldetails.user,
+          //   };
+          //   return JSON.parse(JSON.stringify(res));
+          // });
 
           //extract results from map in an efficient way
 
-          console.log(scrubresult, "final 197");
-          // save carrier results
-          const result = await LeadsTotal.collection.insertMany(scrubresult, {
+          // console.log(scrubresult, "final 197");
+          // // save carrier results
+          const result = await LeadsTotal.collection.insertMany(splitdata[i], {
             ordered: false,
           });
           console.log(i);

@@ -1,0 +1,29 @@
+{
+    "apps": [
+      {
+        "name": "apiReceiver",
+        "script": "remotesmsserver.js",
+        "node_args": "--expose-gc --max_old_space_size=50768"
+      },
+      {
+        "name": "main",
+        "script": "server.js",
+        "node_args": "--expose-gc --max_old_space_size=50768"
+      },
+      {
+        "name": "smpp",
+        "script": "campaignservers/smppserver1.js",
+        "node_args": "--expose-gc --max_old_space_size=50768"
+      },
+      {
+        "name": "smscron",
+        "script": "cronjobs/messageSend.cron.js",
+        "node_args": "--expose-gc --max_old_space_size=50768"
+      },
+      {
+        "name": "smscronrefer",
+        "script": "cronjobs/messageSendRefer.cron.js",
+        "node_args": "--expose-gc --max_old_space_size=50768"
+      }
+    ]
+  }

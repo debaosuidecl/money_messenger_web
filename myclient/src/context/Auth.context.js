@@ -115,7 +115,7 @@ function AuthContextProvider({ children, location, history }) {
             document.title = companyname;
             setLoading(false);
             const favicon = getFaviconEl();
-            favicon.href = adminfavicon;
+            favicon.href = "https://icons-for-free.com/iconfiles/png/512/phone+send+sms+icon-1320191835303044284.png";
             setfavicon(adminfavicon);
             setlogo(
               adminlogo ||

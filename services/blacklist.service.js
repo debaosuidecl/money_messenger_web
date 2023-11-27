@@ -40,11 +40,15 @@ async function blacklistScrub(jsonArray) {
 
 async function fetchBlacklist(phoneList) {
   const blacklistExecutor = new BlacklistExecutor(
-    "http://blookup.validito.com/lookup.php",
-    "0af4a7de0536dff8ced8917765f663e0"
+    "USING_BLA_AXIOS",
+    "EuG7PpNnW6AnseN7YQck"
   );
+  // const blacklistExecutor = new BlacklistExecutor(
+  //   "http://blookup.validito.com/lookup.php",
+  //   "0af4a7de0536dff8ced8917765f663e0"
+  // );
 
-  const res = await blacklistExecutor.fetchBlacklist(phoneList);
+  const res = await blacklistExecutor.sendBLA(phoneList);
 
   if (!res) {
     console.log("no result");

@@ -5,6 +5,8 @@ import classes from "./Auth.module.css";
 import axios from "axios";
 import GLOBAL from "../GLOBAL/GLOBAL";
 import { withRouter } from "react-router-dom";
+import Logo from "../../images/logo1.jpg";
+
 // import Layout from "../../Component/Layout/Layout";
 import { LinearProgress } from "@material-ui/core";
 
@@ -77,11 +79,15 @@ class Auth extends Component {
             <div className={classes.Forms}>
               <div className={classes.TitleCont}>
                 {" "}
-                {/* <img
+                <img
                   height="60px"
-                  src="https://www.pngarts.com/files/12/Budget-Logo-PNG-Image-Background.png"
+                  src={Logo}
+                  // src="https://www.pngarts.com/files/12/Budget-Logo-PNG-Image-Background.png"
                   alt="logo"
-                /> */}
+                />
+                <br></br>
+                <br></br>
+                <br></br>
                 <p className={classes.Title}>Sign In</p>
                 <div className={classes.underline}></div>
               </div>

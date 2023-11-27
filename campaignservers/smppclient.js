@@ -1,6 +1,6 @@
 const smpp = require('smpp');
 
-const session = smpp.connect('smpp://localhost:2775');
+const session = smpp.connect('smpp://146.190.50.106:2775');
 
 session.on('connect', () => {
   console.log('Connected to SMPP server');

@@ -22,6 +22,7 @@ const cloudinary = require("cloudinary").v2;
 const multer = require("multer");
 const { errorreturn } = require("../utils/returnerrorschema");
 const ApikeyModel = require("../models/Apikey.model");
+const UserMessage = require("../models/UserMessage");
 
 cloudinary.config({
   cloud_name: process.env.cloud_name,
@@ -397,7 +398,9 @@ async function updateuserfaviconhandler(req, res) {
 async function getApiKeyHandler(req, res) {
   try {
 
-    let apiData = await ApikeyModel.findOne({}).sort("-createdAt")
+    let apiData = await ApikeyModel.findOne({
+      apiKey: req.params.apikey
+    }).sort("-createdAt")
 
     if(req.params.apikey != apiData.apiKey){
       // apiKey: req.params.apikey
@@ -478,15 +481,8 @@ async function createApiKeyHandler(req, res) {
 // }
 async function increaseSendCountOfUser(req, res) {
   try {
-    // let user = updateuser({ apiKey: req.params.apikey }, {
-
-    // })
     let user_id = req.params.user_id;
     let { to, from, message } = req.body;
-
-    // console.log("user_id", user_id);
-    // console.log(req.body, 477);
-
     let createdMessage = await createUserMessage({
       to,
       from,
@@ -504,7 +500,7 @@ async function increaseSendCountOfUser(req, res) {
     return res.json({
       message: "sent",
       id: createdMessage._id,
-      stat
+      // stat: stat
     });
   } catch (error) {
     console.log(error);
@@ -514,6 +510,53 @@ async function increaseSendCountOfUser(req, res) {
   }
 }
 
+
+async function getMessageStatus(req, res) {
+  try {
+    // let user_id = req.params.user_id;
+    // let { to, from, message } = req.body;
+
+    const {api_key, msg_id} = req.query
+
+    let apiData = await ApikeyModel.findOne({
+      apiKey: api_key,
+    }).sort("-createdAt")
+    console.log(apiData)
+
+    if (!apiData) {
+      return res.status(400).send({
+        message: "api key not found",
+        error: true,
+      });
+    }
+    if(req.query.api_key != apiData.apiKey){
+      // apiKey: req.params.apikey
+      return res.status(400).send({
+        message: "Invalid API Key",
+        error: true,
+      });
+    }
+   
+    let createdMessage = await UserMessage.find({
+     _id: msg_id,
+     user_id: apiData.user
+    });
+
+    if (!createdMessage) {
+      return res.status(400).json({
+        message: "Could not create message",
+        error: true,
+      });
+    }
+
+    return res.json(createdMessage);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "server error",
+    });
+  }
+}
 async function countUserSends(req, res) {
   try {
     let { from, to } = req.query;
@@ -546,4 +589,5 @@ module.exports = {
   getApiKeyHandler,
   createApiKeyHandler,
   increaseSendCountOfUser,
+  getMessageStatus,
 };
