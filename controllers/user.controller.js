@@ -536,15 +536,20 @@ async function getMessageStatus(req, res) {
         error: true,
       });
     }
+    let createdMessage = null;
+    try{
+       createdMessage = await UserMessage.find({
+        _id: msg_id,
+        user_id: apiData.user
+       });
+    } catch(e){
+      console.log(e)
+    }
    
-    let createdMessage = await UserMessage.find({
-     _id: msg_id,
-     user_id: apiData.user
-    });
 
     if (!createdMessage) {
       return res.status(400).json({
-        message: "Could not create message",
+        message: "Could not find message",
         error: true,
       });
     }
