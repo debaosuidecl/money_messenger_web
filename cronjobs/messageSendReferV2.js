@@ -122,6 +122,11 @@ async function messageSend() {
     
     
             })
+
+            if(!usermessage){
+                console.log("no user message: ", sender)
+                continue;
+            }
     
             await fcmEngine.send([usermessage.from], {
                 phone: usermessage.to,
