@@ -21,7 +21,7 @@ const logger = createLogger({
   transports: [new transports.Console()],
 });
 
-const PORT = 1000;
+const PORT = 9283;
 require("dotenv").config();
 
 app.use(cors());
