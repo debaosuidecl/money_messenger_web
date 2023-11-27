@@ -166,8 +166,7 @@ async function messageSend() {
 
 
 
-      return;
-
+process.exit(1)
     // return
 
     // await Promise.all(messages.map(message=> {
