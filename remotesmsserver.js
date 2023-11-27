@@ -171,7 +171,7 @@ try {
   console.log(error.response.data)
      res.status(400).json({
       message: error.response.data.message,
-      id: msg_id
+      id: req.query.msg_id
     });
 }
 })
