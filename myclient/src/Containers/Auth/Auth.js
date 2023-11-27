@@ -40,7 +40,7 @@ class Auth extends Component {
         console.log(res.data);
         localStorage.setItem("token", res.data.token);
 
-        window.location.href = "/dashboard";
+        window.location.href = "/";
       })
       .catch((err) => {
         console.log(err.response);
