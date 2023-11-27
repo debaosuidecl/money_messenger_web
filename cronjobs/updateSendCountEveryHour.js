@@ -1,6 +1,12 @@
 const cron = require("node-cron");
 const { MoneyMessengerUserSchema } = require("../models/MoneyMessengerUser");
 const mongoose = require("mongoose");
+const u = process.env.MONGOURIUSER;
+const p = process.env.MONGOURIPASS;
+const u2 = process.env.MONGOURIUSER2;
+require("dotenv").config();
+
+const p2 = process.env.MONGOURIPASS2;
 const conMobile = mongoose.createConnection(
     `mongodb+srv://${u2}:${p2}@cluster0-rzlot.mongodb.net/test?retryWrites=true&w=majority`,
     {
