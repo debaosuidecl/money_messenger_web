@@ -140,7 +140,7 @@ async function messageSend() {
                 },
                 {
                   $set: {
-                    status: "pending",
+                    status: "sent",
                   },
                 },
                 {
