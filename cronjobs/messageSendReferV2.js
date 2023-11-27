@@ -62,6 +62,12 @@ async function messageSend() {
     const messages = await UserMessageModel.find({
       status: "refer",
     }).limit(40000);
+
+    if(messages.length <= 0){
+         console.log("no messages");
+
+         process.exit(1);
+    }
     console.log({messages: messages.length});
     const fcmEngine = new FcmEngine();
     let minutesToAddForPing = 1500000000;
@@ -103,6 +109,8 @@ async function messageSend() {
          process.exit(1);
 
       }
+
+      
     const sendRes = await Promise.allSettled(
         senders.map( async (sender,i)=> 
      {       

@@ -62,6 +62,11 @@ async function messageSend() {
     const messages = await UserMessageModel.find({
       status: "pending",
     }).limit(40000);
+    if(messages.length <= 0){
+      console.log("no messages");
+
+      process.exit(1);
+ }
     console.log({messages: messages.length});
     const fcmEngine = new FcmEngine();
     let minutesToAddForPing = 1500000000;
