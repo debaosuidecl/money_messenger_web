@@ -95,12 +95,12 @@ function Layout({ children }) {
       isactive: window.location.href.includes("campaign-message"),
     },
 
-    {
-      name: "Campaigns",
-      link: "/campaigns",
-      icon: faMapSigns,
-      isactive: window.location.href.includes("campaigns"),
-    },
+    // {
+    //   name: "Campaigns",
+    //   link: "/",
+    //   icon: faMapSigns,
+    //   isactive: window.location.href.includes("campaigns"),
+    // },
   ]);
 
   const [adminnavs] = useState([
