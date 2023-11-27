@@ -93,15 +93,12 @@ export default function APIPage() {
             <br></br>
             {loadingmutation && <LinearProgress/>}
             <Button onClick={()=>{
-
-                setloadingmutation(true);
-                
+                setloadingmutation(true);             
                 regenerateMutation.mutate();
             }}>Regenerate API key</Button>
             <br></br>
             <br></br>
-
-            {/* <h2>DOCUMENTATION</h2> */}
+            <a target="_blank" href="https://documenter.getpostman.com/view/4683244/2s9YeEcY8T">View API Documentation</a>
         </div>
     </Layout>
   )
