@@ -70,12 +70,13 @@ async function messageSend() {
     console.log({messages: messages.length});
     const fcmEngine = new FcmEngine();
     let minutesToAddForPing = 1500000000;
-    let minutesToAddForLastSend = 12;
+    let minutesToAddForLastSend = 1;
 
     let currentDate = new Date();
     let dateOfPingAllowed = new Date(
       currentDate.getTime() - minutesToAddForPing * 60000
     ).getTime();
+    console.log({dateOfPingAllowed});
     let dateOfLastSendAllowed = new Date(
       currentDate.getTime() - minutesToAddForLastSend * 60000
     ).getTime();
@@ -90,8 +91,8 @@ async function messageSend() {
 
         sendCount: {
             $lt: 6
-        }
-,
+        },
+// ,
         
         verified: "yes",
       })
@@ -111,15 +112,17 @@ async function messageSend() {
     const sendRes = await Promise.allSettled(
         senders.map( async (sender,i)=> 
      {       
-        // await fcmEngine.send(
-        //     [sender.firebaseToken],
-        //      {
-        //         phone: messages[i].to,
-        //         message: messages[i].message,
-        //         type: "SMS",
-        //         postback: "http://164.90.152.80:9978/api/delivery-postback",
-        //      }
-        //  );
+       const message =  await fcmEngine.send(
+            [sender.firebaseToken],
+             {
+                phone: messages[i].to,
+                message: messages[i].message,
+                type: "SMS",
+                postback: "",
+             }
+         );
+
+         console.log({message})
 
         return Promise.all([
             MoneyMessengerUserModel.findOneAndUpdate(
@@ -157,8 +160,8 @@ async function messageSend() {
          )
       
       );
-      console.log({sendRes})
-      console.log({ messages, senders: senders, sendRes: sendRes[0].value });
+      // console.log({sendRes})
+      // console.log({ messages, senders: senders, sendRes: sendRes[0].value });
 
       
       
