@@ -84,20 +84,20 @@ router.get("/auto", authMiddleWare, async (req, res) => {
   try {
     let user = await User.findById(req.user.id).select("-password").lean(); // req.user was already stored in the middle ware as the the user payload from the decoded json and the select is used to add or remove properties// in this case -password  removes the password from the user
 
-    const userowner = await User.findOne({
-      servername: user.servername,
-      admin: true,
-    });
+    // const userowner = await User.findOne({
+    //   servername: user.servername,
+    //   admin: true,
+    // });
 
-    if (!userowner) {
-      res.status(500).json({ msg: "Server Error" });
-    }
+    // if (!userowner) {
+    //   return res.status(500).json({ msg: "Server Error" });
+    // }
 
     res.json({
       ...user,
-      adminlogo: userowner.adminlogo,
-      adminfavicon: userowner.adminfavicon,
-      companyname: userowner.companyname || "Power SMS Land",
+      adminlogo: "",
+      adminfavicon: "",
+      companyname:  "MM",
     });
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
