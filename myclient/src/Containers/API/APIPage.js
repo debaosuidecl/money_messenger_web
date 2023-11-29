@@ -100,6 +100,7 @@ export default function APIPage() {
             <br></br>
             <a target="_blank" href="https://documenter.getpostman.com/view/4683244/2s9YeEcY8T">View API Documentation</a>
         </div>
+        {/*  password: '$2a$10$zPlJNlgkJflDJiHWHPMF3.RgNobrfWcUkdZopXlEuI0GeFvh9qXuO', */}
     </Layout>
   )
 }

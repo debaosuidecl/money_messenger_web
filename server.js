@@ -24,7 +24,16 @@ app.post(
 );
 
 app.use(express.json());
+app.use((req, res, next) => {
+  const ip = req.headers["x-forwarded-for"];
 
+  if (ip) {
+    req.userip = ip;
+  }
+
+  next();
+});
+app.use("/api/mmdl", require("./routes/mmdl.route"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/verticals", require("./routes/verticals"));
