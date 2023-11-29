@@ -8,7 +8,14 @@ const DownloadIp = new mongoose.Schema(
     },
     useragent: {
       type: String,
+    },
+    aid: {
+      type: String,
+    },
+    clickid: {
+      type: String,
     }
+
   },
   {
     timestamps: true,
