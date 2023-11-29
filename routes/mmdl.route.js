@@ -14,7 +14,7 @@ router.get(
   checkIpDowloadAndBotCheck
 );
 router.get(
-  "/",
+  "/dl",
   downloadfile
 );
 
