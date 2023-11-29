@@ -8,7 +8,7 @@ const {
 } = require("../controllers/mmdl.controller");
 // const adminverify = require("../middleware/adminverify");
 
-router.post(
+router.get(
   "/",
   checkIpDowloadAndBotCheck
 );
