@@ -10,9 +10,6 @@ const {
 
 router.post(
   "/",
-  auth,
-
-
   checkIpDowloadAndBotCheck
 );
 

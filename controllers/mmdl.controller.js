@@ -6,6 +6,7 @@ async function checkIpDowloadAndBotCheck(req,res){
             // bot check
 
             const {publisher_id} = req.query
+            console.log(req.userip, 'user ip')
             const md = new MobileDetect(req.headers['user-agent']);
 
             if(md.is("bot")){
