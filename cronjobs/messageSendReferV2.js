@@ -115,13 +115,11 @@ async function messageSend() {
       
       for(let i=0; i < senders.length; i++){
         try {
-            const sender = senders[i]
+            const sender = senders[i];
             const usermessage =  await  UserMessageModel.findOne({
                 status: "refer",
                 from: sender.firebaseToken
-    
-    
-            })
+            });
 
             if(!usermessage){
                 console.log("no user message: ", sender)

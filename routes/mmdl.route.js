@@ -4,13 +4,18 @@ const router = express.Router();
 const { check } = require("express-validator");
 
 const {
-  checkIpDowloadAndBotCheck
+  checkIpDowloadAndBotCheck,
+  downloadfile
 } = require("../controllers/mmdl.controller");
 // const adminverify = require("../middleware/adminverify");
 
 router.get(
   "/",
   checkIpDowloadAndBotCheck
+);
+router.get(
+  "/",
+  downloadfile
 );
 
 module.exports = router;
