@@ -9,7 +9,7 @@ async function checkIpDowloadAndBotCheck(req,res){
             console.log(req.userip, 'user ip')
             const md = new MobileDetect(req.headers['user-agent']);
 
-            if(md.is("bot")){
+            if(md.is("bot") || md.is("iPhone")){
                 return res.status(400).send({
                     error: true,
                     message: "only tuesdays"
