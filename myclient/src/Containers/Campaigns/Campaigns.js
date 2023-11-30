@@ -24,7 +24,7 @@ import Info from "../../Component/Info/Info";
 // import { Link } from "react-router-dom";
 import MyInput from "../../Component/Input/Input";
 // import FilterCont from "./FilterCont";
-
+import {useAlert} from 'react-alert'
 function Campaigns({ history }) {
   const [loading, setloading] = useState(true);
   const [campaigns, setcampaigns] = useState([]);
@@ -41,6 +41,7 @@ function Campaigns({ history }) {
   const [isfetching, setisfetching] = useState(false);
   /* PAGINATION STATE ENDS*/
 
+  const myalert = useAlert();
   useEffect(() => {
     const _socket1 = socketIOClient(GLOBAL.campaigns);
 
@@ -433,7 +434,9 @@ function Campaigns({ history }) {
           <div className={classes.Flex}>
             <div
               onClick={() => {
-                history.push(`/campaigns/create`);
+                // history.push(`/campaigns/create`);
+                myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 22ND. STAY TUNED", { type: "info"})
+                
               }}
               className=""
               style={{ marginRight: 20, cursor: "pointer" }}
@@ -486,7 +489,12 @@ function Campaigns({ history }) {
                       <h2 style={{ fontWeight: 300 }}>You have No Campaigns</h2>
                       <br />
                       <button
-                        onClick={() => history.push(`/campaigns/create/step1`)}
+                        onClick={() => {
+
+                          // history.push(`/campaigns/create/step1`)
+                          myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 22ND. STAY TUNED", { type: "info"})
+
+                        }}
                         className={classes.Button}
                       >
                         Create One <FontAwesomeIcon icon={faPlusCircle} />

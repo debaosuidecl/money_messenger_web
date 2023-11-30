@@ -1,31 +1,32 @@
 {
   "files": {
-    "main.css": "/static/css/main.f8ba2136.chunk.css",
-    "main.js": "/static/js/main.b657beca.chunk.js",
-    "main.js.map": "/static/js/main.b657beca.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.33943316.js",
-    "runtime-main.js.map": "/static/js/runtime-main.33943316.js.map",
+    "main.css": "/static/css/main.eec05749.chunk.css",
+    "main.js": "/static/js/main.9ec875cb.chunk.js",
+    "main.js.map": "/static/js/main.9ec875cb.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9f368677.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9f368677.js.map",
     "static/css/2.53b74bfb.chunk.css": "/static/css/2.53b74bfb.chunk.css",
-    "static/js/2.25ed4e45.chunk.js": "/static/js/2.25ed4e45.chunk.js",
-    "static/js/2.25ed4e45.chunk.js.map": "/static/js/2.25ed4e45.chunk.js.map",
-    "static/js/3.5d06d0df.chunk.js": "/static/js/3.5d06d0df.chunk.js",
-    "static/js/3.5d06d0df.chunk.js.map": "/static/js/3.5d06d0df.chunk.js.map",
+    "static/js/2.2f72133b.chunk.js": "/static/js/2.2f72133b.chunk.js",
+    "static/js/2.2f72133b.chunk.js.map": "/static/js/2.2f72133b.chunk.js.map",
+    "static/js/3.c24fea01.chunk.js": "/static/js/3.c24fea01.chunk.js",
+    "static/js/3.c24fea01.chunk.js.map": "/static/js/3.c24fea01.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.53b74bfb.chunk.css.map": "/static/css/2.53b74bfb.chunk.css.map",
-    "static/css/main.f8ba2136.chunk.css.map": "/static/css/main.f8ba2136.chunk.css.map",
-    "static/js/2.25ed4e45.chunk.js.LICENSE.txt": "/static/js/2.25ed4e45.chunk.js.LICENSE.txt",
+    "static/css/main.eec05749.chunk.css.map": "/static/css/main.eec05749.chunk.css.map",
+    "static/js/2.2f72133b.chunk.js.LICENSE.txt": "/static/js/2.2f72133b.chunk.js.LICENSE.txt",
     "static/media/404.84f2ce20.jpg": "/static/media/404.84f2ce20.jpg",
     "static/media/bitcoin.3287eb6d.png": "/static/media/bitcoin.3287eb6d.png",
+    "static/media/brain.4d0dec63.gif": "/static/media/brain.4d0dec63.gif",
     "static/media/business2.025ac6ba.jpg": "/static/media/business2.025ac6ba.jpg",
     "static/media/loader.746442c9.svg": "/static/media/loader.746442c9.svg",
     "static/media/logo1.d7de83da.jpg": "/static/media/logo1.d7de83da.jpg",
     "static/media/paypal.b321e159.png": "/static/media/paypal.b321e159.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.33943316.js",
+    "static/js/runtime-main.9f368677.js",
     "static/css/2.53b74bfb.chunk.css",
-    "static/js/2.25ed4e45.chunk.js",
-    "static/css/main.f8ba2136.chunk.css",
-    "static/js/main.b657beca.chunk.js"
+    "static/js/2.2f72133b.chunk.js",
+    "static/css/main.eec05749.chunk.css",
+    "static/js/main.9ec875cb.chunk.js"
   ]
 }

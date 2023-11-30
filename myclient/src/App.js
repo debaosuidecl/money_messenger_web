@@ -43,6 +43,7 @@ import Paypal from "./Containers/Payments/Paypal";
 import APIPage from "./Containers/API/APIPage";
 // import Bitcoin from "./Payments/Bitcoin";
 import ErrorPage from "./Containers/ErrorPage/ErrorPage";
+import _2wayAI from "./Containers/_2wayAI/_2wayAI";
 function App() {
   const { admin , email} = useContext(AuthContext);
   // console.log(company);
@@ -101,6 +102,7 @@ function App() {
 
         <Route path="/frequently-asked-questions" exact component={FAQ} />
         <Route path="/info/update-my-info" exact component={Settings} />
+        <Route path="/2way-ai" exact component={_2wayAI} />
 
         <Route path="/subscription" exact component={Subscription} />
         {/* <Redirect exact from="/" to={email? "/dashboard":"/login"} /> */}

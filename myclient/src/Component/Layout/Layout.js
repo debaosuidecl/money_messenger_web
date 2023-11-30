@@ -14,6 +14,7 @@ import {
   faLink,
   faMapSigns,
   faMarker,
+  faPhone,
   // faRoute,
   faSms,
   faUserEdit,
@@ -74,12 +75,12 @@ function Layout({ children }) {
       link: "/domains",
     },
 
-    // {
-    //   name: "SMS Routes",
-    //   icon: faRoute,
-    //   link: "/sms-routes",
-    //   isactive: window.location.href.includes("route"),
-    // },
+    {
+      name: "2way AI",
+      icon: faPhone,
+      link: "/2way-ai",
+      isactive: window.location.href.includes("2way"),
+    },
     {
       name: "My Leads",
       icon: faUsersCog,
@@ -95,12 +96,12 @@ function Layout({ children }) {
       isactive: window.location.href.includes("campaign-message"),
     },
 
-    // {
-    //   name: "Campaigns",
-    //   link: "/",
-    //   icon: faMapSigns,
-    //   isactive: window.location.href.includes("campaigns"),
-    // },
+    {
+      name: "Campaigns",
+      link: "/campaigns",
+      icon: faMapSigns,
+      isactive: window.location.href.includes("campaigns"),
+    },
   ]);
 
   const [adminnavs] = useState([
