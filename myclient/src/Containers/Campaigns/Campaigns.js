@@ -435,7 +435,7 @@ function Campaigns({ history }) {
             <div
               onClick={() => {
                 // history.push(`/campaigns/create`);
-                myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 22ND. STAY TUNED", { type: "info"})
+                myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 20TH. STAY TUNED", { type: "info"})
                 
               }}
               className=""
@@ -492,7 +492,7 @@ function Campaigns({ history }) {
                         onClick={() => {
 
                           // history.push(`/campaigns/create/step1`)
-                          myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 22ND. STAY TUNED", { type: "info"})
+                          myalert.show("CAMPAIGN CREATION IS COMING ON DECEMBER 20TH. STAY TUNED", { type: "info"})
 
                         }}
                         className={classes.Button}
