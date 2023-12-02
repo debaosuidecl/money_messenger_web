@@ -21,6 +21,10 @@ const UserMessage = new mongoose.Schema(
       type: String,
       default: "pending",
     },
+    refer: {
+      type: Boolean,
+      default: true,
+    }
   },
   {
     timestamps: true,

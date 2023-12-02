@@ -115,7 +115,8 @@ async function messageSend() {
      const updateNumberForRefer = await UserMessageModel.updateMany({
         status: "refer",
       },{
-        status: "referstart"
+        status: "referstart",
+        refer: true,
       }).limit(senders.length)
 
       console.log({updateNumberForRefer})
