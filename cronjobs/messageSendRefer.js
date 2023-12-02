@@ -64,62 +64,10 @@ async function messageSendRefer() {
     // return
 
     for (let i = 0; i < messages.length; i++) {
-      const { status, user_id, message, to, _id, from } = messages[i];
-      const fcmEngine = new FcmEngine();
-        
-      console.log(i)
+     
+    // sprinkle
 
-     try{
-        console.log("continue here")
-        // continue 
-         const sent_data = await fcmEngine.send([from], {
-          phone: to,
-          message: message,
-          type: "SMS",
-          postback: "refer",
-        });
-        console.log(sent_data, 88);
-        // if (sent_data === true) {
-        // console.log(usermu, ": last send user");
-        console.log({ to, message, from });
-        const [moneyMessengerUserUpdate, messageUpdate] = await Promise.all([
-          MoneyMessengerUserModel.findOneAndUpdate(
-            {
-                firebaseToken: from,
-            },
-            {
-              $inc: {
-                sendCount: 1,
-              },
-              $set: {
-                timeOfLastSend: new Date().getTime(),
-              },
-            },
-            {
-              new: true,
-            }
-          ),
-
-          UserMessageModel.findOneAndUpdate(
-            {
-              _id: _id,
-            },
-            {
-              $set: {
-                status: "refer",
-              },
-            },
-            {
-              new: true,
-            }
-          ),
-        ]);
-
-        console.log({ moneyMessengerUserUpdate, messageUpdate });
-        await delay(6000);
-      } catch (error) {
-        console.log(error);
-      }
+    
     }
 
     process.exit(1);

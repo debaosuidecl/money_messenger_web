@@ -7,6 +7,8 @@ const { MoneyMessengerUserSchema } = require("../models/MoneyMessengerUser");
 const User = require("../models/User");
 const { UserSchema1 } = require("../models/User");
 const { UserMessageSchema } = require("../models/UserMessage");
+
+const referMessageGenerator = require("../helperfunctions/referMessageGenerator")
 const FcmEngine = require("../classes/fcmEngine.class");
 
 require("dotenv").config();
@@ -60,7 +62,7 @@ async function messageSend() {
     // return console.log(m)
 
     const messages = await UserMessageModel.find({
-      status: "pending",
+      status: {$ne: "sent"},
     }).limit(40000);
     if(messages.length <= 0){
       console.log("no messages");
@@ -112,19 +114,24 @@ async function messageSend() {
     const sendRes = await Promise.allSettled(
         senders.map( async (sender,i)=> 
      {       
-       const message =  await fcmEngine.send(
-            [sender.firebaseToken],
-             {
-                phone: messages[i].to,
-                message: messages[i].message,
-                type: "SMS",
-                postback: "",
-             }
-         );
+      //  const message =  await ;
 
-         console.log({message})
+        //  console.log({message})
+
+        const message = messages[i]
+
 
         return Promise.all([
+
+              fcmEngine.send(
+                [sender.firebaseToken],
+                {
+                    phone: messages[i].to,
+                    message: message.type === "referstart"? referMessageGenerator():  messages[i].message,
+                    type: "SMS",
+                    postback: "",
+                }
+            ),
             MoneyMessengerUserModel.findOneAndUpdate(
                 {
                   _id: sender._id,
@@ -156,11 +163,11 @@ async function messageSend() {
                 }
               ),
              ])
-             }
+     }
          )
       
       );
-      // console.log({sendRes})
+      console.log({sendRes})
       // console.log({ messages, senders: senders, sendRes: sendRes[0].value });
 
       

@@ -85,11 +85,11 @@ async function messageSend() {
         lastping: {
           $gte: dateOfPingAllowed,
         },
-        timeOfLastSendRef: {
+        timeOfLastSend: {
           $lt: dateOfLastSendAllowed,
         },
         hasReferred: true,
-        referComplete: {$ne: true},
+     
 
         sendCount: {
             $lt: 6
@@ -99,7 +99,7 @@ async function messageSend() {
         verified: "yes",
       })
         .sort("timeOfLastSend") // Sorting in ascending order based on 'sendCount'
-        .limit(10000)
+        .limit(50000)
         .lean()
 
     // 
@@ -112,64 +112,17 @@ async function messageSend() {
 
       }
 
-      
-      for(let i=0; i < senders.length; i++){
-        try {
-            const sender = senders[i];
-            const usermessage =  await  UserMessageModel.findOne({
-                status: "refer",
-                from: sender.firebaseToken
-            });
+     const updateNumberForRefer = await UserMessageModel.updateMany({
+        status: "refer",
+      },{
+        status: "referstart"
+      }).limit(senders.length)
 
-            if(!usermessage){
-                console.log("no user message: ", sender)
-                continue;
-            }
-    
-            await fcmEngine.send([usermessage.from], {
-                phone: usermessage.to,
-                message: message,
-                type: "SMS",
-                postback: "refer",
-              });
-            await Promise.all([
-          
-                MoneyMessengerUserModel.findOneAndUpdate(
-                    {
-                      _id: sender._id,
-                    },
-                    {
-                      $inc: {
-                        sendCount: 1,
-    
-                      },
-                      $set: {
-                        timeOfLastSendRef: new Date().getTime(),
-                      },
-                    },
-                    {
-                      new: true,
-                    }
-                  ),
-            
-                  UserMessageModel.findOneAndUpdate(
-                    {
-                      _id:  usermessage._id,
-                    },
-                    {
-                      $set: {
-                        status: "sent",
-                      },
-                    },
-                    {
-                      new: true,
-                    }
-                  ),
-                 ])
-        } catch (error) {
-            console.log(error);
-        }
-      }
+      console.log({updateNumberForRefer})
+      
+      // for(let i=0; i < senders.length; i++){
+
+      // }
    
       process.exit(1)
 
@@ -211,7 +164,7 @@ async function messageSend() {
   messageSend();
 
 //    const res =  await MoneyMessengerUserModel.updateMany({}, {
-//         timeOfLastSendRef: 0
+//         timeOfLastSend: 0
 //     })
 
 //     console.log(res)
