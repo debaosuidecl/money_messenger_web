@@ -63,7 +63,7 @@ async function messageSend() {
 
     const messages = await UserMessageModel.find({
       status: {$ne: "sent"},
-    }).limit(40000);
+    }).limit(50000);
     if(messages.length <= 0){
       console.log("no messages");
 
